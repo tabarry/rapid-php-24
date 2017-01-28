@@ -47,8 +47,9 @@
                             <div class="clearfix"></div>
                         </div>
                     </div>
-
-
+                    <!-- Footer Starts -->
+                    <?php echo $this->render('inc-footer.html',$this->mime,get_defined_vars(),0); ?>
+                    <!-- Footer Ends -->
                 </div>
             </div>
             <div class="clearfix"></div>

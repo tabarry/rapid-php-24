@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <!-- Page title -->
-                <h3><a href="#">Sulata iSoft</a>  <small>POS</small></h3>
+                <h1><a href="#">Sulata iSoft</a>  <small>Point of Sale</small></h1>
             </div>
 <div class="col-md-6 col-sm-6 col-xs-6">
                 <!-- Head user -->

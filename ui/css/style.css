@@ -2465,4 +2465,17 @@ form label.error {
     border-width: 1px !important;
     padding: 6px 11px;
 }
+footer{
+    padding: 10px 0px 10px 0px;
+    color: #333333;
+    text-align: right;
+}
+footer a{
+    text-decoration: underline !important;
+    color: #333333;
+}
+footer a:hover{
+    text-decoration: none !important;
+    color: #333333;
+}
 
