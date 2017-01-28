@@ -13,3 +13,4 @@
 <link href="<?php echo $BASE; ?>/ui/theme/red.css" rel="stylesheet" type="text/css"/>
 <!-- Favicon -->
 <link rel="shortcut icon" href="#">
+<link rel="icon" type="image/png" href="<?php echo $BASE; ?>/ui/favicon.png" />
