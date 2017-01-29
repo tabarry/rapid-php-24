@@ -1,0 +1,19 @@
+/** Red Theme By Sulata iSoft **/
+.sidebar{
+    border-top: 8px solid #32C8DE;
+}
+.main-head .container .row h1 a{
+    color: #32C8DE;
+}
+.table-head{
+    background-color: #32C8DE;
+    color: #FFF;
+}
+.action-box{
+    border-radius: 2px;
+    background-color: #32C8DE;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 6px 9px;
+}
