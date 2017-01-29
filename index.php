@@ -9,7 +9,7 @@ if ((float) PCRE_VERSION < 7.9) {
 $main = require('lib/base.php');
 
 //Load globals
-require('includes/globals.php'); 
+require('includes/globals.php');
 
 //Load routes
 require('includes/routes.php');

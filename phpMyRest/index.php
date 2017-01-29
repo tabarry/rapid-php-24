@@ -1,7 +1,7 @@
 <?php
 
 /*
- * phpMyRest is a PHP + MySQL RESTful API, developed by Sulata iSoft - www.sulata.com.pk 
+ * phpMyRest is a PHP + MySQL RESTful API, developed by Sulata iSoft - www.sulata.com.pk
  * It has been kept as simple as possible to use and supports SQL input.
  * The only thing you need to change in the script is database configurations and API Key below.
  * The variables used are $_POST['do'],$_POST['sql'], $_POST['api_key'], $_POST['debug']
@@ -11,13 +11,13 @@
 #############################################
 #############################################
 /* DATABASE CONFIGURATIONS */
-define('DB_NAME', ''); //Database name
-define('DB_USER', ''); //Database user
-define('DB_PASSWORD', ''); //Database password
+define('DB_NAME', 'r24'); //Database name
+define('DB_USER', 'root'); //Database user
+define('DB_PASSWORD', 'root'); //Database password
 define('DB_HOST', 'localhost'); //Database host, leave unchanged if in doubt
 define('DB_PORT', '3306'); //Database port, leave unchanged if in doubt
 /* API KEY */
-define('API_KEY', 'YOUR_API_KEY'); //API Key, must be at least 32 characters
+define('API_KEY', 'uLMXrY4RWuVnWqf8LgkG4ptYXHt5vrEV'); //API Key, must be at least 32 characters
 #############################################
 #############################################
 
@@ -153,8 +153,3 @@ if (!isset($apiKey) || ($apiKey != API_KEY)) {
     header('Content-Type: application/json');
     echo json_encode($response);
 }
-
-
-
-
-
