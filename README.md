@@ -1,1 +1,1 @@
-# rapid-php-24
+# Rapid PHP 24
