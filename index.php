@@ -9,7 +9,10 @@ if ((float) PCRE_VERSION < 7.9) {
 $main = require('lib/base.php');
 
 //Load globals
-require('includes/globals.php');
+require('includes/config.php');
+
+
+
 
 //Load routes
 require('includes/routes.php');
@@ -19,5 +22,6 @@ require('includes/routes.php');
 //        echo $f3->get('PARAMS.count').' bottles of beer on the wall.';
 //    }
 //);
+
 
 $main->run();
