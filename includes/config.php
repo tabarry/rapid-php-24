@@ -2,6 +2,7 @@
 
 $main->set('AUTOLOAD', 'app/');
 $main->set('UI', 'ui/');
+$main->set('PREFIX','DICT.');
 $main->set('LOCALES','dict/');
 $main->set('DEBUG', 3);
 

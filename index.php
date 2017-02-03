@@ -14,6 +14,9 @@ require('includes/config.php');
 //Load routes
 require('includes/routes.php');
 
+//Load db structure
+require('includes/db-structure.php');
+
 //Load sulata library
 $su = new Sulata;
 

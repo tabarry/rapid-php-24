@@ -15,14 +15,19 @@ class Sulata {
     //Print array
     function printArray($arr) {
         echo "<pre>";
-        print_r($arr);
+        return print_r($arr);
         echo "</pre>";
+    }
+
+    //Print array, alias of printArray()
+    function print_array($arr) {
+        return printArray($arr);
     }
 
     //Display DB error
     function displayDbError($responseArray) {
         global $main;
-        echo sprintf($main->get('dbError'), $responseArray['connect_errno'], $responseArray['connect_error'], $responseArray['errno'], $responseArray['error']);
+        echo $main->format($main->get('DICT.dbError'), $responseArray['connect_errno'], $responseArray['connect_error'], $responseArray['errno'], $responseArray['error']);
     }
 
     //Send SQL to API

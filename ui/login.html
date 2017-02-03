@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <!-- Title here -->
-    <title>{{ @pageInfo['title'] }}</title>
+    <head>
+        <meta charset="UTF-8">
+        <!-- Title here -->
+        <title>{{ @pageInfo['title'] }}</title>
     <include href="inc-head.html" />
 </head>
 
@@ -16,8 +16,8 @@
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs nav-justified">
-                <li class="active"><a href="#login" data-toggle="tab" class="br-lblue"><i class="fa fa-sign-in"></i> Log In</a></li>
-                <li><a href="#lost-password" data-toggle="tab" class="br-lblue"><i class="fa fa-key"></i> Lost Password</a></li>
+                <li class="active"><a href="#login" data-toggle="tab" class="br-lblue"><i class="fa fa-sign-in"></i> {{@DICT.loginForm.logIn}}</a></li>
+                <li><a href="#lost-password" data-toggle="tab" class="br-lblue"><i class="fa fa-key"></i> {{@DICT.loginForm.lostPassword}}</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -28,20 +28,20 @@
 
                     <form role="form" method="post" name="suForm" id="suForm" action="{{@BASE}}/authenticate">
                         <div class="form-group">
-                            <label for="email">*Email:</label>
+                            <label for="email">*{{@DICT.loginForm.email}}</label>
                             <input class="form-control" id="email" type="email" autocomplete="off" required="required">
                         </div>
                         <div class="form-group">
-                            <label for="password">*Password:</label>
+                            <label for="password">*{{@DICT.loginForm.password}}</label>
                             <input class="form-control" id="password" type="password" autocomplete="off" required="required">
                         </div>
                         <div class="checkbox">
                             <label>
-							  <input type="checkbox"> Remember me for next 7 days.
-							</label>
+                                <input type="checkbox"> {{@DICT.loginForm.rememberMe}}
+                            </label>
                         </div>
-                        <button type="submit" class="btn btn-info btn-sm">Submit</button>
-                        <button type="reset" class="btn btn-default btn-sm">Reset</button>
+                        <button type="submit" class="btn btn-info btn-sm">{{@DICT.submit}}</button>
+                        <button type="reset" class="btn btn-default btn-sm">{{@DICT.reset}}</button>
                     </form>
 
                 </div>
@@ -54,12 +54,12 @@
                     <form role="form" action="index.html">
 
                         <div class="form-group">
-                            <label for="email">*Provide your email address below.</label>
+                            <label for="email">*{{@DICT.loginForm.provideEmailBelow}}</label>
                             <input class="form-control" id="email" type="text" autocomplete="off" required="required">
                         </div>
 
-                        <button type="submit" class="btn btn-info btn-sm">Submit</button>
-                        <button type="reset" class="btn btn-default btn-sm">Reset</button>
+                        <button type="submit" class="btn btn-info btn-sm">{{@DICT.submit}}</button>
+                        <button type="reset" class="btn btn-default btn-sm">{{@DICT.reset}}</button>
                     </form>
 
                 </div>
@@ -70,8 +70,8 @@
     </div>
 
     <!-- Javascript files -->
-    <include href="inc-footer-js.html" />
-    <!-- Javascript for this page -->
+<include href="inc-footer-js.html" />
+<!-- Javascript for this page -->
 </body>
 
 </html>
