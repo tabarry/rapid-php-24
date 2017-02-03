@@ -11,17 +11,14 @@ $main = require('lib/base.php');
 //Load globals
 require('includes/config.php');
 
-
-
-
 //Load routes
 require('includes/routes.php');
 
-//$main->route('GET /brew/@count',
-//    function($f3) {
-//        echo $f3->get('PARAMS.count').' bottles of beer on the wall.';
-//    }
-//);
+//Load sulata library
+$su = new Sulata;
+
+//Get settings
+$su->getSettings();
 
 
 $main->run();

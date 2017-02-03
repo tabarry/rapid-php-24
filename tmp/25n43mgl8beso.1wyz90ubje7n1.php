@@ -11,6 +11,7 @@
 <!-- Custom CSS -->
 <link href="<?php echo $BASE; ?>/ui/css/style.css" rel="stylesheet">
 <link href="<?php echo $BASE; ?>/ui/theme/blue.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $BASE; ?>/ui/css/sulata.css" rel="stylesheet">
 <!-- Favicon -->
 <link rel="shortcut icon" href="#">
 <link rel="icon" type="image/png" href="<?php echo $BASE; ?>/ui/favicon.png" />
