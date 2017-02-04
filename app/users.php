@@ -1,48 +1,33 @@
 <?php
 
 class Users {
+    /* Authenticate user */
 
-    function add() {
-        global $main;
-        $main->set('pageInfo', array('title' => 'Add Users', 'heading' => 'Add Users'));
-        echo \Template::instance()->render('users-add.html');
+    function authenticate() {
+        global $main, $su;
+        $sql = "SELECT employee__Name, employee__Email, employee__Picture, user__ID, user__Theme, user__IP FROM sulata_employees, sulata_users WHERE employee__ID = user__Employee AND employee__Status='Employed' AND employee__dbState='Live' AND user__dbState='Live' AND user__Status='Active' AND employee__Email='" . $su->strip($main->get('POST.user__Email')) . "' AND user__Password='" . $su->strip($main->get('POST.user__Password')) . "'";
+        $response = $su->query($sql);
+        if ($response['num_rows'] == 1) {
+            $userInfo = array();
+            $userInfo['employee__Name'] = $response['result'][0]['employee__Name'];
+            $userInfo['employee__Email'] = $response['result'][0]['employee__Email'];
+            $userInfo['employee__Picture'] = $response['result'][0]['employee__Picture'];
+            $userInfo['user__ID'] = $response['result'][0]['user__ID'];
+            $userInfo['user__Theme'] = $response['result'][0]['user__Theme'];
+            $userInfo['user__IP'] = $response['result'][0]['user__IP'];
+            $main->set('SESSION.userInfo', $userInfo);
+            $su->redirect($main->get('ADMIN_URL'));
+        }else{
+            echo "invalid login";
+        }
     }
 
-    function remote() {
+    function login() {
         global $main;
-//        echo $main->clean($main->get('POST.name'));
-//        echo "<pre>";
-//        $geo = \Web\Geo::instance();
-//        $geo =$geo->location();
-//        echo $geo['country_name'];
-//        exit;
-        $url = "http://localhost/rapid-php-24/phpMyRest/";
-        $web = new Web;
-        $request = $web->request($url, array('method' => 'POST',
-            'content' =>
-            array(
-                'api_key' => 'uLMXrY4RWuVnWqf8LgkG4ptYXHt5vrEV',
-                'do' => 'insert',
-                'sql' => "INSERT INTO users (name,email,phone) VALUES ('" . $main->get('POST.name') . "','" . $main->get('POST.email') . time() . "','" . $main->get('POST.phone') . "')",
-                'debug' => 'TRUE'
-            )
-                )
-        );
-        echo "<pre>";
-        $r = json_decode($request['body'], true);
-        //print_r($r);
-        
-        if($r['errno']==''){
-            echo('Record added with record number '.$r['insert_id'].'.');
-            //echo "<script>$('#ajax-contact').hide('slow');</script>";
-            echo "<script>window.history.pushState('page2', 'Title', window.location+'#ok');</script>";
-        }
+        $title = $main->get('SESSION.getSettings.site_name');
+        $main->set('pageInfo', array('title' => $title));
 
-
-        
-
-
-        //echo $main->get('POST.name');
+        echo \Template::instance()->render('login.html');
     }
 
 }

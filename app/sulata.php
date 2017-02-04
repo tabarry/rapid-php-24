@@ -80,4 +80,15 @@ class Sulata {
         }
     }
 
+    //Print JS
+    function printJs($str) {
+        echo "<script>$str</script>";
+    }
+
+    //Redirect top
+    function redirect($url) {
+        $this->printJs("top.window.location.href='{$url}'");
+        exit;
+    }
+
 }

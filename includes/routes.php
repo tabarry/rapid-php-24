@@ -1,6 +1,4 @@
 <?php
 $main->route('GET /', 'home->index');
-$main->route('GET /login', 'home->login');
-$main->route('GET /walk/@id', 'home->walk');
-$main->route('GET /users-add', 'users->add');
-$main->route('POST /users-remote', 'users->remote');
+$main->route('GET /login', 'users->login');
+$main->route('POST /authenticate', 'users->authenticate');
