@@ -11,4 +11,11 @@ class Home {
         echo \Template::instance()->render('index.html');
     }
 
+    function form() {
+        global $main;
+
+        $main->set('pageInfo', array('title' => 'Welcome Home!', 'heading' => 'This is my home.'));
+        echo \Template::instance()->render('form.html');
+    }
+
 }

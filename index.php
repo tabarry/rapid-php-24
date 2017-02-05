@@ -21,7 +21,7 @@ require('includes/db-structure.php');
 $su = new Sulata;
 
 //Get settings
-$su->getSettings();
+//$su->getSettings();
 
 
 $main->run();
