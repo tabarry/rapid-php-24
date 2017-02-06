@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- Title here -->
+        <title>{{ @pageInfo['title'] }}</title>
+    <include href="admin/inc-head.html">
+    </head>
+    <body>
+        <div class="outer-page">
+            <!-- Login page -->
+
+
+            <div class="login-page">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#login" data-toggle="tab" class="br-lblue"><i class="fa fa-sign-in"></i> {{@DICT.logIn}}</a></li>
+                    <li><a href="#lost-password" data-toggle="tab" class="br-lblue"><i class="fa fa-key"></i> {{@DICT.lostPassword}}</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="login">
+
+                        <!-- Login form -->
+
+                        <form role="form" method="post" name="suForm" id="suForm" action="{{@ADMIN_URL}}authenticate">
+                            <div id="ajax-response"></div>
+                            <div class="form-group">
+                                <label for="{{@db.sulata_employees.employee__Email.name}}">{{@db.sulata_employees.employee__Email.star}}{{@db.sulata_employees.employee__Email.label}}</label>
+                                <input class="form-control" id="{{@db.sulata_employees.employee__Email.name}}" name="{{@db.sulata_employees.employee__Email.name}}" type="{{@db.sulata_employees.employee__Email.type}}" {{@db.sulata_employees.employee__Email.required}} maxlength="{{@db.sulata_employees.employee__Email.length}}" autocomplete="off" value="{{ @ckRememberLogin }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="{{@db.sulata_users.user__Password.name}}">{{@db.sulata_users.user__Password.star}}{{@db.sulata_users.user__Password.label}}</label>
+                                <input class="form-control" id="{{@db.sulata_users.user__Password.name}}" name="{{@db.sulata_users.user__Password.name}}" type="{{@db.sulata_users.user__Password.type}}" {{@db.sulata_users.user__Password.required}} maxlength="{{@db.sulata_users.user__Password.length}}" autocomplete="off" >
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <check if="{{ @ckRememberLogin!='' }}">
+                                        <true>
+                                        <input type="checkbox" name="rememberLogin" id="rememberLogin" value="1" checked="checked"> {{@DICT.rememberMe}}
+                                        </true>
+                                        <false>
+                                        <input type="checkbox" name="rememberLogin" id="rememberLogin" value="1"> {{@DICT.rememberMe}}
+                                        </false>
+                                    </check>
+
+
+                                </label>
+                            </div>
+                            <div class="submit-buttons">
+                                <button type="submit" class="btn btn-info btn-sm">{{@DICT.submit}}</button>
+                                <button type="reset" class="btn btn-default btn-sm">{{@DICT.reset}}</button>
+                            </div>
+                            <div class="processing-image hide"></div>
+                        </form>
+
+                    </div>
+
+
+                    <div class="tab-pane fade" id="lost-password">
+
+                        <!-- Lost Password Form -->
+
+                        <form role="form" method="post" name="suForm" id="suForm" action="{{@ADMIN_URL}}lost-password">
+
+                            <div class="form-group">
+                                <label for="email">{{@db.sulata_employees.employee__Email.star}}{{@DICT.provideEmailBelow}}</label>
+                                <input class="form-control" id="{{@db.sulata_employees.employee__Email.name}}" name="{{@db.sulata_employees.employee__Email.name}}" type="{{@db.sulata_employees.employee__Email.type}}" {{@db.sulata_employees.employee__Email.required}} maxlength="{{@db.sulata_employees.employee__Email.length}}" autocomplete="off" value="{{ @ckRememberLogin }}">
+                            </div>
+                            <div class="submit-buttons">
+                                <button type="submit" class="btn btn-info btn-sm">{{@DICT.submit}}</button>
+                                <button type="reset" class="btn btn-default btn-sm">{{@DICT.reset}}</button>
+                            </div>
+                            <div class="processing-image hide"></div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Javascript files -->
+    <include href="admin/inc-footer-js.html" >
+        <!-- Javascript for this page -->
+        <script>
+
+            $(document).ready(function() {
+                //Ajax Form submission
+                suSubmit('suForm', 'ajax-response', '{{@DICT.generalError}}');
+                //Keep session alive
+                $(function() {
+                    window.setInterval("suStayAlive('{{@PING_URL}}')", 300000);
+                });
+
+            });
+
+        </script>
+        </body>
+
+        </html>

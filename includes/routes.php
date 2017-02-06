@@ -1,5 +1,4 @@
 <?php
-$main->route('GET /', 'home->index');
-$main->route('GET /form', 'home->form');
-$main->route('GET /login', 'users->login');
-$main->route('POST /authenticate', 'users->authenticate');
+$main->route('GET /_admin', 'admin->index');
+$main->route('GET /_admin/login', 'users->login');
+$main->route('POST /_admin/authenticate', 'users->authenticate');

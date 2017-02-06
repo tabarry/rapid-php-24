@@ -24,6 +24,14 @@ class Sulata {
         return printArray($arr);
     }
 
+    //Make password
+    function makePassword($str) {
+        if (function_exists('md5')) {
+            $str = md5($str);
+        }
+        return $str;
+    }
+
     //Display DB error
     function displayDbError($responseArray) {
         global $main;
@@ -59,10 +67,10 @@ class Sulata {
 
         //If settings need to be reset, $reset is passed as TRU
         if ($reset == TRUE) {
-            $main->set('SESSION.getSettings', '');
+            $main->set('SESSION.'.$main->get('SESSION_PREFIX').'getSettings', '');
         }
         //In SESSION.getSettings is empty, fill it
-        if (!$main->get('SESSION.getSettings')) {
+        if (!$main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings')) {
             $sql = "SELECT setting__Key, setting__Value FROM sulata_settings WHERE setting__dbState='Live' ORDER by setting__Key";
             //Call query function
             $response = $this->query($sql);
@@ -72,7 +80,7 @@ class Sulata {
                 for ($i = 0; $i < sizeof($response['result']); $i++) {
                     $getSettings[$response['result'][$i]['setting__Key']] = $this->unstrip($response['result'][$i]['setting__Value']);
                 }
-                $main->set('SESSION.getSettings', $getSettings);
+                $main->set('SESSION.'.$main->get('SESSION_PREFIX').'getSettings', $getSettings);
             } else {
                 //If error, display error
                 $this->displayDbError($response);

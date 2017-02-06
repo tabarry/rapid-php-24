@@ -170,6 +170,11 @@ lineSpacer{
 .right{
     text-align: right;
 }
+.processing-image{
+    background-image: url(../img/processing.gif) ;
+    width: 48px;
+    height: 48px;
+}
 /* DB Error */
 .dbError{
     padding: 2px;
@@ -179,4 +184,21 @@ lineSpacer{
 }
 .dbError small{
     display: block;
+}
+/* AJAX */
+#ajax-response{
+    margin: 1%;
+    padding: 1%;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+.ajax-error{
+    color: #f75353;
+    background-color: #F2DEDE;
+    border: 1px solid #f75353;
+}
+.ajax-success{
+    color:#006400;
+    background-color:#ECFBE6;
+    border: 1px solid #006400;
 }

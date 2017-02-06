@@ -8,4 +8,6 @@ return array(
     'lostPassword' => 'Lost Password',
     'provideEmailBelow' => 'Provide your email address below.',
     'rememberMe' => 'Remember me.',
+    'generalError'=>'Sorry, there has been an error, you may try again.',
+    'invalidLogin'=>'Invalid login, please try again.',
 );

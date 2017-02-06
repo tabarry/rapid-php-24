@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <!-- Title here -->
         <title><?php echo $pageInfo['title']; ?></title>
-    <?php echo $this->render('inc-head.html',$this->mime,get_defined_vars(),0); ?>
+    <?php echo $this->render('admin/inc-head.html',$this->mime,get_defined_vars(),0); ?>
     </head>
     <body>
         <div class="outer-page">
@@ -24,11 +24,11 @@
 
                         <!-- Login form -->
 
-                        <form role="form" method="post" name="suForm" id="suForm" action="<?php echo $BASE; ?>/authenticate">
+                        <form role="form" method="post" name="suForm" id="suForm" action="<?php echo $ADMIN_URL; ?>authenticate">
                             <div id="ajax-response"></div>
                             <div class="form-group">
                                 <label for="<?php echo $db['sulata_employees']['employee__Email']['name']; ?>"><?php echo $db['sulata_employees']['employee__Email']['star']; ?><?php echo $db['sulata_employees']['employee__Email']['label']; ?></label>
-                                <input class="form-control" id="<?php echo $db['sulata_employees']['employee__Email']['name']; ?>" name="<?php echo $db['sulata_employees']['employee__Email']['name']; ?>" type="<?php echo $db['sulata_employees']['employee__Email']['type']; ?>" <?php echo $db['sulata_employees']['employee__Email']['required']; ?> maxlength="<?php echo $db['sulata_employees']['employee__Email']['length']; ?>" autocomplete="off" value="<?php echo $COOKIE['rememberLogin']; ?>">
+                                <input class="form-control" id="<?php echo $db['sulata_employees']['employee__Email']['name']; ?>" name="<?php echo $db['sulata_employees']['employee__Email']['name']; ?>" type="<?php echo $db['sulata_employees']['employee__Email']['type']; ?>" <?php echo $db['sulata_employees']['employee__Email']['required']; ?> maxlength="<?php echo $db['sulata_employees']['employee__Email']['length']; ?>" autocomplete="off" value="<?php echo $ckRememberLogin; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="<?php echo $db['sulata_users']['user__Password']['name']; ?>"><?php echo $db['sulata_users']['user__Password']['star']; ?><?php echo $db['sulata_users']['user__Password']['label']; ?></label>
@@ -37,7 +37,7 @@
 
                             <div class="checkbox">
                                 <label>
-                                    <?php if ($COOKIE['rememberLogin']!=''): ?>
+                                    <?php if ($ckRememberLogin!=''): ?>
                                         
                                         <input type="checkbox" name="rememberLogin" id="rememberLogin" value="1" checked="checked"> <?php echo $DICT['rememberMe']; ?>
 
@@ -65,11 +65,11 @@
 
                         <!-- Lost Password Form -->
 
-                        <form role="form" method="post" name="suForm" id="suForm" action="<?php echo $BASE; ?>/lost-password">
+                        <form role="form" method="post" name="suForm" id="suForm" action="<?php echo $ADMIN_URL; ?>lost-password">
 
                             <div class="form-group">
                                 <label for="email"><?php echo $db['sulata_employees']['employee__Email']['star']; ?><?php echo $DICT['provideEmailBelow']; ?></label>
-                                <input class="form-control" id="<?php echo $db['sulata_employees']['employee__Email']['name']; ?>" name="<?php echo $db['sulata_employees']['employee__Email']['name']; ?>" type="<?php echo $db['sulata_employees']['employee__Email']['type']; ?>" <?php echo $db['sulata_employees']['employee__Email']['required']; ?> maxlength="<?php echo $db['sulata_employees']['employee__Email']['length']; ?>" autocomplete="off" value="<?php echo $COOKIE['rememberLogin']; ?>">
+                                <input class="form-control" id="<?php echo $db['sulata_employees']['employee__Email']['name']; ?>" name="<?php echo $db['sulata_employees']['employee__Email']['name']; ?>" type="<?php echo $db['sulata_employees']['employee__Email']['type']; ?>" <?php echo $db['sulata_employees']['employee__Email']['required']; ?> maxlength="<?php echo $db['sulata_employees']['employee__Email']['length']; ?>" autocomplete="off" value="<?php echo $ckRememberLogin; ?>">
                             </div>
                             <div class="submit-buttons">
                                 <button type="submit" class="btn btn-info btn-sm"><?php echo $DICT['submit']; ?></button>
@@ -86,7 +86,7 @@
         </div>
 
         <!-- Javascript files -->
-    <?php echo $this->render('inc-footer-js.html',$this->mime,get_defined_vars(),0); ?>
+    <?php echo $this->render('admin/inc-footer-js.html',$this->mime,get_defined_vars(),0); ?>
         <!-- Javascript for this page -->
         <script>
 
