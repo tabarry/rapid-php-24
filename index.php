@@ -1,4 +1,7 @@
 <?php
+//Error reporting
+error_reporting(E_ALL);
+ini_set('display_errors',1);
 
 //Check PCRE support
 if ((float) PCRE_VERSION < 7.9) {

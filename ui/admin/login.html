@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <!-- Title here -->
-        <title>{{ @pageInfo['title'] }}</title>
+        <title>{{ @pageInfo['site_title'] }}</title>
     <include href="admin/inc-head.html">
     </head>
     <body>
@@ -24,7 +24,7 @@
 
                         <!-- Login form -->
 
-                        <form role="form" method="post" name="suForm" id="suForm" action="{{@ADMIN_URL}}authenticate">
+                        <form role="form" method="post" name="suForm" id="suForm" action="{{@ADMIN_SUBMIT_URL}}authenticate">
                             <div id="ajax-response"></div>
                             <div class="form-group">
                                 <label for="{{@db.sulata_employees.employee__Email.name}}">{{@db.sulata_employees.employee__Email.star}}{{@db.sulata_employees.employee__Email.label}}</label>

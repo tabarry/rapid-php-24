@@ -9,6 +9,13 @@
     background-color: #F75353;
     color: #FFF;
 }
+th a{
+  color:#FFF;
+}
+th a:hover{
+  color:#FFF;
+  text-decoration: underline !important;
+}
 .action-box{
     border-radius: 2px;
     background-color: #F75353;

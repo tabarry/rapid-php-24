@@ -1,3 +1,3 @@
 <footer>
-    Developed by <a href="#">Sulata iSoft</a>.
+    <a href="<?php echo $pageInfo['site_footer_link']; ?>"><?php echo $pageInfo['site_footer']; ?></a>
 </footer>

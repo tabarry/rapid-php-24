@@ -31,13 +31,23 @@ class Users {
         }
     }
 
+    /* Login user */
     function login() {
         global $main;
+        if (($main->get('SESSION.'.$main->get('SESSION_PREFIX').'userInfo.user__ID'))) {
+            $main->reroute($main->get(ADMIN_URL));
+        }
         $main->set('ckRememberLogin',$main->get('COOKIE.'.$main->get('COOKIE_PREFIX').'rememberLogin'));
-        $title = $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.site_name');
-        $main->set('pageInfo', array('title' => $title));
+        $siteTitle = $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.site_name');
+        $main->set('pageInfo', array('site_title' => $siteTitle));
 
         echo \Template::instance()->render('admin/login.html');
     }
 
+    /* Logout user */
+    function logout() {
+        global $main;
+        $main->set('SESSION.'.$main->get('SESSION_PREFIX').'userInfo', '');
+        $main->reroute($main->get(ADMIN_URL).'login');
+    }
 }

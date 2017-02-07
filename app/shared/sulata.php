@@ -3,7 +3,7 @@
 class Sulata {
 
     //Strip string
-    function strip($str) {
+    public static function strip($str) {
         return $str;
     }
 
@@ -36,6 +36,7 @@ class Sulata {
     function displayDbError($responseArray) {
         global $main;
         echo $main->format($main->get('DICT.dbError'), $responseArray['connect_errno'], $responseArray['connect_error'], $responseArray['errno'], $responseArray['error']);
+        exit;
     }
 
     //Send SQL to API

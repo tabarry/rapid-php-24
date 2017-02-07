@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <!-- Title here -->
-        <title><?php echo $pageInfo['title']; ?></title>
+        <title><?php echo $pageInfo['site_title']; ?></title>
     <?php echo $this->render('admin/inc-head.html',$this->mime,get_defined_vars(),0); ?>
     </head>
     <body>
@@ -24,7 +24,7 @@
 
                         <!-- Login form -->
 
-                        <form role="form" method="post" name="suForm" id="suForm" action="<?php echo $ADMIN_URL; ?>authenticate">
+                        <form role="form" method="post" name="suForm" id="suForm" action="<?php echo $ADMIN_SUBMIT_URL; ?>authenticate">
                             <div id="ajax-response"></div>
                             <div class="form-group">
                                 <label for="<?php echo $db['sulata_employees']['employee__Email']['name']; ?>"><?php echo $db['sulata_employees']['employee__Email']['star']; ?><?php echo $db['sulata_employees']['employee__Email']['label']; ?></label>

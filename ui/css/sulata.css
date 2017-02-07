@@ -6,10 +6,10 @@ body{
         background-repeat: repeat-x;*/
 }
 a{
-    color:#000; 
+    color:#000;
 }
 a:hover{
-    text-decoration: none; 
+    text-decoration: none;
 }
 /*WRAPPER*/
 #wrapper{
@@ -24,7 +24,7 @@ a:hover{
 #header h1 a{
     color: #248EAD;
     text-decoration: none;
-}         
+}
 #header h1 small{
     font-size:60%;
 }

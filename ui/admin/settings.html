@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Title here -->
+    <title>{{ @pageInfo['site_title'] }}</title>
+    <include href="admin/inc-head.html">
+</head>
+
+<body>
+    <div class="outer">
+        <!-- Sidebar starts -->
+        <div class="sidebar">
+            <div class="sidey">
+                <!-- Sidebar navigation starts -->
+                <!-- Responsive dropdown -->
+                <include href="admin/inc-sidebar.html">
+                    <!-- Sidebar navigation ends -->
+            </div>
+        </div>
+        <!-- Sidebar ends -->
+
+        <!-- Mainbar starts -->
+        <div class="mainbar">
+
+            <!-- Mainbar header starts -->
+            <include href="admin/inc-header.html">
+
+                <!-- Mainbar header ends -->
+
+                <div class="main-content">
+                    <div class="container">
+
+                        <div class="page-content">
+
+                            <!-- Heading -->
+                            <div class="single-head">
+                                <!-- Heading -->
+                                <h3 class="pull-left"><i class="fa fa-desktop purple"></i> {{ @pageInfo['page_title'] }}</h3>
+                                <!-- Bread crumbs -->
+                                <div class="breads pull-right">
+                                    <a href="#">
+                                        <span class="action-box"><i class="fa fa-file-text"></i></span>
+                                    </a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <hr/>
+                                <!-- Table starts -->
+                                <check if="{{ @pageInfo['error']!='' }}">
+                                    <true>
+                                        <div id="ajax-response" class="ajax-error">{{ @pageInfo['error'] }}</div>
+                                    </true>
+                                    <false>
+                                        <!-- Search form starts -->
+                                        <form class="form-horizontal" name="searchForm" id="searchForm" method="get" action="">
+                                            <fieldset>
+
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                    <input id="q" value="{{@GET.q}}" name="q" class="form-control" autocomplete="off" type="search" placeholder="{{@DICT.searchBy}} {{@db.sulata_settings.setting__Setting.label}}" autofocus>
+                                                </div>
+
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                                                    <button class="btn btn-default" type="submit">{{@DICT.search}}</button>
+                                                    <check if="{{ @GET.q!='' }}">
+                                                        <true>
+                                                            <a class="btn btn-default" href="{{@ADMIL_URL}}settings">{{@DICT.clearSearch}}</a>
+                                                        </true>
+                                                    </check>
+                                                </div>
+                                                <p>&nbsp;</p>
+                                            </fieldset>
+                                        </form>
+                                        <!-- Search form ends -->
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-bordered">
+                                                <thead class="table-head">
+                                                    <tr>
+                                                        <th style="width:5%">{{@DICT.sr}}</th>
+                                                        <th style="width:42%">
+                                                            <check if="{{ @GET.sort=='desc' && @GET.f=='setting__Setting' }}">
+                                                                <true>
+                                                                    <a href="{{@ADMIL_URL}}settings?q={{@GET.q}}&f=setting__Setting&sort=desc">{{@db.sulata_settings.setting__Setting.label}} <i class="fa fa-arrow-up"></i></i></a>
+                                                                </true>
+
+                                                            </check>
+                                                            <true>
+                                                                <a href="{{@ADMIL_URL}}settings?q={{@GET.q}}&f=setting__Setting&sort=asc">{{@db.sulata_settings.setting__Setting.label}} <i class="fa fa-arrow-down"></i></a>
+                                                            </true>
+                                                        </th>
+                                                        <th style="width:43%">
+                                                            <a href="{{@ADMIL_URL}}settings?q={{@GET.q}}&f=setting__Key&sort=asc">{{@db.sulata_settings.setting__Key.label}} <i class="fa fa-arrow-up"></i><i class="fa fa-arrow-down"></i></a>
+                                                        </th>
+                                                        <th>&nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <repeat group="{{ @pageInfo['result'] }}" value="{{ @value }}" counter="{{ @cnt }}">
+                                                        <tr>
+                                                            <td>{{ @cnt }}.</td>
+                                                            <td>{{ \Sulata::strip(@value['setting__Setting']) }}</td>
+                                                            <td>{{ \Sulata::strip(@value['setting__Key']) }}</td>
+
+                                                            <td style="width:15%">
+                                                                <a class="btn btn-xs btn-warning" href="{{@ADMIN_URL}}settings-update?id={{@value['setting__ID']}}" title="{{@DICT.edit}}"><i class="fa fa-pencil"></i> </a>
+                                                                <a class="btn btn-xs btn-success" href="{{@ADMIN_URL}}settings-add?id={{@value['setting__ID']}}" title="{{@DICT.duplicate}}"><i class="fa fa-copy"></i> </a>
+                                                                <a class="btn btn-xs btn-danger" href="{{@ADMIN_URL}}settings-delete?id={{@value['setting__ID']}}" title="{{@DICT.delete}}"><i class="fa fa-times"></i> </a>
+                                                            </td>
+                                                        </tr>
+                                                    </repeat>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </false>
+                                </check>
+
+
+                                <!-- Table ends -->
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <!-- Footer Starts -->
+                        <include href="admin/inc-footer.html">
+                            <!-- Footer Ends -->
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+        </div>
+        <!-- Mainbar ends -->
+
+        <div class="clearfix"></div>
+    </div>
+
+    <!-- Javascript files -->
+    <include href="admin/inc-footer-js.html">
+        <!-- Javascript for this page -->
+</body>
+
+</html>
