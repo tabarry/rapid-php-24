@@ -34,9 +34,9 @@ class Settings {
           }else{
             $main->set('nextSort','asc');
           }
-          $order .= " ORDER BY {$field} {$sort} ";
+          $orderBy = " ORDER BY {$field} {$sort} ";
         }else{
-          $order.= " ORDER BY setting__ID ASC ";
+          $orderBy= " ORDER BY setting__Setting ASC ";
         }
 
         if(!$main->get('GET.start')){
@@ -51,11 +51,11 @@ class Settings {
         //SQL to get all records
         $limitlessSQL = "SELECT COUNT(setting__ID) as totalRecs FROM sulata_settings {$where} ";
         $response = $su->query($limitlessSQL);
-        //Main totalRecs variable to pass to $su->paginate()
+        //Get totalRecs variable to pass to $su->paginate()
         $main->set('totalRecs',$response['result'][0]['totalRecs']);
 
         //SQL to get paginated records
-        $sql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings {$where} {$sort} {$limit} ";
+        $sql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings {$where} {$orderBy} {$limit} ";
         $response = $su->query($sql);
 
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
