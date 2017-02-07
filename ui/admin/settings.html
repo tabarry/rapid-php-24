@@ -68,35 +68,32 @@
                                     </fieldset>
                                 </form>
                                 <!-- Search form ends -->
-                                <check if="{{ @pageInfo['error']!='' }}">
+                                <check if="{{ @pageInfo['error']=='' }}">
                                     <true>
-                                        <div id="ajax-response" class="ajax-error">{{ @pageInfo['error'] }}</div>
-                                    </true>
-                                    <false>
 
                                         <div class="table-responsive">
-                                          <!-- arrow directioning starts -->
-                                          <check if="{{@GET.sort=='setting__Setting-asc'}}">
-                                            <true>
-                                              <set setting__Setting_arrow="up">
-                                            </true>
-                                          </check>
-                                          <check if="{{@GET.sort=='setting__Setting-desc'}}">
-                                            <true>
-                                              <set setting__Setting_arrow="down">
-                                            </true>
-                                          </check>
-                                          <check if="{{@GET.sort=='setting__Key-asc'}}">
-                                            <true>
-                                              <set setting__Key_arrow="up">
-                                            </true>
-                                          </check>
-                                          <check if="{{@GET.sort=='setting__Key-desc'}}">
-                                            <true>
-                                              <set setting__Key_arrow="down">
-                                            </true>
-                                          </check>
-                                          <!-- arrow directioning ends -->
+                                            <!-- arrow directioning starts -->
+                                            <check if="{{@GET.sort=='setting__Setting-asc'}}">
+                                                <true>
+                                                    <set setting__Setting_arrow="up">
+                                                </true>
+                                            </check>
+                                            <check if="{{@GET.sort=='setting__Setting-desc'}}">
+                                                <true>
+                                                    <set setting__Setting_arrow="down">
+                                                </true>
+                                            </check>
+                                            <check if="{{@GET.sort=='setting__Key-asc'}}">
+                                                <true>
+                                                    <set setting__Key_arrow="up">
+                                                </true>
+                                            </check>
+                                            <check if="{{@GET.sort=='setting__Key-desc'}}">
+                                                <true>
+                                                    <set setting__Key_arrow="down">
+                                                </true>
+                                            </check>
+                                            <!-- arrow directioning ends -->
                                             <table class="table table-hover table-bordered">
                                                 <thead class="table-head">
                                                     <tr>
@@ -113,7 +110,7 @@
                                                 <tbody>
                                                     <repeat group="{{ @pageInfo['result'] }}" value="{{ @value }}" counter="{{ @cnt }}">
                                                         <tr>
-                                                            <td>{{ @cnt }}.</td>
+                                                            <td>{{ @cnt+@GET.sr }}.</td>
                                                             <td>{{ \Sulata::strip(@value['setting__Setting']) }}</td>
                                                             <td>{{ \Sulata::strip(@value['setting__Key']) }}</td>
 
@@ -128,6 +125,15 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <div>
+                                          <!-- Pagnation starts -->
+                                          {{\Sulata::paginate(@totalRecs)}}
+                                          <!-- Pagnation ends -->
+                                        </div>
+                                    </true>
+                                    <false>
+                                        <div id="ajax-response" class="ajax-error">{{ @pageInfo['error'] }}</div>
+
                                     </false>
                                 </check>
 

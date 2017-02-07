@@ -99,5 +99,35 @@ class Sulata {
         $this->printJs("top.window.location.href='{$url}'");
         exit;
     }
+    //Build pagination
+    public static function paginate($totalRecs, $cssClass = 'paginate') {
+        //global $getSettings['page_size'];
+        global $main, $sr;
+        //$totalRecs = '19';
+        $opt = '';
+        if ($totalRecs > 0) {
+            if ($totalRecs > $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size')) {
+                for ($i = 1; $i <= ceil($totalRecs / $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size')); $i++) {
+                    $j = $i - 1;
+                    $sr = $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size') * $j;
+                    if ($_GET['start'] / $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size') == $j) {
+                        $sel = " selected='selected'";
+                    } else {
+                        $sel = "";
+                    }
+                    //$opt.= "<option {$sel} value='" . $phpSelf . "?sr=" . $sr . "&q=" . $_GET['q'] . "&start=" . ($main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size')* $j) . "'>$i</option>";
+                    $opt.= "<option {$sel} value='" . $main->get('ADMIN_URL') . "settings?sr=".$sr."&q=" . $main->get('GET.q') . "&sort=" . $main->get('GET.sort') . "&start=" . ($main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size') * $j)  . "'>$i</option>";
+                }
+                echo "<div style=\"height:30px\">Go to page: <select class='{$cssClass}' onchange=\"window.location.href = this.value\">{$opt}></select></div>";
+            }
+        } else {
+            if ($_GET['q'] == '') {
+                echo '<div class="blue">' . RECORD_NOT_FOUND . '</div>';
+            } else {
+                echo '<div class="blue">' . SEARCH_NOT_FOUND . '</div>';
+            }
+        }
+    }
+
 
 }

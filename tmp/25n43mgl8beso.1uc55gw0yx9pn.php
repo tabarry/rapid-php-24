@@ -68,35 +68,32 @@
                                     </fieldset>
                                 </form>
                                 <!-- Search form ends -->
-                                <?php if ($pageInfo['error']!=''): ?>
+                                <?php if ($pageInfo['error']==''): ?>
                                     
-                                        <div id="ajax-response" class="ajax-error"><?php echo $pageInfo['error']; ?></div>
-                                    
-                                    <?php else: ?>
 
                                         <div class="table-responsive">
-                                          <!-- arrow directioning starts -->
-                                          <?php if ($GET['sort']=='setting__Setting-asc'): ?>
-                                            
-                                              <?php $setting__Setting_arrow='up'; ?>
-                                            
-                                          <?php endif; ?>
-                                          <?php if ($GET['sort']=='setting__Setting-desc'): ?>
-                                            
-                                              <?php $setting__Setting_arrow='down'; ?>
-                                            
-                                          <?php endif; ?>
-                                          <?php if ($GET['sort']=='setting__Key-asc'): ?>
-                                            
-                                              <?php $setting__Key_arrow='up'; ?>
-                                            
-                                          <?php endif; ?>
-                                          <?php if ($GET['sort']=='setting__Key-desc'): ?>
-                                            
-                                              <?php $setting__Key_arrow='down'; ?>
-                                            
-                                          <?php endif; ?>
-                                          <!-- arrow directioning ends -->
+                                            <!-- arrow directioning starts -->
+                                            <?php if ($GET['sort']=='setting__Setting-asc'): ?>
+                                                
+                                                    <?php $setting__Setting_arrow='up'; ?>
+                                                
+                                            <?php endif; ?>
+                                            <?php if ($GET['sort']=='setting__Setting-desc'): ?>
+                                                
+                                                    <?php $setting__Setting_arrow='down'; ?>
+                                                
+                                            <?php endif; ?>
+                                            <?php if ($GET['sort']=='setting__Key-asc'): ?>
+                                                
+                                                    <?php $setting__Key_arrow='up'; ?>
+                                                
+                                            <?php endif; ?>
+                                            <?php if ($GET['sort']=='setting__Key-desc'): ?>
+                                                
+                                                    <?php $setting__Key_arrow='down'; ?>
+                                                
+                                            <?php endif; ?>
+                                            <!-- arrow directioning ends -->
                                             <table class="table table-hover table-bordered">
                                                 <thead class="table-head">
                                                     <tr>
@@ -113,7 +110,7 @@
                                                 <tbody>
                                                     <?php $cnt=0; foreach (($pageInfo['result']?:[]) as $value): $cnt++; ?>
                                                         <tr>
-                                                            <td><?php echo $cnt; ?>.</td>
+                                                            <td><?php echo $cnt+$GET['sr']; ?>.</td>
                                                             <td><?php echo \Sulata::strip($value['setting__Setting']); ?></td>
                                                             <td><?php echo \Sulata::strip($value['setting__Key']); ?></td>
 
@@ -128,6 +125,16 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <div>
+                                          <!-- Pagnation starts -->
+                                          <?php echo \Sulata::paginate($totalRecs); ?>
+
+                                          <!-- Pagnation ends -->
+                                        </div>
+                                    
+                                    <?php else: ?>
+                                        <div id="ajax-response" class="ajax-error"><?php echo $pageInfo['error']; ?></div>
+
                                     
                                 <?php endif; ?>
 

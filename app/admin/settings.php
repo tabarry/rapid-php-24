@@ -33,12 +33,24 @@ class Settings {
           }
           $where .= " ORDER BY {$field} {$sort}";
         }else{
-          $where .= " ORDER BY setting__Setting ASC";
+          $where .= " ORDER BY setting__ID ASC";
         }
-        $sql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings WHERE setting__dbState='Live' AND setting__Type ='Public' {$where} LIMIT 0, ".$main->get('PAGE_SIZE');
+
+        if(!$main->get('GET.start')){
+          $start = 0;
+        }else{
+          $start = $main->get('GET.start');
+        }
+        //SQL to get all records
+        $limitlessSQL = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings WHERE setting__dbState='Live' AND setting__Type ='Public' {$where} ";
+        $response = $su->query($limitlessSQL);
+        $main->set('totalRecs',$response['num_rows']);
+        //SQL to get paginated records
+        $sql = $limitlessSQL ." LIMIT {$start}, ".$main->get('PAGE_SIZE');
         $response = $su->query($sql);
 
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
+
           if ($response['num_rows'] > 0) {
             $result = $response['result'];
           }else{
