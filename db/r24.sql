@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.10
--- http://www.phpmyadmin.net
+-- version 4.6.5.1
+-- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 06, 2017 at 01:25 PM
--- Server version: 5.5.42
--- PHP Version: 5.5.26
+-- Generation Time: Feb 07, 2017 at 02:14 PM
+-- Server version: 5.6.34
+-- PHP Version: 7.1.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -52,7 +52,7 @@ CREATE TABLE `sulata_employees` (
   `employee__Last_Action_On` datetime NOT NULL,
   `employee__Last_Action_By` varchar(64) NOT NULL,
   `employee__dbState` enum('Live','Deleted') NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sulata_employees`
@@ -93,7 +93,7 @@ CREATE TABLE `sulata_headers` (
   `header__Last_Action_On` datetime NOT NULL,
   `header__Last_Action_By` varchar(64) NOT NULL,
   `header__dbState` enum('Live','Deleted') NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sulata_headers`
@@ -185,11 +185,11 @@ CREATE TABLE `sulata_settings` (
   `setting__Setting` varchar(64) NOT NULL COMMENT '|s',
   `setting__Key` varchar(64) NOT NULL,
   `setting__Value` varchar(256) NOT NULL COMMENT '|s',
-  `setting__Type` enum('Private','Public','Site') NOT NULL,
+  `setting__Type` enum('Private','Public') NOT NULL,
   `setting__Last_Action_On` datetime NOT NULL,
   `setting__Last_Action_By` varchar(64) NOT NULL,
   `setting__dbState` enum('Live','Deleted') NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sulata_settings`
@@ -198,30 +198,30 @@ CREATE TABLE `sulata_settings` (
 INSERT INTO `sulata_settings` (`setting__ID`, `setting__Setting`, `setting__Key`, `setting__Value`, `setting__Type`, `setting__Last_Action_On`, `setting__Last_Action_By`, `setting__dbState`) VALUES
 (1, 'Site Name', 'site_name', 'Rapid CMS', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
 (2, 'Site Tagline', 'site_tagline', 'BackOffice', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(3, 'Page Size', 'page_size', '24', 'Public', '2013-12-08 17:36:56', 'Installer', 'Live'),
+(3, 'Page Size', 'page_size', '5', 'Public', '2013-12-08 17:36:56', 'Installer', 'Live'),
 (4, 'Time Zone', 'timezone', 'ASIA/KARACHI', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
 (5, 'Date Format', 'date_format', 'mm-dd-yy', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
 (6, 'Allowed File Formats', 'allowed_file_formats', 'doc,xls,docx,xlsx,ppt,pptx,pdf,gif,jpg,jpeg,png', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
 (7, 'Allowed Image Formats', 'allowed_image_formats', 'gif,jpg,jpeg,png', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
 (8, 'Allowed Attachment Formats', 'allowed_attachment_formats', 'doc,xls,docx,xlsx,ppt,pptx,pdf,gif,jpg,jpeg,png', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(10, 'Site Email', 'site_email', 'tahir@sulata.com.pk', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(11, 'Site URL', 'site_url', 'http://www.sulata.com.pk', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(12, 'Employee Image Height', 'employee_image_height', '150', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(13, 'Employee Image Width', 'employee_image_width', '100', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(14, 'Default Meta Title', 'default_meta_title', '-', 'Public', '2013-12-08 17:36:34', 'Installer', 'Live'),
-(15, 'Default Meta Description', 'default_meta_description', '-', 'Public', '2013-12-09 09:45:02', 'Installer', 'Live'),
-(16, 'Default Meta Keywords', 'default_meta_keywords', '-', 'Public', '2013-12-08 17:36:27', 'Installer', 'Live'),
-(17, 'Default Theme', 'default_theme', 'default', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(18, 'Header Width', 'header_width', '950', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(19, 'Header Height', 'header_height', '130', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(20, 'Media Category Width', 'media_category_width', '320', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(21, 'Media Category Height', 'media_category_height', '240', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(22, 'Google Login Enable/Disable (1/0)', 'google_login', '0', 'Private', '2014-10-22 11:51:05', 'Installer', 'Live'),
-(23, 'Site Footer', 'site_footer', 'Developed by Sulata iSoft.', 'Public', '2014-11-01 16:25:31', 'Installer', 'Live'),
-(24, 'Site Footer Link', 'site_footer_link', 'http://www.sulata.com.pk', 'Public', '2014-11-01 16:25:51', 'Installer', 'Live'),
-(25, 'Table View or Card View (table/card)', 'table_or_card', 'card', 'Public', '2014-11-01 16:25:51', 'Installer', 'Live'),
-(26, 'Show Modules in Sidebar (0/1)', 'sidebar_links', '0', 'Public', '2014-11-01 16:25:51', 'Installer', 'Live'),
-(27, 'Allow Multiple Location Login (0/1)', 'multi_login', '0', 'Public', '2014-11-01 16:25:51', 'Installer', 'Live');
+(9, 'Site Email', 'site_email', 'tahir@sulata.com.pk', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
+(10, 'Site URL', 'site_url', 'http://www.sulata.com.pk', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
+(11, 'Employee Image Height', 'employee_image_height', '150', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
+(12, 'Employee Image Width', 'employee_image_width', '100', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
+(13, 'Default Meta Title', 'default_meta_title', '-', 'Public', '2013-12-08 17:36:34', 'Installer', 'Live'),
+(14, 'Default Meta Description', 'default_meta_description', '-', 'Public', '2013-12-09 09:45:02', 'Installer', 'Live'),
+(15, 'Default Meta Keywords', 'default_meta_keywords', '-', 'Public', '2013-12-08 17:36:27', 'Installer', 'Live'),
+(16, 'Default Theme', 'default_theme', 'default', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
+(17, 'Header Width', 'header_width', '950', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
+(18, 'Header Height', 'header_height', '130', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
+(19, 'Media Category Width', 'media_category_width', '320', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
+(20, 'Media Category Height', 'media_category_height', '240', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
+(21, 'Google Login Enable/Disable (1/0)', 'google_login', '0', 'Private', '2014-10-22 11:51:05', 'Installer', 'Live'),
+(22, 'Site Footer', 'site_footer', 'Developed by Sulata iSoft.', 'Public', '2014-11-01 16:25:31', 'Installer', 'Live'),
+(23, 'Site Footer Link', 'site_footer_link', 'http://www.sulata.com.pk', 'Public', '2014-11-01 16:25:51', 'Installer', 'Live'),
+(24, 'Table View or Card View (table/card)', 'table_or_card', 'card', 'Public', '2014-11-01 16:25:51', 'Installer', 'Live'),
+(25, 'Show Modules in Sidebar (0/1)', 'sidebar_links', '0', 'Public', '2014-11-01 16:25:51', 'Installer', 'Live'),
+(26, 'Allow Multiple Location Login (0/1)', 'multi_login', '0', 'Public', '2014-11-01 16:25:51', 'Installer', 'Live');
 
 -- --------------------------------------------------------
 
@@ -260,7 +260,7 @@ CREATE TABLE `sulata_users` (
   `user__Last_Action_By` varchar(64) NOT NULL,
   `user__dbState` enum('Live','Deleted') NOT NULL,
   `user__IP` varchar(15) NOT NULL DEFAULT '127.0.0.1'
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sulata_users`
@@ -347,7 +347,7 @@ ALTER TABLE `sulata_blank`
 -- AUTO_INCREMENT for table `sulata_employees`
 --
 ALTER TABLE `sulata_employees`
-  MODIFY `employee__ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `employee__ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `sulata_faqs`
 --
@@ -357,7 +357,7 @@ ALTER TABLE `sulata_faqs`
 -- AUTO_INCREMENT for table `sulata_headers`
 --
 ALTER TABLE `sulata_headers`
-  MODIFY `header__ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `header__ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `sulata_media_categories`
 --
@@ -377,12 +377,12 @@ ALTER TABLE `sulata_pages`
 -- AUTO_INCREMENT for table `sulata_settings`
 --
 ALTER TABLE `sulata_settings`
-  MODIFY `setting__ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+  MODIFY `setting__ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `sulata_users`
 --
 ALTER TABLE `sulata_users`
-  MODIFY `user__ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `user__ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
