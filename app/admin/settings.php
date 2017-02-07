@@ -18,17 +18,26 @@ class Settings {
         $userTheme = $main->get('SESSION.'.$main->get('SESSION_PREFIX').'userInfo.user__Theme');
 
         $where = '';
+        $main->set('nextSort','desc');
         if($main->get('GET.q')){
           $where .= " AND setting__Setting LIKE '%".$main->get('GET.q')."%' ";
         }
-        if($main->get('GET.f')){
-          $where .= " ORDER BY ".$main->get('GET.f')." ".$main->get('GET.s');
+        if($main->get('GET.sort')){
+          $get = explode('-',$main->get('GET.sort'));
+          $field = $get[0];
+          $sort = $get[1];
+          if($sort=='asc'){
+            $main->set('nextSort','desc');
+          }else{
+            $main->set('nextSort','asc');
+          }
+          $where .= " ORDER BY {$field} {$sort}";
         }else{
           $where .= " ORDER BY setting__Setting ASC";
         }
         $sql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings WHERE setting__dbState='Live' AND setting__Type ='Public' {$where} LIMIT 0, ".$main->get('PAGE_SIZE');
         $response = $su->query($sql);
-        //$su->printArray($response);
+
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
           if ($response['num_rows'] > 0) {
             $result = $response['result'];

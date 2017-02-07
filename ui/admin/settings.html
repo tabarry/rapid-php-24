@@ -47,50 +47,65 @@
                                 <div class="clearfix"></div>
                                 <hr/>
                                 <!-- Table starts -->
+                                <!-- Search form starts -->
+                                <form class="form-horizontal" name="searchForm" id="searchForm" method="get" action="">
+                                    <fieldset>
+
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                            <input id="q" value="{{@GET.q}}" name="q" class="form-control" autocomplete="off" type="search" placeholder="{{@DICT.searchBy}} {{@db.sulata_settings.setting__Setting.label}}" autofocus>
+                                        </div>
+
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                                            <button class="btn btn-default" type="submit">{{@DICT.search}}</button>
+                                            <check if="{{ @GET.q!='' }}">
+                                                <true>
+                                                    <a class="btn btn-default" href="{{@ADMIL_URL}}settings">{{@DICT.clearSearch}}</a>
+                                                </true>
+                                            </check>
+                                        </div>
+                                        <p>&nbsp;</p>
+                                    </fieldset>
+                                </form>
+                                <!-- Search form ends -->
                                 <check if="{{ @pageInfo['error']!='' }}">
                                     <true>
                                         <div id="ajax-response" class="ajax-error">{{ @pageInfo['error'] }}</div>
                                     </true>
                                     <false>
-                                        <!-- Search form starts -->
-                                        <form class="form-horizontal" name="searchForm" id="searchForm" method="get" action="">
-                                            <fieldset>
 
-                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                    <input id="q" value="{{@GET.q}}" name="q" class="form-control" autocomplete="off" type="search" placeholder="{{@DICT.searchBy}} {{@db.sulata_settings.setting__Setting.label}}" autofocus>
-                                                </div>
-
-                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-                                                    <button class="btn btn-default" type="submit">{{@DICT.search}}</button>
-                                                    <check if="{{ @GET.q!='' }}">
-                                                        <true>
-                                                            <a class="btn btn-default" href="{{@ADMIL_URL}}settings">{{@DICT.clearSearch}}</a>
-                                                        </true>
-                                                    </check>
-                                                </div>
-                                                <p>&nbsp;</p>
-                                            </fieldset>
-                                        </form>
-                                        <!-- Search form ends -->
                                         <div class="table-responsive">
+                                          <!-- arrow directioning starts -->
+                                          <check if="{{@GET.sort=='setting__Setting-asc'}}">
+                                            <true>
+                                              <set setting__Setting_arrow="up">
+                                            </true>
+                                          </check>
+                                          <check if="{{@GET.sort=='setting__Setting-desc'}}">
+                                            <true>
+                                              <set setting__Setting_arrow="down">
+                                            </true>
+                                          </check>
+                                          <check if="{{@GET.sort=='setting__Key-asc'}}">
+                                            <true>
+                                              <set setting__Key_arrow="up">
+                                            </true>
+                                          </check>
+                                          <check if="{{@GET.sort=='setting__Key-desc'}}">
+                                            <true>
+                                              <set setting__Key_arrow="down">
+                                            </true>
+                                          </check>
+                                          <!-- arrow directioning ends -->
                                             <table class="table table-hover table-bordered">
                                                 <thead class="table-head">
                                                     <tr>
                                                         <th style="width:5%">{{@DICT.sr}}</th>
                                                         <th style="width:42%">
-                                                            <check if="{{ @GET.sort=='desc' && @GET.f=='setting__Setting' }}">
-                                                                <true>
-                                                                    <a href="{{@ADMIL_URL}}settings?q={{@GET.q}}&f=setting__Setting&sort=desc">{{@db.sulata_settings.setting__Setting.label}} <i class="fa fa-arrow-up"></i></i></a>
-                                                                </true>
-
-                                                            </check>
-                                                            <true>
-                                                                <a href="{{@ADMIL_URL}}settings?q={{@GET.q}}&f=setting__Setting&sort=asc">{{@db.sulata_settings.setting__Setting.label}} <i class="fa fa-arrow-down"></i></a>
-                                                            </true>
+                                                            <a href="{{@ADMIL_URL}}settings?q={{@GET.q}}&sort=setting__Setting-{{@nextSort}}">{{@db.sulata_settings.setting__Setting.label}} <i class="fa fa-arrow-{{@setting__Setting_arrow}}"></i></a>
                                                         </th>
                                                         <th style="width:43%">
-                                                            <a href="{{@ADMIL_URL}}settings?q={{@GET.q}}&f=setting__Key&sort=asc">{{@db.sulata_settings.setting__Key.label}} <i class="fa fa-arrow-up"></i><i class="fa fa-arrow-down"></i></a>
+                                                            <a href="{{@ADMIL_URL}}settings?q={{@GET.q}}&sort=setting__Key-{{@nextSort}}">{{@db.sulata_settings.setting__Key.label}} <i class="fa fa-arrow-{{@setting__Key_arrow}}"></i></a>
                                                         </th>
                                                         <th>&nbsp;</th>
                                                     </tr>
@@ -103,9 +118,9 @@
                                                             <td>{{ \Sulata::strip(@value['setting__Key']) }}</td>
 
                                                             <td style="width:15%">
-                                                                <a class="btn btn-xs btn-warning" href="{{@ADMIN_URL}}settings-update?id={{@value['setting__ID']}}" title="{{@DICT.edit}}"><i class="fa fa-pencil"></i> </a>
-                                                                <a class="btn btn-xs btn-success" href="{{@ADMIN_URL}}settings-add?id={{@value['setting__ID']}}" title="{{@DICT.duplicate}}"><i class="fa fa-copy"></i> </a>
-                                                                <a class="btn btn-xs btn-danger" href="{{@ADMIN_URL}}settings-delete?id={{@value['setting__ID']}}" title="{{@DICT.delete}}"><i class="fa fa-times"></i> </a>
+                                                                <a class="btn btn-xs btn-warning" href="{{@ADMIN_URL}}settings-update/{{@value['setting__ID']}}" title="{{@DICT.edit}}"><i class="fa fa-pencil"></i> </a>
+                                                                <a class="btn btn-xs btn-success" href="{{@ADMIN_URL}}settings-add/{{@value['setting__ID']}}" title="{{@DICT.duplicate}}"><i class="fa fa-copy"></i> </a>
+                                                                <a class="btn btn-xs btn-danger" href="{{@ADMIN_URL}}settings-delete/{{@value['setting__ID']}}" title="{{@DICT.delete}}"><i class="fa fa-times"></i> </a>
                                                             </td>
                                                         </tr>
                                                     </repeat>
