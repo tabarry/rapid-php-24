@@ -6,6 +6,7 @@ class Settings {
     function view() {
         global $main,$su;
 
+        //Template variables
         $pageTitle = 'Manage Settings';
         $siteTitle = $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.site_name').' - '.$pageTitle;
         $siteName = $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.site_name');
@@ -17,11 +18,13 @@ class Settings {
         $userPicture = $main->get('SESSION.'.$main->get('SESSION_PREFIX').'userInfo.employee__Picture');
         $userTheme = $main->get('SESSION.'.$main->get('SESSION_PREFIX').'userInfo.user__Theme');
 
-        $where = '';
+        //Build where condition
+        $where = " WHERE setting__dbState='Live' AND setting__Type ='Public' ";
         $main->set('nextSort','desc');
         if($main->get('GET.q')){
           $where .= " AND setting__Setting LIKE '%".$main->get('GET.q')."%' ";
         }
+        //Build order by condition
         if($main->get('GET.sort')){
           $get = explode('-',$main->get('GET.sort'));
           $field = $get[0];
@@ -31,9 +34,9 @@ class Settings {
           }else{
             $main->set('nextSort','asc');
           }
-          $where .= " ORDER BY {$field} {$sort}";
+          $order .= " ORDER BY {$field} {$sort} ";
         }else{
-          $where .= " ORDER BY setting__ID ASC";
+          $order.= " ORDER BY setting__ID ASC ";
         }
 
         if(!$main->get('GET.start')){
@@ -41,12 +44,18 @@ class Settings {
         }else{
           $start = $main->get('GET.start');
         }
+
+        //Build limit
+        $limit = " LIMIT {$start}, ".$main->get('PAGE_SIZE');
+
         //SQL to get all records
-        $limitlessSQL = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings WHERE setting__dbState='Live' AND setting__Type ='Public' {$where} ";
+        $limitlessSQL = "SELECT COUNT(setting__ID) as totalRecs FROM sulata_settings {$where} ";
         $response = $su->query($limitlessSQL);
-        $main->set('totalRecs',$response['num_rows']);
+        //Main totalRecs variable to pass to $su->paginate()
+        $main->set('totalRecs',$response['result'][0]['totalRecs']);
+
         //SQL to get paginated records
-        $sql = $limitlessSQL ." LIMIT {$start}, ".$main->get('PAGE_SIZE');
+        $sql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings {$where} {$sort} {$limit} ";
         $response = $su->query($sql);
 
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
