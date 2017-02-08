@@ -185,6 +185,7 @@ lineSpacer{
     color: #CCC;
     text-decoration: line-through;
 }
+
 /* DB Error */
 .dbError{
     padding: 2px;

@@ -24,3 +24,6 @@ th a:hover{
     font-weight: 400;
     padding: 6px 9px;
 }
+.action-box:hover{
+    color:#FFF;
+}

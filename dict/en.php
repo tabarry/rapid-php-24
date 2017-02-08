@@ -10,6 +10,7 @@ return array(
     'confirmationMessage'=>'Are you sure?',
     'submit' => 'Submit',
     'reset' => 'Reset',
+    'addNew' => 'Add New..',
     'logIn' => 'Log In',
     'lostPassword' => 'Lost Password',
     'provideEmailBelow' => 'Provide your email address below.',

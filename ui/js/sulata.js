@@ -1,9 +1,9 @@
 //Submit form in AJAX
-function suSubmit(frmName, outputEle, generalError) {
+function suSubmit(frmName, generalError) {
 // Get the form.
     var form = $('#' + frmName);
     // Get the messages div.
-    var formMessages = $('#' + outputEle);
+    var formMessages = $('#ajax-response');
     // Set up an event listener for the contact form.
     $(form).submit(function(e) {
 // Stop the browser from submitting the form.
@@ -24,9 +24,10 @@ function suSubmit(frmName, outputEle, generalError) {
                     $("html, body").animate({scrollTop: parent.$("html").offset().top}, "slow");
                 })
                 .fail(function(data) {
-                    formMessages.html(generalError);
-                    if ($('#ajax-response')) {
-                        $('#ajax-response').addClass('ajax-error');
+                    
+                    if (formMessages) {
+                        formMessages.html(generalError);
+                        formMessages.addClass('ajax-error');
                     }
                     $("html, body").animate({scrollTop: parent.$("html").offset().top}, "slow");
                 });

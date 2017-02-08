@@ -1,97 +1,97 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <!-- Title here -->
-    <title>{{ @pageInfo['site_title'] }}</title>
+    <head>
+        <meta charset="UTF-8">
+        <!-- Title here -->
+        <title>{{ @pageInfo['site_title'] }}</title>
     <include href="admin/inc-head.html">
-</head>
+    </head>
 
-<body>
-    <div class="outer">
-        <!-- Sidebar starts -->
-        <div class="sidebar">
-            <div class="sidey">
-                <!-- Sidebar navigation starts -->
-                <!-- Responsive dropdown -->
-                <include href="admin/inc-sidebar.html">
-                    <!-- Sidebar navigation ends -->
+    <body>
+        <div class="outer">
+            <!-- Sidebar starts -->
+            <div class="sidebar">
+                <div class="sidey">
+                    <!-- Sidebar navigation starts -->
+                    <!-- Responsive dropdown -->
+                    <include href="admin/inc-sidebar.html">
+                        <!-- Sidebar navigation ends -->
+                </div>
             </div>
-        </div>
-        <!-- Sidebar ends -->
+            <!-- Sidebar ends -->
 
-        <!-- Mainbar starts -->
-        <div class="mainbar">
+            <!-- Mainbar starts -->
+            <div class="mainbar">
 
-            <!-- Mainbar header starts -->
-            <include href="admin/inc-header.html">
+                <!-- Mainbar header starts -->
+                <include href="admin/inc-header.html">
 
-                <!-- Mainbar header ends -->
+                    <!-- Mainbar header ends -->
 
-                <div class="main-content">
-                    <div class="container">
+                    <div class="main-content">
+                        <div class="container">
 
-                        <div class="page-content">
+                            <div class="page-content">
 
-                            <!-- Heading -->
-                            <div class="single-head">
                                 <!-- Heading -->
-                                <h3 class="pull-left"><i class="fa fa-desktop purple"></i> {{ @pageInfo['page_title'] }}</h3>
-                                <!-- Bread crumbs -->
-                                <div class="breads pull-right">
-                                    <a href="#">
-                                        <span class="action-box"><i class="fa fa-file-text"></i></span>
-                                    </a>
-                                </div>
-                                <div class="clearfix"></div>
-                                <hr/>
-                                <!-- Table starts -->
-                                <!-- Search form starts -->
-                                <div id="ajax-response"></div>
-                                <form class="form-horizontal" name="searchForm" id="searchForm" method="get" action="">
-                                    <fieldset>
+                                <div class="single-head">
+                                    <!-- Heading -->
+                                    <h3 class="pull-left"><i class="fa fa-desktop purple"></i> {{ @pageInfo['page_title'] }}</h3>
+                                    <!-- Bread crumbs -->
+                                    <div class="breads pull-right">
+                                        <a href="#">
+                                            <a href="{{@ADMIN_URL.'settings-add'}}" class="action-box"><i class="fa fa-file-text"></i> {{@DICT.addNew}}</a>
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <hr/>
+                                    <!-- Table starts -->
+                                    <!-- Search form starts -->
+                                    <div id="ajax-response"></div>
+                                    <form class="form-horizontal" name="searchForm" id="searchForm" method="get" action="">
+                                        <fieldset>
 
-                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                            <input id="q" value="{{@GET.q}}" name="q" class="form-control" autocomplete="off" type="search" placeholder="{{@DICT.searchBy}} {{@db.sulata_settings.setting__Setting.label}}" autofocus>
-                                        </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <input id="q" value="{{@GET.q}}" name="q" class="form-control" autocomplete="off" type="search" placeholder="{{@DICT.searchBy}} {{@db.sulata_settings.setting__Setting.label}}" autofocus>
+                                            </div>
 
-                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-                                            <button class="btn btn-default" type="submit">{{@DICT.search}}</button>
-                                            <check if="{{ @GET.q!='' }}">
-                                                <true>
+                                                <button class="btn btn-default" type="submit">{{@DICT.search}}</button>
+                                                <check if="{{ @GET.q!='' }}">
+                                                    <true>
                                                     <a class="btn btn-default" href="{{@ADMIL_URL}}settings">{{@DICT.clearSearch}}</a>
-                                                </true>
-                                            </check>
-                                        </div>
-                                        <p>&nbsp;</p>
-                                    </fieldset>
-                                </form>
-                                <!-- Search form ends -->
-                                <check if="{{ @pageInfo['error']=='' }}">
-                                    <true>
+                                                    </true>
+                                                </check>
+                                            </div>
+                                            <p>&nbsp;</p>
+                                        </fieldset>
+                                    </form>
+                                    <!-- Search form ends -->
+                                    <check if="{{ @pageInfo['error']=='' }}">
+                                        <true>
 
                                         <div class="table-responsive">
                                             <!-- arrow directioning starts -->
                                             <check if="{{@GET.sort=='setting__Setting-asc'}}">
                                                 <true>
-                                                    <set setting__Setting_arrow="up">
+                                                <set setting__Setting_arrow="up">
                                                 </true>
                                             </check>
                                             <check if="{{@GET.sort=='setting__Setting-desc'}}">
                                                 <true>
-                                                    <set setting__Setting_arrow="down">
+                                                <set setting__Setting_arrow="down">
                                                 </true>
                                             </check>
                                             <check if="{{@GET.sort=='setting__Key-asc'}}">
                                                 <true>
-                                                    <set setting__Key_arrow="up">
+                                                <set setting__Key_arrow="up">
                                                 </true>
                                             </check>
                                             <check if="{{@GET.sort=='setting__Key-desc'}}">
                                                 <true>
-                                                    <set setting__Key_arrow="down">
+                                                <set setting__Key_arrow="down">
                                                 </true>
                                             </check>
                                             <!-- arrow directioning ends -->
@@ -109,60 +109,60 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <repeat group="{{ @pageInfo['result'] }}" value="{{ @value }}" counter="{{ @cnt }}">
-                                                        <tr id="tr_{{@value['setting__ID']}}">
-                                                            <td>{{ @cnt+@GET.sr }}.</td>
-                                                            <td>{{ \Sulata::strip(@value['setting__Setting']) }}</td>
-                                                            <td>{{ \Sulata::strip(@value['setting__Key']) }}</td>
+                                                <repeat group="{{ @pageInfo['result'] }}" value="{{ @value }}" counter="{{ @cnt }}">
+                                                    <tr id="tr_{{@value['setting__ID']}}">
+                                                        <td>{{ @cnt+@GET.sr }}.</td>
+                                                        <td>{{ \Sulata::strip(@value['setting__Setting']) }}</td>
+                                                        <td>{{ \Sulata::strip(@value['setting__Key']) }}</td>
 
-                                                            <td style="width:15%; text-align: center;">
-                                                                <span id="restore_{{@value['setting__ID']}}" class="hide">
-                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('{{@value['setting__ID']}}','{{@ADMIN_URL}}settings/restore/{{@value['setting__ID']}}','{{@DICT.confirmationMessage}}');" title="{{@DICT.restore}}" href="javascript:;"><i class="fa fa-refresh"></i> </a>
-                                                                </span>
-                                                                <span id="actions_{{@value['setting__ID']}}">
-                                                                <a class="btn btn-xs btn-warning" href="{{@ADMIN_URL}}settings/update/{{@value['setting__ID']}}" title="{{@DICT.edit}}"><i class="fa fa-pencil"></i> </a>
-                                                                <a class="btn btn-xs btn-success" href="{{@ADMIN_URL}}settings/add/{{@value['setting__ID']}}" title="{{@DICT.duplicate}}"><i class="fa fa-copy"></i> </a>
-                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('{{@value['setting__ID']}}','{{@ADMIN_URL}}settings/delete/{{@value['setting__ID']}}','{{@DICT.confirmationMessage}}');" title="{{@DICT.delete}}" href="javascript:;"><i class="fa fa-times"></i> </a>
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                    </repeat>
+                                                        <td style="width:15%; text-align: center;">
+                                                            <span id="restore_{{@value['setting__ID']}}" class="hide">
+                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('{{@value['setting__ID']}}','{{@ADMIN_URL.'settings-restore'}}/{{@value['setting__ID']}}','{{@DICT.confirmationMessage}}');" title="{{@DICT.restore}}" href="javascript:;"><i class="fa fa-refresh"></i> </a>
+                                                            </span>
+                                                            <span id="actions_{{@value['setting__ID']}}">
+                                                                <a class="btn btn-xs btn-warning" href="{{@ADMIN_URL}}settings-update/{{@value['setting__ID']}}" title="{{@DICT.edit}}"><i class="fa fa-pencil"></i> </a>
+                                                                <a class="btn btn-xs btn-success" href="{{@ADMIN_URL}}settings-add/{{@value['setting__ID']}}" title="{{@DICT.duplicate}}"><i class="fa fa-copy"></i> </a>
+                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('{{@value['setting__ID']}}','{{@ADMIN_URL.'settings-delete'}}/{{@value['setting__ID']}}','{{@DICT.confirmationMessage}}');" title="{{@DICT.delete}}" href="javascript:;"><i class="fa fa-times"></i> </a>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </repeat>
 
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div>
-                                          <!-- Pagnation starts -->
-                                          {{\Sulata::paginate(@totalRecs)}}
-                                          <!-- Pagnation ends -->
+                                            <!-- Pagnation starts -->
+                                            {{\Sulata::paginate(@totalRecs)}}
+                                            <!-- Pagnation ends -->
                                         </div>
-                                    </true>
-                                    <false>
+                                        </true>
+                                        <false>
                                         <div id="no-record-found" class="ajax-error">{{ @pageInfo['error'] }}</div>
 
-                                    </false>
-                                </check>
+                                        </false>
+                                    </check>
 
 
-                                <!-- Table ends -->
-                                <div class="clearfix"></div>
+                                    <!-- Table ends -->
+                                    <div class="clearfix"></div>
+                                </div>
                             </div>
+                            <!-- Footer Starts -->
+                            <include href="admin/inc-footer.html">
+                                <!-- Footer Ends -->
                         </div>
-                        <!-- Footer Starts -->
-                        <include href="admin/inc-footer.html">
-                            <!-- Footer Ends -->
                     </div>
-                </div>
-                <div class="clearfix"></div>
+                    <div class="clearfix"></div>
+            </div>
+            <!-- Mainbar ends -->
+
+            <div class="clearfix"></div>
         </div>
-        <!-- Mainbar ends -->
 
-        <div class="clearfix"></div>
-    </div>
-
-    <!-- Javascript files -->
+        <!-- Javascript files -->
     <include href="admin/inc-footer-js.html">
         <!-- Javascript for this page -->
-</body>
+        </body>
 
-</html>
+        </html>
