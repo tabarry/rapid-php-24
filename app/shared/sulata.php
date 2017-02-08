@@ -99,6 +99,25 @@ class Sulata {
         $this->printJs("top.window.location.href='{$url}'");
         exit;
     }
+
+    //Build sidebar
+    function buildSideBar($path, $exclude = '') {
+        global $main;
+        $dir = $path;
+        $dir = scandir($dir);
+        $sidebar = array();
+        foreach ($dir as $file) {
+            if ($file[0] != '.') {
+                if (!in_array($file, $exclude)) {
+                    $sidebar[] = str_replace('.php', '', $file);
+                }
+            }
+        }
+        return $sidebar;
+    }
+
+    /* DB FUNCTIONS */
+
     //Build pagination
     public static function paginate($totalRecs, $cssClass = 'paginate') {
         //global $getSettings['page_size'];
@@ -116,7 +135,7 @@ class Sulata {
                         $sel = "";
                     }
                     //$opt.= "<option {$sel} value='" . $phpSelf . "?sr=" . $sr . "&q=" . $_GET['q'] . "&start=" . ($main->get('SESSION.getSettings.page_size')* $j) . "'>$i</option>";
-                    $opt.= "<option {$sel} value='" . $main->get('ADMIN_URL') . "settings?sr=".$sr."&q=" . $main->get('GET.q') . "&sort=" . $main->get('GET.sort') . "&start=" . ($main->get('SESSION.getSettings.page_size') * $j)  . "'>$i</option>";
+                    $opt.= "<option {$sel} value='" . $main->get('ADMIN_URL') . "settings?sr=" . $sr . "&q=" . $main->get('GET.q') . "&sort=" . $main->get('GET.sort') . "&start=" . ($main->get('SESSION.getSettings.page_size') * $j) . "'>$i</option>";
                 }
                 echo "<div style=\"height:30px\">Go to page: <select class='{$cssClass}' onchange=\"window.location.href = this.value\">{$opt}></select></div>";
             }
@@ -128,6 +147,5 @@ class Sulata {
             }
         }
     }
-
 
 }
