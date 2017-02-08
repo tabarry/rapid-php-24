@@ -10,16 +10,16 @@ if ((float) PCRE_VERSION < 7.9) {
 }
 
 // Kickstart the framework
-$main = require('lib/base.php');
+$main = require('sulata/lib/base.php');
 
 //Load globals
-require('includes/config.php');
+require('sulata/includes/config.php');
 
 //Load routes
-require('includes/routes.php');
+require('sulata/includes/routes.php');
 
 //Load db structure
-require('includes/db-structure.php');
+require('sulata/includes/db-structure.php');
 
 //Load sulata library
 $su = new Sulata;
