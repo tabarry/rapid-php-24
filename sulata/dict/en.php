@@ -27,5 +27,6 @@ return array(
     'sr' => 'Sr.',
     /* Pageset data starts */
     'manage' => 'Manage',
+    'download' => 'Download',
         /* Pageset data ends */
 );

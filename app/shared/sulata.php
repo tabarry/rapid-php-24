@@ -116,6 +116,36 @@ class Sulata {
         return $sidebar;
     }
 
+    //$headerArray=array('Col 1','Col 2','Col 3');
+    function sqlToCSV($sql, $headerArray, $outputFileName) {
+        global $su;
+        $outputFileName = 'settings.csv';
+        $response = $su->query($sql);
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=' . $outputFileName);
+        $headerArray = array('Column 1', 'Column 2', 'Column 3', 'Column 4');
+        $output = fopen('php://output', 'w');
+        fputcsv($output, $headerArray);
+
+        if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
+            if ($response['num_rows'] > 0) {
+                $result = $response['result'];
+                foreach ($result as $key => $value) {
+                    $csv = array();
+                    foreach ($value as $val) {
+                        array_push($csv, $val);
+                    }
+                    fputcsv($output, $csv);
+                }
+            } else {
+                $error = $main->get('DICT.noRecordFound');
+            }
+        } else {
+//If error, display error
+            $su->displayDbError($response);
+        }
+    }
+
     /* DB FUNCTIONS */
 
     //Build pagination

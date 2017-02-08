@@ -143,7 +143,7 @@
 
                                         
                                     <?php endif; ?>
-
+<p><a href="<?php echo $ADMIL_URL; ?>settings-csv" class="btn btn-black pull-right"><i class="fa fa-download"></i> <?php echo $DICT['download']; ?> CSV</a></p>
 
                                     <!-- Table ends -->
                                     <div class="clearfix"></div>

@@ -56,7 +56,8 @@ class Settings {
         $main->set('totalRecs', $response['result'][0]['totalRecs']);
 
 //SQL to get paginated records
-        $sql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings {$where} {$orderBy} {$limit} ";
+        $baseSql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings ";
+        $sql = " {$baseSql} {$where} {$orderBy} {$limit} ";
         $response = $su->query($sql);
 
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
@@ -124,5 +125,11 @@ class Settings {
             $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
             echo $main->get('DICT.generalError');
         }
+    }
+    //Download CSV
+    function csv(){
+        global $main, $su;
+        $baseSql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings ";
+        $su->sqlToCSV($baseSql, $headerArray, $outputFileName);
     }
 }

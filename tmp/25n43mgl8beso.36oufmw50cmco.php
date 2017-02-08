@@ -20,4 +20,4 @@
 <?php endif; ?>
 <link href="<?php echo $BASE_URL; ?>views/css/sulata.css" rel="stylesheet">
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="<?php echo $BASE_URL; ?>views/favicon.png" />
+<link rel="icon" type="image/png" href="<?php echo $BASE_URL; ?>favicon.png" />
