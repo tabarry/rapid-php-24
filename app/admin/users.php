@@ -17,11 +17,11 @@ class Users {
             $userInfo['user__ID'] = $response['result'][0]['user__ID'];
             $userInfo['user__Theme'] = $response['result'][0]['user__Theme'];
             $userInfo['user__IP'] = $response['result'][0]['user__IP'];
-            $main->set('SESSION.'.$main->get('SESSION_PREFIX').'userInfo', $userInfo);
+            $main->set('SESSION.userInfo', $userInfo);
             if ($main->get('POST.rememberLogin') == 1) {
-                $main->set('COOKIE.'.$main->get('COOKIE_PREFIX').'rememberLogin', $main->get('POST.employee__Email'), $main->get('COOKIE_EXPIRY'));
+                $main->set('COOKIE.rememberLogin', $main->get('POST.employee__Email'), $main->get('COOKIE_EXPIRY'));
             } else {
-                $main->set('COOKIE.'.$main->get('COOKIE_PREFIX').'rememberLogin', '', $main->get('COOKIE_EXPIRY'));
+                $main->set('COOKIE.rememberLogin', '', $main->get('COOKIE_EXPIRY'));
             }
             $su->redirect($main->get('ADMIN_URL'));
         } else {
@@ -34,11 +34,11 @@ class Users {
     /* Login user */
     function login() {
         global $main;
-        if (($main->get('SESSION.'.$main->get('SESSION_PREFIX').'userInfo.user__ID'))) {
+        if (($main->get('SESSION.userInfo.user__ID'))) {
             $main->reroute($main->get(ADMIN_URL));
         }
-        $main->set('ckRememberLogin',$main->get('COOKIE.'.$main->get('COOKIE_PREFIX').'rememberLogin'));
-        $siteTitle = $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.site_name');
+        $main->set('ckRememberLogin',$main->get('COOKIE.rememberLogin'));
+        $siteTitle = $main->get('SESSION.getSettings.site_name');
         $main->set('pageInfo', array('site_title' => $siteTitle));
 
         echo \Template::instance()->render('admin/login.html');
@@ -47,7 +47,7 @@ class Users {
     /* Logout user */
     function logout() {
         global $main;
-        $main->set('SESSION.'.$main->get('SESSION_PREFIX').'userInfo', '');
+        $main->set('SESSION.userInfo', '');
         $main->reroute($main->get(ADMIN_URL).'login');
     }
 }

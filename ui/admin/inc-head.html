@@ -10,7 +10,14 @@
 <link href="{{@BASE}}/ui/css/less-style.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="{{@BASE}}/ui/css/style.css" rel="stylesheet">
-<link href="{{@BASE}}/ui/theme/blue.css" rel="stylesheet" type="text/css"/>
+<check if="{{@SESSION.userInfo.user__Theme!=''}}">
+    <true>
+    <link href="{{@BASE}}/ui/theme/{{@SESSION.userInfo.user__Theme}}.css" rel="stylesheet" type="text/css"/>
+    </true>
+    <false>
+    <link href="{{@BASE}}/ui/theme/default.css" rel="stylesheet" type="text/css"/>
+    </false>
+</check>
 <link href="{{@BASE}}/ui/css/sulata.css" rel="stylesheet">
 <!-- Favicon -->
 <link rel="shortcut icon" href="#">

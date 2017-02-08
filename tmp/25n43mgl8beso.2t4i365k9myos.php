@@ -10,7 +10,14 @@
 <link href="<?php echo $BASE; ?>/ui/css/less-style.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="<?php echo $BASE; ?>/ui/css/style.css" rel="stylesheet">
-<link href="<?php echo $BASE; ?>/ui/theme/blue.css" rel="stylesheet" type="text/css"/>
+<?php if ($SESSION['userInfo']['user__Theme']!=''): ?>
+    
+    <link href="<?php echo $BASE; ?>/ui/theme/<?php echo $SESSION['userInfo']['user__Theme']; ?>.css" rel="stylesheet" type="text/css"/>
+    
+    <?php else: ?>
+    <link href="<?php echo $BASE; ?>/ui/theme/default.css" rel="stylesheet" type="text/css"/>
+    
+<?php endif; ?>
 <link href="<?php echo $BASE; ?>/ui/css/sulata.css" rel="stylesheet">
 <!-- Favicon -->
 <link rel="shortcut icon" href="#">

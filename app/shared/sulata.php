@@ -68,10 +68,10 @@ class Sulata {
 
         //If settings need to be reset, $reset is passed as TRU
         if ($reset == TRUE) {
-            $main->set('SESSION.'.$main->get('SESSION_PREFIX').'getSettings', '');
+            $main->set('SESSION.getSettings', '');
         }
         //In SESSION.getSettings is empty, fill it
-        if (!$main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings')) {
+        if (!$main->get('SESSION.getSettings')) {
             $sql = "SELECT setting__Key, setting__Value FROM sulata_settings WHERE setting__dbState='Live' ORDER by setting__Key";
             //Call query function
             $response = $this->query($sql);
@@ -81,7 +81,7 @@ class Sulata {
                 for ($i = 0; $i < sizeof($response['result']); $i++) {
                     $getSettings[$response['result'][$i]['setting__Key']] = $this->unstrip($response['result'][$i]['setting__Value']);
                 }
-                $main->set('SESSION.'.$main->get('SESSION_PREFIX').'getSettings', $getSettings);
+                $main->set('SESSION.getSettings', $getSettings);
             } else {
                 //If error, display error
                 $this->displayDbError($response);
@@ -106,17 +106,17 @@ class Sulata {
         //$totalRecs = '19';
         $opt = '';
         if ($totalRecs > 0) {
-            if ($totalRecs > $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size')) {
-                for ($i = 1; $i <= ceil($totalRecs / $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size')); $i++) {
+            if ($totalRecs > $main->get('SESSION.getSettings.page_size')) {
+                for ($i = 1; $i <= ceil($totalRecs / $main->get('SESSION.getSettings.page_size')); $i++) {
                     $j = $i - 1;
-                    $sr = $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size') * $j;
-                    if ($_GET['start'] / $main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size') == $j) {
+                    $sr = $main->get('SESSION.getSettings.page_size') * $j;
+                    if ($_GET['start'] / $main->get('SESSION.getSettings.page_size') == $j) {
                         $sel = " selected='selected'";
                     } else {
                         $sel = "";
                     }
-                    //$opt.= "<option {$sel} value='" . $phpSelf . "?sr=" . $sr . "&q=" . $_GET['q'] . "&start=" . ($main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size')* $j) . "'>$i</option>";
-                    $opt.= "<option {$sel} value='" . $main->get('ADMIN_URL') . "settings?sr=".$sr."&q=" . $main->get('GET.q') . "&sort=" . $main->get('GET.sort') . "&start=" . ($main->get('SESSION.'.$main->get('SESSION_PREFIX').'getSettings.page_size') * $j)  . "'>$i</option>";
+                    //$opt.= "<option {$sel} value='" . $phpSelf . "?sr=" . $sr . "&q=" . $_GET['q'] . "&start=" . ($main->get('SESSION.getSettings.page_size')* $j) . "'>$i</option>";
+                    $opt.= "<option {$sel} value='" . $main->get('ADMIN_URL') . "settings?sr=".$sr."&q=" . $main->get('GET.q') . "&sort=" . $main->get('GET.sort') . "&start=" . ($main->get('SESSION.getSettings.page_size') * $j)  . "'>$i</option>";
                 }
                 echo "<div style=\"height:30px\">Go to page: <select class='{$cssClass}' onchange=\"window.location.href = this.value\">{$opt}></select></div>";
             }

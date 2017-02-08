@@ -8,16 +8,16 @@ class Settings {
         global $main, $su;
 
 //Template variables
-        $pageTitle = 'Manage Settings';
-        $siteTitle = $main->get('SESSION.' . $main->get('SESSION_PREFIX') . 'getSettings.site_name') . ' - ' . $pageTitle;
-        $siteName = $main->get('SESSION.' . $main->get('SESSION_PREFIX') . 'getSettings.site_name');
-        $siteUrl = $main->get('SESSION.' . $main->get('SESSION_PREFIX') . 'getSettings.site_url');
-        $siteTagline = $main->get('SESSION.' . $main->get('SESSION_PREFIX') . 'getSettings.site_tagline');
-        $siteFooter = $main->get('SESSION.' . $main->get('SESSION_PREFIX') . 'getSettings.site_footer');
-        $siteFooterLink = $main->get('SESSION.' . $main->get('SESSION_PREFIX') . 'getSettings.site_footer_link');
-        $userName = $main->get('SESSION.' . $main->get('SESSION_PREFIX') . 'userInfo.employee__Name');
-        $userPicture = $main->get('SESSION.' . $main->get('SESSION_PREFIX') . 'userInfo.employee__Picture');
-        $userTheme = $main->get('SESSION.' . $main->get('SESSION_PREFIX') . 'userInfo.user__Theme');
+        $pageTitle = $main->get('DICT.manage').' Settings';
+        $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
+        $siteName = $main->get('SESSION.getSettings.site_name');
+        $siteUrl = $main->get('SESSION.getSettings.site_url');
+        $siteTagline = $main->get('SESSION.getSettings.site_tagline');
+        $siteFooter = $main->get('SESSION.getSettings.site_footer');
+        $siteFooterLink = $main->get('SESSION.getSettings.site_footer_link');
+        $userName = $main->get('SESSION.userInfo.employee__Name');
+        $userPicture = $main->get('SESSION.userInfo.employee__Picture');
+        $userTheme = $main->get('SESSION.userInfo.user__Theme');
 
 //Build where condition
         $where = " WHERE setting__dbState='Live' AND setting__Type ='Public' ";
@@ -82,7 +82,7 @@ class Settings {
 //Delete from database by updating just the state
 //make a unique id attach to previous unique field
         $uid = uniqid() . '-';
-        $sql = "UPDATE sulata_settings SET setting__Setting=CONCAT('" . $uid . "',setting__Setting),setting__Key=CONCAT('" . $uid . "',setting__Key), setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.' . $main->get('SESSION_PREFIX') . 'userInfo.employee__Name') . "', setting__dbState='Deleted' WHERE setting__ID = '" . $id . "' AND setting__dbState='Live'";
+        $sql = "UPDATE sulata_settings SET setting__Setting=CONCAT('" . $uid . "',setting__Setting),setting__Key=CONCAT('" . $uid . "',setting__Key), setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "', setting__dbState='Deleted' WHERE setting__ID = '" . $id . "' AND setting__dbState='Live'";
         $response = $su->query($sql, 'update');
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
             if ($response['affected_rows'] > 0) {
@@ -106,7 +106,7 @@ class Settings {
 //Delete from database by updating just the state
 //make a unique id attach to previous unique field
         $uid = uniqid() . '-';
-        $sql = "UPDATE sulata_settings SET setting__Setting=SUBSTRING(setting__Setting,".($main->get('UID_LENGTH')+1)."),setting__Key=SUBSTRING(setting__Key,".($main->get('UID_LENGTH')+1)."), setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.' . $main->get('SESSION_PREFIX') . 'userInfo.employee__Name') . "-Restored', setting__dbState='Live' WHERE setting__ID = '" . $id . "' AND setting__dbState='Deleted'";
+        $sql = "UPDATE sulata_settings SET setting__Setting=SUBSTRING(setting__Setting,".($main->get('UID_LENGTH')+1)."),setting__Key=SUBSTRING(setting__Key,".($main->get('UID_LENGTH')+1)."), setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "-Restored', setting__dbState='Live' WHERE setting__ID = '" . $id . "' AND setting__dbState='Deleted'";
       
         $response = $su->query($sql, 'update');
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
