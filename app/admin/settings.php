@@ -2,8 +2,11 @@
 
 class Settings {
 
-//View record
+  //Define a public variable
+  var $baseSql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings ";
 
+
+//View record
     function view() {
         global $main, $su;
 
@@ -56,7 +59,9 @@ class Settings {
         $main->set('totalRecs', $response['result'][0]['totalRecs']);
 
 //SQL to get paginated records
-        $baseSql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings ";
+//If SQL is changed, also change it in CSV section
+        //$baseSql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings ";
+        $baseSql = $this->baseSql;
         $sql = " {$baseSql} {$where} {$orderBy} {$limit} ";
         $response = $su->query($sql);
 
@@ -108,7 +113,7 @@ class Settings {
 //make a unique id attach to previous unique field
         $uid = uniqid() . '-';
         $sql = "UPDATE sulata_settings SET setting__Setting=SUBSTRING(setting__Setting,".($main->get('UID_LENGTH')+1)."),setting__Key=SUBSTRING(setting__Key,".($main->get('UID_LENGTH')+1)."), setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "-Restored', setting__dbState='Live' WHERE setting__ID = '" . $id . "' AND setting__dbState='Deleted'";
-      
+
         $response = $su->query($sql, 'update');
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
             if ($response['affected_rows'] > 0) {
@@ -129,7 +134,9 @@ class Settings {
     //Download CSV
     function csv(){
         global $main, $su;
-        $baseSql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings ";
+        $baseSql = $this->baseSql;
+        $headerArray = array('ID', 'Setting', 'Key', 'Value');
+        $outputFileName='settings.csv';
         $su->sqlToCSV($baseSql, $headerArray, $outputFileName);
     }
 }

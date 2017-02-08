@@ -119,11 +119,9 @@ class Sulata {
     //$headerArray=array('Col 1','Col 2','Col 3');
     function sqlToCSV($sql, $headerArray, $outputFileName) {
         global $su;
-        $outputFileName = 'settings.csv';
         $response = $su->query($sql);
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename=' . $outputFileName);
-        $headerArray = array('Column 1', 'Column 2', 'Column 3', 'Column 4');
         $output = fopen('php://output', 'w');
         fputcsv($output, $headerArray);
 
