@@ -48,6 +48,7 @@
                                 <hr/>
                                 <!-- Table starts -->
                                 <!-- Search form starts -->
+                                <div id="ajax-response"></div>
                                 <form class="form-horizontal" name="searchForm" id="searchForm" method="get" action="">
                                     <fieldset>
 
@@ -109,15 +110,20 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php $cnt=0; foreach (($pageInfo['result']?:[]) as $value): $cnt++; ?>
-                                                        <tr>
+                                                        <tr id="tr_<?php echo $value['setting__ID']; ?>">
                                                             <td><?php echo $cnt+$GET['sr']; ?>.</td>
                                                             <td><?php echo \Sulata::strip($value['setting__Setting']); ?></td>
                                                             <td><?php echo \Sulata::strip($value['setting__Key']); ?></td>
 
-                                                            <td style="width:15%">
-                                                                <a class="btn btn-xs btn-warning" href="<?php echo $ADMIN_URL; ?>settings-update/<?php echo $value['setting__ID']; ?>" title="<?php echo $DICT['edit']; ?>"><i class="fa fa-pencil"></i> </a>
-                                                                <a class="btn btn-xs btn-success" href="<?php echo $ADMIN_URL; ?>settings-add/<?php echo $value['setting__ID']; ?>" title="<?php echo $DICT['duplicate']; ?>"><i class="fa fa-copy"></i> </a>
-                                                                <a class="btn btn-xs btn-danger" href="<?php echo $ADMIN_URL; ?>settings-delete/<?php echo $value['setting__ID']; ?>" title="<?php echo $DICT['delete']; ?>"><i class="fa fa-times"></i> </a>
+                                                            <td style="width:15%; text-align: center;">
+                                                                <span id="restore_<?php echo $value['setting__ID']; ?>" class="hide">
+                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('<?php echo $value['setting__ID']; ?>','<?php echo $ADMIN_URL; ?>settings/restore/<?php echo $value['setting__ID']; ?>','<?php echo $DICT['confirmationMessage']; ?>');" title="<?php echo $DICT['restore']; ?>" href="javascript:;"><i class="fa fa-refresh"></i> </a>
+                                                                </span>
+                                                                <span id="actions_<?php echo $value['setting__ID']; ?>">
+                                                                <a class="btn btn-xs btn-warning" href="<?php echo $ADMIN_URL; ?>settings/update/<?php echo $value['setting__ID']; ?>" title="<?php echo $DICT['edit']; ?>"><i class="fa fa-pencil"></i> </a>
+                                                                <a class="btn btn-xs btn-success" href="<?php echo $ADMIN_URL; ?>settings/add/<?php echo $value['setting__ID']; ?>" title="<?php echo $DICT['duplicate']; ?>"><i class="fa fa-copy"></i> </a>
+                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('<?php echo $value['setting__ID']; ?>','<?php echo $ADMIN_URL; ?>settings/delete/<?php echo $value['setting__ID']; ?>','<?php echo $DICT['confirmationMessage']; ?>');" title="<?php echo $DICT['delete']; ?>" href="javascript:;"><i class="fa fa-times"></i> </a>
+                                                                </span>
                                                             </td>
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -133,7 +139,7 @@
                                         </div>
                                     
                                     <?php else: ?>
-                                        <div id="ajax-response" class="ajax-error"><?php echo $pageInfo['error']; ?></div>
+                                        <div id="no-record-found" class="ajax-error"><?php echo $pageInfo['error']; ?></div>
 
                                     
                                 <?php endif; ?>

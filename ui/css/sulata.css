@@ -181,6 +181,10 @@ lineSpacer{
     margin-top: 10px;
     padding: 2px;
 }
+.deleted-row td{
+    color: #CCC;
+    text-decoration: line-through;
+}
 /* DB Error */
 .dbError{
     padding: 2px;
@@ -191,6 +195,12 @@ lineSpacer{
 .dbError small{
     display: block;
 }
+#no-record-found{
+    margin: 1%;
+    padding: 1%;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
 /* AJAX */
 #ajax-response{
     margin: 1%;
@@ -198,6 +208,7 @@ lineSpacer{
     box-sizing: border-box;
     border-radius: 2px;
 }
+
 .ajax-error{
     color: #f75353;
     background-color: #F2DEDE;
@@ -208,3 +219,4 @@ lineSpacer{
     background-color:#ECFBE6;
     border: 1px solid #006400;
 }
+

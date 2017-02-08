@@ -32,6 +32,16 @@ function suSubmit(frmName, outputEle, generalError) {
                 });
     });
 }
+//Delete a record
+function suDelete(eleId, url, errorMsg) {
+    c = confirm(errorMsg);
+    if (c == true) {
+        if ($('#ajax-response')) {
+            $('#ajax-response').load(url);
+        }
+    }
+
+}
 //Toggle submit button
 function suToggleButton(flag) {
     if (flag == true) {

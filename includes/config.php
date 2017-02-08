@@ -13,6 +13,7 @@ $main->set('ADMIN_SUBMIT_URL', $main->get('BASE_URL').'_admin/');
 $main->set('PING_URL', $main->get('BASE_URL').'static/ping.html');
 $main->set('COOKIE_EXPIRY',time()+10080);
 $main->set('PAGE_SIZE',5);
+$main->set('UID_LENGTH',14);
 //API SETTINGS
 $main->set('API_URL', $main->SCHEME . '://' . $main->HOST . $main->BASE . '/phpMyRest/');
 $main->set('API_KEY', 'uLMXrY4RWuVnWqf8LgkG4ptYXHt5vrEV');

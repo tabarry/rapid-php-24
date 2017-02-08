@@ -48,6 +48,7 @@
                                 <hr/>
                                 <!-- Table starts -->
                                 <!-- Search form starts -->
+                                <div id="ajax-response"></div>
                                 <form class="form-horizontal" name="searchForm" id="searchForm" method="get" action="">
                                     <fieldset>
 
@@ -109,15 +110,20 @@
                                                 </thead>
                                                 <tbody>
                                                     <repeat group="{{ @pageInfo['result'] }}" value="{{ @value }}" counter="{{ @cnt }}">
-                                                        <tr>
+                                                        <tr id="tr_{{@value['setting__ID']}}">
                                                             <td>{{ @cnt+@GET.sr }}.</td>
                                                             <td>{{ \Sulata::strip(@value['setting__Setting']) }}</td>
                                                             <td>{{ \Sulata::strip(@value['setting__Key']) }}</td>
 
-                                                            <td style="width:15%">
-                                                                <a class="btn btn-xs btn-warning" href="{{@ADMIN_URL}}settings-update/{{@value['setting__ID']}}" title="{{@DICT.edit}}"><i class="fa fa-pencil"></i> </a>
-                                                                <a class="btn btn-xs btn-success" href="{{@ADMIN_URL}}settings-add/{{@value['setting__ID']}}" title="{{@DICT.duplicate}}"><i class="fa fa-copy"></i> </a>
-                                                                <a class="btn btn-xs btn-danger" href="{{@ADMIN_URL}}settings-delete/{{@value['setting__ID']}}" title="{{@DICT.delete}}"><i class="fa fa-times"></i> </a>
+                                                            <td style="width:15%; text-align: center;">
+                                                                <span id="restore_{{@value['setting__ID']}}" class="hide">
+                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('{{@value['setting__ID']}}','{{@ADMIN_URL}}settings/restore/{{@value['setting__ID']}}','{{@DICT.confirmationMessage}}');" title="{{@DICT.restore}}" href="javascript:;"><i class="fa fa-refresh"></i> </a>
+                                                                </span>
+                                                                <span id="actions_{{@value['setting__ID']}}">
+                                                                <a class="btn btn-xs btn-warning" href="{{@ADMIN_URL}}settings/update/{{@value['setting__ID']}}" title="{{@DICT.edit}}"><i class="fa fa-pencil"></i> </a>
+                                                                <a class="btn btn-xs btn-success" href="{{@ADMIN_URL}}settings/add/{{@value['setting__ID']}}" title="{{@DICT.duplicate}}"><i class="fa fa-copy"></i> </a>
+                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('{{@value['setting__ID']}}','{{@ADMIN_URL}}settings/delete/{{@value['setting__ID']}}','{{@DICT.confirmationMessage}}');" title="{{@DICT.delete}}" href="javascript:;"><i class="fa fa-times"></i> </a>
+                                                                </span>
                                                             </td>
                                                         </tr>
                                                     </repeat>
@@ -132,7 +138,7 @@
                                         </div>
                                     </true>
                                     <false>
-                                        <div id="ajax-response" class="ajax-error">{{ @pageInfo['error'] }}</div>
+                                        <div id="no-record-found" class="ajax-error">{{ @pageInfo['error'] }}</div>
 
                                     </false>
                                 </check>
