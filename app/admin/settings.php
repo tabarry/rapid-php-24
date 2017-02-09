@@ -8,7 +8,8 @@ class Settings {
 //View record
     function view() {
         global $main, $su;
-
+        //Check login
+        $su->checkLogin();
 //Template variables
         $pageTitle = $main->get('DICT.manage') . ' Settings';
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
@@ -82,6 +83,11 @@ class Settings {
 //Delete record
     function delete() {
         global $main, $su;
+        //Check login
+        $su->checkLogin('js');
+        //Check referrer
+        $su->checkRef();
+        
         $id = $main->get('PARAMS.id');
 
 //Delete from database by updating just the state
@@ -91,14 +97,14 @@ class Settings {
         $response = $su->query($sql, 'update');
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
             if ($response['affected_rows'] > 0) {
-                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-error');\$('#ajax-response').addClass('ajax-success');}\$('#tr_" . $id . "').addClass('deleted-row');\$('#restore_" . $id . "').removeClass('hide');\$('#actions_" . $id . "').hide();");
+                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-error');\$('#ajax-response').addClass('ajax-success');}\$('#tr_" . $id . "').addClass('deleted-row');\$('#restore_" . $id . "').removeClass('hide');\$('#actions_" . $id . "').hide();");
                 echo $main->get('DICT.recordDeleted');
             } else {
-                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
+                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
                 echo $main->get('DICT.noDeletionRecordError');
             }
         } else {
-            $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
+            $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
             echo $main->get('DICT.generalError');
         }
     }
@@ -106,6 +112,11 @@ class Settings {
 //Restore record
     function restore() {
         global $main, $su;
+        //Check login
+        $su->checkLogin('js');
+        //Check referrer
+        $su->checkRef();
+        
         $id = $main->get('PARAMS.id');
 
 //Delete from database by updating just the state
@@ -117,16 +128,16 @@ class Settings {
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
             if ($response['affected_rows'] > 0) {
                 //Restored
-                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-error');\$('#ajax-response').addClass('ajax-success');}\$('#tr_" . $id . "').removeClass('deleted-row');\$('#restore_" . $id . "').addClass('hide');\$('#actions_" . $id . "').show();");
+                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').removeClass('ajax-error');\$('#ajax-response').addClass('ajax-note');}\$('#tr_" . $id . "').removeClass('deleted-row');\$('#restore_" . $id . "').addClass('hide');\$('#actions_" . $id . "').show();");
                 echo $main->get('DICT.recordRestored');
             } else {
                 //Restoration error
-                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
+                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
                 echo $main->get('DICT.noRestorationRecordError');
             }
         } else {
             //Other error
-            $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
+            $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
             echo $main->get('DICT.generalError');
         }
     }
@@ -134,6 +145,11 @@ class Settings {
     //Download CSV
     function csv() {
         global $main, $su;
+        //Check login
+        $su->checkLogin('js');
+        //Check referrer
+        $su->checkRef();
+        
         $baseSql = $this->baseSql;
         $headerArray = array('ID', 'Setting', 'Key', 'Value');
         $outputFileName = 'settings.csv';
@@ -143,6 +159,11 @@ class Settings {
     //Download PDF
     function pdf() {
         global $main, $su;
+        //Check login
+        $su->checkLogin('js');
+        //Check referrer
+        $su->checkRef();
+        
         $baseSql = $this->baseSql;
         $headerArray = array('ID', 'Setting', 'Key', 'Value');
         $outputFileName = 'settings.pdf';

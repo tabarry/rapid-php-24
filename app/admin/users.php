@@ -5,6 +5,9 @@ class Users {
 
     function authenticate() {
         global $main, $su;
+        //Check referrer
+        $su->checkRef();
+        
         $su->printJs("suToggleButton(true)");
 
         $sql = "SELECT employee__Name, employee__Email, employee__Picture, user__ID, user__Theme, user__IP FROM sulata_employees, sulata_users WHERE employee__ID = user__Employee AND employee__Status='Employed' AND employee__dbState='Live' AND user__dbState='Live' AND user__Status='Active' AND employee__Email='" . $su->unstrip($main->get('POST.employee__Email')) . "' AND user__Password='" . $su->makePassword($su->strip($main->get('POST.user__Password'))) . "'";
@@ -46,7 +49,9 @@ class Users {
 
     /* Logout user */
     function logout() {
-        global $main;
+        global $main,$su;
+        //Check referrer
+        $su->checkRef();
         $main->set('SESSION.userInfo', '');
         $main->reroute($main->get(ADMIN_URL).'login');
     }

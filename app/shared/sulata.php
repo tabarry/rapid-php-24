@@ -32,11 +32,32 @@ class Sulata {
         return $str;
     }
 
-    //Display DB error
-    function displayDbError($responseArray) {
+    //Check login
+    //mode header or js
+    function checkLogin($mode = 'header') {
         global $main;
-        echo $main->format($main->get('DICT.dbError'), $responseArray['connect_errno'], $responseArray['connect_error'], $responseArray['errno'], $responseArray['error']);
-        exit;
+        if (!($main->get('SESSION.userInfo.user__ID'))) {
+            if ($mode == 'header') {
+                $main->reroute($main->get(ADMIN_URL) . 'login');
+            } else {
+                $this->redirect($main->get(ADMIN_URL) . 'login');
+            }
+        }
+    }
+
+    //Check referrer
+    function checkRef() {
+        global $main;
+        if (!stristr($_SERVER['HTTP_REFERER'], $main->get(BASE_URL))) {
+            $this->farewell($main->get('DICT.invalidAccess'));
+        }
+    }
+
+    //Check referrer
+    function farewell($str) {
+        global $main;
+        $str = "<div style='color:#0000FF;font-family:Tahoma,Verdana,Arial;font-size:13px;'>{$str}</div>";
+        exit($str);
     }
 
     //Send SQL to API
@@ -260,6 +281,13 @@ class Sulata {
     }
 
     /* DB FUNCTIONS */
+
+    //Display DB error
+    function displayDbError($responseArray) {
+        global $main;
+        echo $main->format($main->get('DICT.dbError'), $responseArray['connect_errno'], $responseArray['connect_error'], $responseArray['errno'], $responseArray['error']);
+        exit;
+    }
 
     //Build pagination
     public static function paginate($totalRecs, $cssClass = 'paginate') {

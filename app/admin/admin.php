@@ -3,10 +3,10 @@
 class Admin {
 
     function index() {
-        global $main;
-        if (!($main->get('SESSION.userInfo.user__ID'))) {
-            $main->reroute($main->get(ADMIN_URL).'login');
-        }
+        global $main, $su;
+        //Check login
+        $su->checkLogin('js');
+        
         $pageTitle = 'Administration Home';
         $siteTitle = $main->get('SESSION.getSettings.site_name').' - '.$pageTitle;
         $siteName = $main->get('SESSION.getSettings.site_name');
