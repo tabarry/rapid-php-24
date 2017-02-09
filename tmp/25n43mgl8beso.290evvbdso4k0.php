@@ -39,11 +39,15 @@
                                     <!-- Heading -->
                                     <h3 class="pull-left"><i class="fa fa-desktop purple"></i> <?php echo $pageInfo['page_title']; ?></h3>
                                     <!-- Bread crumbs -->
-                                    <div class="breads pull-right">
-                                        <a href="#">
+                                    <?php if ($ADD_ACCESS): ?>
+                                        
+                                        <div class="breads pull-right">
                                             <a href="<?php echo $ADMIN_URL.'settings-add'; ?>" class="action-box"><i class="fa fa-file-text"></i> <?php echo $DICT['addNew']; ?></a>
-                                        </a>
-                                    </div>
+
+                                        </div>
+                                        
+                                    <?php endif; ?>
+
                                     <div class="clearfix"></div>
                                     <hr/>
                                     <!-- Table starts -->
@@ -116,15 +120,42 @@
                                                         <td><?php echo \Sulata::strip($value['setting__Key']); ?></td>
 
                                                         <td style="width:15%; text-align: center;">
-                                                            <span id="restore_<?php echo $value['setting__ID']; ?>" class="hide">
-                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('<?php echo $value['setting__ID']; ?>','<?php echo $ADMIN_URL.'settings-restore'; ?>/<?php echo $value['setting__ID']; ?>','<?php echo $DICT['confirmationMessage']; ?>');" title="<?php echo $DICT['restore']; ?>" href="javascript:;"><i class="fa fa-refresh"></i> </a>
-                                                            </span>
-                                                            <span id="actions_<?php echo $value['setting__ID']; ?>">
-                                                                <a class="btn btn-xs btn-warning" href="<?php echo $ADMIN_URL; ?>settings-update/<?php echo $value['setting__ID']; ?>" title="<?php echo $DICT['edit']; ?>"><i class="fa fa-pencil"></i> </a>
-                                                                <a class="btn btn-xs btn-success" href="<?php echo $ADMIN_URL; ?>settings-add/<?php echo $value['setting__ID']; ?>" title="<?php echo $DICT['duplicate']; ?>"><i class="fa fa-copy"></i> </a>
-                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('<?php echo $value['setting__ID']; ?>','<?php echo $ADMIN_URL.'settings-delete'; ?>/<?php echo $value['setting__ID']; ?>','<?php echo $DICT['confirmationMessage']; ?>');" title="<?php echo $DICT['delete']; ?>" href="javascript:;"><i class="fa fa-times"></i> </a>
-                                                            </span>
-                                                        </td>
+                                                            <!-- Restore -->
+                                                    <?php if ($RESTORE_ACCESS): ?>
+                                                        
+                                                        <span id="restore_<?php echo $value['setting__ID']; ?>" class="hide">
+                                                            <a class="btn btn-xs btn-primary" onclick="return suDelete('<?php echo $value['setting__ID']; ?>','<?php echo $ADMIN_URL.'settings-restore'; ?>/<?php echo $value['setting__ID']; ?>','<?php echo $DICT['confirmationMessage']; ?>');" title="<?php echo $DICT['restore']; ?>" href="javascript:;"><i class="fa fa-undo"></i> </a>
+                                                        </span>
+                                                        
+                                                    <?php endif; ?>
+                                                    <!-- // -->
+
+                                                    <!-- Edit, duplicate, delete  -->
+                                                    <span id="actions_<?php echo $value['setting__ID']; ?>">
+                                                        <!-- Edit -->
+                                                        <?php if ($EDIT_ACCESS): ?>
+                                                            
+                                                            <a class="btn btn-xs btn-warning" href="<?php echo $ADMIN_URL; ?>settings-update/<?php echo $value['setting__ID']; ?>" title="<?php echo $DICT['edit']; ?>"><i class="fa fa-pencil"></i> </a>
+                                                            
+                                                        <?php endif; ?>
+                                                        <!-- // -->
+                                                        <!-- Duplicate -->
+                                                        <?php if ($DUPLICATE_ACCESS): ?>
+                                                            
+                                                            <a class="btn btn-xs btn-success" href="<?php echo $ADMIN_URL; ?>settings-add/<?php echo $value['setting__ID']; ?>" title="<?php echo $DICT['duplicate']; ?>"><i class="fa fa-copy"></i> </a>
+                                                            
+                                                        <?php endif; ?>
+                                                        <!-- // -->
+                                                        <!-- Delete -->
+                                                        <?php if ($DELETE_ACCESS): ?>
+                                                            
+                                                            <a class="btn btn-xs btn-danger" onclick="return suDelete('<?php echo $value['setting__ID']; ?>','<?php echo $ADMIN_URL.'settings-delete'; ?>/<?php echo $value['setting__ID']; ?>','<?php echo $DICT['confirmationMessage']; ?>');" title="<?php echo $DICT['delete']; ?>" href="javascript:;"><i class="fa fa-times"></i> </a>
+                                                            
+                                                        <?php endif; ?>
+                                                        <!-- // -->
+                                                    </span>
+                                                    <!-- // -->
+                                                    </td>
                                                     </tr>
                                                 <?php endforeach; ?>
 
@@ -144,11 +175,22 @@
                                         
                                     <?php endif; ?>
                                     <p>&nbsp;</p>
-                                    <p><a href="<?php echo $ADMIL_URL; ?>settings-csv" class="btn btn-black pull-right"><i class="fa fa-download"></i> <?php echo $DICT['download']; ?> CSV</a></p>
-
+                                    <!-- Download CSV -->
+                                    <?php if ($DOWNLOAD_ACCESS_CSV): ?>
+                                        
+                                        <p><a href="<?php echo $ADMIL_URL; ?>settings-csv" class="btn btn-black pull-right"><i class="fa fa-download"></i> <?php echo $DICT['download']; ?> CSV</a></p>
+                                        
+                                    <?php endif; ?>
+                                    <!-- // -->
                                     <div class="clearfix"></div>
                                     <p>&nbsp;</p>
+                                    <!-- Download PDF -->
+                                    <?php if ($DOWNLOAD_ACCESS_PDF): ?>
+                                        
                                     <p><a href="<?php echo $ADMIL_URL; ?>settings-pdf" class="btn btn-black pull-right"><i class="fa fa-download"></i> <?php echo $DICT['download']; ?> PDF</a></p>
+                                    
+                                    <?php endif; ?>
+                                    <!-- // -->
                                     <p>&nbsp;</p>
                                     <div class="clearfix"></div>
                                     <!-- Table ends -->

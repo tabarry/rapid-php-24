@@ -5,7 +5,7 @@
         <!-- Sidebar links -->
         <ul class="list-unstyled">
             <li><a href="<?php echo $ADMIN_URL; ?>"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="<?php echo $ADMIN_URL; ?>profile"><i class="fa fa-user"></i> Update Profile</a></li>
+            <li><a href="<?php echo $ADMIN_URL; ?>users-update"><i class="fa fa-user"></i> Update Profile</a></li>
             <li><a href="<?php echo $ADMIN_URL; ?>logout"><i class="fa fa-power-off"></i> Log Out</a></li>
             <li>&nbsp;</li>
 

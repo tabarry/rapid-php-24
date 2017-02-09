@@ -15,6 +15,16 @@ $main->set('PING_URL', $main->get('BASE_URL').'sulata/static/ping.html');
 $main->set('COOKIE_EXPIRY',time()+10080);
 $main->set('PAGE_SIZE',5);
 $main->set('UID_LENGTH',14);
+$main->set('DE',14);
+//DML Access
+$main->set('ADD_ACCESS',TRUE);
+$main->set('EDIT_ACCESS',TRUE);
+$main->set('DUPLICATE_ACCESS',TRUE);
+$main->set('DELETE_ACCESS',TRUE);
+$main->set('RESTORE_ACCESS',TRUE);
+$main->set('DOWNLOAD_ACCESS_CSV',TRUE);
+$main->set('DOWNLOAD_ACCESS_PDF',TRUE);
+
 //API SETTINGS
 $main->set('API_URL', $main->SCHEME . '://' . $main->HOST . $main->BASE . '/phpMyRest/');
 $main->set('API_KEY', 'uLMXrY4RWuVnWqf8LgkG4ptYXHt5vrEV');

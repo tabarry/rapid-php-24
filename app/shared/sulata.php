@@ -52,6 +52,14 @@ class Sulata {
             $this->farewell($main->get('DICT.invalidAccess'));
         }
     }
+    
+    //Check numeric
+    function checkNumeric($var) {
+        global $main;
+        if (!is_numeric($var)) {
+            $this->farewell($main->get('DICT.invalidAccess'));
+        }
+    }
 
     //Check referrer
     function farewell($str) {

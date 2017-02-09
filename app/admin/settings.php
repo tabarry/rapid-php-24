@@ -10,6 +10,9 @@ class Settings {
         global $main, $su;
         //Check login
         $su->checkLogin();
+        //Check referrer
+        $su->checkRef();
+
 //Template variables
         $pageTitle = $main->get('DICT.manage') . ' Settings';
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
@@ -87,8 +90,10 @@ class Settings {
         $su->checkLogin('js');
         //Check referrer
         $su->checkRef();
-        
+
         $id = $main->get('PARAMS.id');
+        //Check if id is numeric
+        $su->checkNumeric($id);
 
 //Delete from database by updating just the state
 //make a unique id attach to previous unique field
@@ -98,7 +103,12 @@ class Settings {
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
             if ($response['affected_rows'] > 0) {
                 $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-error');\$('#ajax-response').addClass('ajax-success');}\$('#tr_" . $id . "').addClass('deleted-row');\$('#restore_" . $id . "').removeClass('hide');\$('#actions_" . $id . "').hide();");
-                echo $main->get('DICT.recordDeleted');
+
+                if ($main->get('RESTORE_ACCESS') == TRUE) {
+                    echo $main->get('DICT.recordDeleted');
+                } else {
+                    echo $main->get('DICT.recordDeletedNoRestoreAccess');
+                }
             } else {
                 $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
                 echo $main->get('DICT.noDeletionRecordError');
@@ -116,8 +126,10 @@ class Settings {
         $su->checkLogin('js');
         //Check referrer
         $su->checkRef();
-        
+
         $id = $main->get('PARAMS.id');
+        //Check if id is numeric
+        $su->checkNumeric($id);
 
 //Delete from database by updating just the state
 //make a unique id attach to previous unique field
@@ -149,7 +161,7 @@ class Settings {
         $su->checkLogin('js');
         //Check referrer
         $su->checkRef();
-        
+
         $baseSql = $this->baseSql;
         $headerArray = array('ID', 'Setting', 'Key', 'Value');
         $outputFileName = 'settings.csv';
@@ -163,7 +175,7 @@ class Settings {
         $su->checkLogin('js');
         //Check referrer
         $su->checkRef();
-        
+
         $baseSql = $this->baseSql;
         $headerArray = array('ID', 'Setting', 'Key', 'Value');
         $outputFileName = 'settings.pdf';

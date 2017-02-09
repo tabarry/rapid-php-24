@@ -29,7 +29,7 @@
                     <!-- Dropdown -->
                     <ul class="dropdown-menu" aria-labelledby="profile">
                         <li><a href="<?php echo $ADMIN_URL; ?>settings"><i class="fa fa-gears"></i> Settings</a></li>
-                        <li><a href="<?php echo $ADMIN_URL; ?>profile"><i class="fa fa-user"></i> Update Profile</a></li>
+                        <li><a href="<?php echo $ADMIN_URL; ?>users-update"><i class="fa fa-user"></i> Update Profile</a></li>
                         <li><a href="<?php echo $ADMIN_URL; ?>logout"><i class="fa fa-power-off"></i> Log Out</a></li>
                     </ul>
                 </div>

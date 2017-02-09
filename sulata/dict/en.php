@@ -7,6 +7,7 @@ return array(
     'noDeletionRecordError' => 'Sorry, the record you are trying to delete cannot be found. It has either already been deleted or updated by another user.',
     'noRestorationRecordError' => 'Sorry, the record you are trying to restore cannot be found. It has either already been restored or updated by another user.',
     'recordDeleted' => 'This record has been deleted and can be restored till this screen is reloaded.',
+    'recordDeletedNoRestoreAccess' => 'Record deleted successfully.',
     'recordRestored' => 'Record restored successfully.',
     'confirmationMessage' => 'Are you sure?',
     'submit' => 'Submit',

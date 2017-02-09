@@ -39,11 +39,15 @@
                                     <!-- Heading -->
                                     <h3 class="pull-left"><i class="fa fa-desktop purple"></i> {{ @pageInfo['page_title'] }}</h3>
                                     <!-- Bread crumbs -->
-                                    <div class="breads pull-right">
-                                        <a href="#">
+                                    <check if="@ADD_ACCESS">
+                                        <true>
+                                        <div class="breads pull-right">
                                             <a href="{{@ADMIN_URL.'settings-add'}}" class="action-box"><i class="fa fa-file-text"></i> {{@DICT.addNew}}</a>
-                                        </a>
-                                    </div>
+
+                                        </div>
+                                        </true>
+                                    </check>
+
                                     <div class="clearfix"></div>
                                     <hr/>
                                     <!-- Table starts -->
@@ -116,15 +120,42 @@
                                                         <td>{{ \Sulata::strip(@value['setting__Key']) }}</td>
 
                                                         <td style="width:15%; text-align: center;">
-                                                            <span id="restore_{{@value['setting__ID']}}" class="hide">
-                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('{{@value['setting__ID']}}','{{@ADMIN_URL.'settings-restore'}}/{{@value['setting__ID']}}','{{@DICT.confirmationMessage}}');" title="{{@DICT.restore}}" href="javascript:;"><i class="fa fa-refresh"></i> </a>
-                                                            </span>
-                                                            <span id="actions_{{@value['setting__ID']}}">
-                                                                <a class="btn btn-xs btn-warning" href="{{@ADMIN_URL}}settings-update/{{@value['setting__ID']}}" title="{{@DICT.edit}}"><i class="fa fa-pencil"></i> </a>
-                                                                <a class="btn btn-xs btn-success" href="{{@ADMIN_URL}}settings-add/{{@value['setting__ID']}}" title="{{@DICT.duplicate}}"><i class="fa fa-copy"></i> </a>
-                                                                <a class="btn btn-xs btn-danger" onclick="return suDelete('{{@value['setting__ID']}}','{{@ADMIN_URL.'settings-delete'}}/{{@value['setting__ID']}}','{{@DICT.confirmationMessage}}');" title="{{@DICT.delete}}" href="javascript:;"><i class="fa fa-times"></i> </a>
-                                                            </span>
-                                                        </td>
+                                                            <!-- Restore -->
+                                                    <check if="@RESTORE_ACCESS">
+                                                        <true>
+                                                        <span id="restore_{{@value['setting__ID']}}" class="hide">
+                                                            <a class="btn btn-xs btn-primary" onclick="return suDelete('{{@value['setting__ID']}}','{{@ADMIN_URL.'settings-restore'}}/{{@value['setting__ID']}}','{{@DICT.confirmationMessage}}');" title="{{@DICT.restore}}" href="javascript:;"><i class="fa fa-undo"></i> </a>
+                                                        </span>
+                                                        </true>
+                                                    </check>
+                                                    <!-- // -->
+
+                                                    <!-- Edit, duplicate, delete  -->
+                                                    <span id="actions_{{@value['setting__ID']}}">
+                                                        <!-- Edit -->
+                                                        <check if="@EDIT_ACCESS">
+                                                            <true>
+                                                            <a class="btn btn-xs btn-warning" href="{{@ADMIN_URL}}settings-update/{{@value['setting__ID']}}" title="{{@DICT.edit}}"><i class="fa fa-pencil"></i> </a>
+                                                            </true>
+                                                        </check>
+                                                        <!-- // -->
+                                                        <!-- Duplicate -->
+                                                        <check if="@DUPLICATE_ACCESS">
+                                                            <true>
+                                                            <a class="btn btn-xs btn-success" href="{{@ADMIN_URL}}settings-add/{{@value['setting__ID']}}" title="{{@DICT.duplicate}}"><i class="fa fa-copy"></i> </a>
+                                                            </true>
+                                                        </check>
+                                                        <!-- // -->
+                                                        <!-- Delete -->
+                                                        <check if="@DELETE_ACCESS">
+                                                            <true>
+                                                            <a class="btn btn-xs btn-danger" onclick="return suDelete('{{@value['setting__ID']}}','{{@ADMIN_URL.'settings-delete'}}/{{@value['setting__ID']}}','{{@DICT.confirmationMessage}}');" title="{{@DICT.delete}}" href="javascript:;"><i class="fa fa-times"></i> </a>
+                                                            </true>
+                                                        </check>
+                                                        <!-- // -->
+                                                    </span>
+                                                    <!-- // -->
+                                                    </td>
                                                     </tr>
                                                 </repeat>
 
@@ -143,11 +174,22 @@
                                         </false>
                                     </check>
                                     <p>&nbsp;</p>
-                                    <p><a href="{{@ADMIL_URL}}settings-csv" class="btn btn-black pull-right"><i class="fa fa-download"></i> {{@DICT.download}} CSV</a></p>
-
+                                    <!-- Download CSV -->
+                                    <check if="@DOWNLOAD_ACCESS_CSV">
+                                        <true>
+                                        <p><a href="{{@ADMIL_URL}}settings-csv" class="btn btn-black pull-right"><i class="fa fa-download"></i> {{@DICT.download}} CSV</a></p>
+                                        </true>
+                                    </check>
+                                    <!-- // -->
                                     <div class="clearfix"></div>
                                     <p>&nbsp;</p>
+                                    <!-- Download PDF -->
+                                    <check if="@DOWNLOAD_ACCESS_PDF">
+                                        <true>
                                     <p><a href="{{@ADMIL_URL}}settings-pdf" class="btn btn-black pull-right"><i class="fa fa-download"></i> {{@DICT.download}} PDF</a></p>
+                                    </true>
+                                    </check>
+                                    <!-- // -->
                                     <p>&nbsp;</p>
                                     <div class="clearfix"></div>
                                     <!-- Table ends -->
