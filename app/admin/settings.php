@@ -2,16 +2,15 @@
 
 class Settings {
 
-  //Define a public variable
-  var $baseSql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings ";
-
+    //Define a public variable
+    var $baseSql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings ";
 
 //View record
     function view() {
         global $main, $su;
 
 //Template variables
-        $pageTitle = $main->get('DICT.manage').' Settings';
+        $pageTitle = $main->get('DICT.manage') . ' Settings';
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
         $siteName = $main->get('SESSION.getSettings.site_name');
         $siteUrl = $main->get('SESSION.getSettings.site_url');
@@ -112,7 +111,7 @@ class Settings {
 //Delete from database by updating just the state
 //make a unique id attach to previous unique field
         $uid = uniqid() . '-';
-        $sql = "UPDATE sulata_settings SET setting__Setting=SUBSTRING(setting__Setting,".($main->get('UID_LENGTH')+1)."),setting__Key=SUBSTRING(setting__Key,".($main->get('UID_LENGTH')+1)."), setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "-Restored', setting__dbState='Live' WHERE setting__ID = '" . $id . "' AND setting__dbState='Deleted'";
+        $sql = "UPDATE sulata_settings SET setting__Setting=SUBSTRING(setting__Setting," . ($main->get('UID_LENGTH') + 1) . "),setting__Key=SUBSTRING(setting__Key," . ($main->get('UID_LENGTH') + 1) . "), setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "-Restored', setting__dbState='Live' WHERE setting__ID = '" . $id . "' AND setting__dbState='Deleted'";
 
         $response = $su->query($sql, 'update');
         if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
@@ -131,12 +130,23 @@ class Settings {
             echo $main->get('DICT.generalError');
         }
     }
+
     //Download CSV
-    function csv(){
+    function csv() {
         global $main, $su;
         $baseSql = $this->baseSql;
         $headerArray = array('ID', 'Setting', 'Key', 'Value');
-        $outputFileName='settings.csv';
+        $outputFileName = 'settings.csv';
         $su->sqlToCSV($baseSql, $headerArray, $outputFileName);
     }
+
+    //Download PDF
+    function pdf() {
+        global $main, $su;
+        $baseSql = $this->baseSql;
+        $headerArray = array('ID', 'Setting', 'Key', 'Value');
+        $outputFileName = 'settings.pdf';
+        $su->sqlToPDF($baseSql, $headerArray, $outputFileName);
+    }
+
 }

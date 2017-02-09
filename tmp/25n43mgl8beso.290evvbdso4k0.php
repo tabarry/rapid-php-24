@@ -143,8 +143,14 @@
 
                                         
                                     <?php endif; ?>
-<p><a href="<?php echo $ADMIL_URL; ?>settings-csv" class="btn btn-black pull-right"><i class="fa fa-download"></i> <?php echo $DICT['download']; ?> CSV</a></p>
+                                    <p>&nbsp;</p>
+                                    <p><a href="<?php echo $ADMIL_URL; ?>settings-csv" class="btn btn-black pull-right"><i class="fa fa-download"></i> <?php echo $DICT['download']; ?> CSV</a></p>
 
+                                    <div class="clearfix"></div>
+                                    <p>&nbsp;</p>
+                                    <p><a href="<?php echo $ADMIL_URL; ?>settings-pdf" class="btn btn-black pull-right"><i class="fa fa-download"></i> <?php echo $DICT['download']; ?> PDF</a></p>
+                                    <p>&nbsp;</p>
+                                    <div class="clearfix"></div>
                                     <!-- Table ends -->
                                     <div class="clearfix"></div>
                                 </div>

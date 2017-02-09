@@ -116,10 +116,10 @@ class Sulata {
         return $sidebar;
     }
 
+    //Function SQL to CSV
     //$headerArray=array('Col 1','Col 2','Col 3');
     function sqlToCSV($sql, $headerArray, $outputFileName) {
-        global $su;
-        $response = $su->query($sql);
+        $response = $this->query($sql);
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename=' . $outputFileName);
         $output = fopen('php://output', 'w');
@@ -131,7 +131,7 @@ class Sulata {
                 foreach ($result as $key => $value) {
                     $csv = array();
                     foreach ($value as $val) {
-                        array_push($csv, $val);
+                        array_push($csv, $this->unstrip($val));
                     }
                     fputcsv($output, $csv);
                 }
@@ -140,7 +140,122 @@ class Sulata {
             }
         } else {
 //If error, display error
-            $su->displayDbError($response);
+            $this->displayDbError($response);
+        }
+    }
+
+    //Function SQL to PDF
+    //$headerArray=array('Col 1','Col 2','Col 3');
+    function sqlToPDF($sql, $headerArray, $outputFileName) {
+        global $main;
+        $response = $this->query($sql);
+        $title = str_replace('.pdf', '', $outputFileName);
+        $title = str_replace('-', ' ', $title);
+        $title = strtoupper($title);
+        //Distribute columns
+        $cols = sizeof($headerArray) - 1;
+        $cols = (95 / $cols);
+        $cols = round($cols);
+        $tbl = '';
+        //Make table header
+        $tblHeader = '';
+        for ($i = 0; $i <= sizeof($headerArray) - 1; $i++) {
+            if ($i == 0) {
+                $colWidth = 5;
+            } else {
+                $colWidth = $cols;
+            }
+            $tblHeader .= "<td style=\"text-align:left;padding:5px;background-color:#000;color:#FFF;width:{$colWidth}%\">" . $headerArray[$i] . "</td>";
+        }
+        $tblHeader = "<tr>{$tblHeader}</tr>" . PHP_EOL;
+        if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
+            if ($response['num_rows'] > 0) {
+                $result = $response['result'];
+                foreach ($result as $key => $value) {
+                    $tbl .= "<tr>";
+                    foreach ($value as $val) {
+                        $tbl .= "<td style=\"text-align:left;padding:5px;border-bottom:1px solid #333;\">" . $this->unstrip($val) . "</td>";
+                    }
+                    $tbl .= "</tr>" . PHP_EOL;
+                }
+                $tbl = "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">" . PHP_EOL . "{$tblHeader}{$tbl}</table>";
+
+
+                // Include the main TCPDF library (search for installation path).
+                require_once('./sulata/tcpdf/tcpdf.php');
+
+                // create new PDF document
+                $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+                // set document information
+                $pdf->SetCreator(PDF_CREATOR);
+                $pdf->SetAuthor($main->get('SESSION.getSettings.site_name'));
+                $pdf->SetTitle($main->get('SESSION.getSettings.site_name'));
+                $pdf->SetSubject('');
+                $pdf->SetKeywords('');
+
+                // set default header data
+                $pdf->SetHeaderData('', '', $main->get('SESSION.getSettings.site_name'), $title, array(0, 0, 0), array(0, 0, 0));
+                $pdf->setFooterData(array(0, 0, 0), array(0, 0, 0));
+
+                // set header and footer fonts
+                $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+                $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+                // set default monospaced font
+                $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+                // set margins
+                $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+                $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+                $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+                // set auto page breaks
+                $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+                // set image scale factor
+                $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+                // set some language-dependent strings (optional)
+                if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+                    require_once(dirname(__FILE__) . '/lang/eng.php');
+                    $pdf->setLanguageArray($l);
+                }
+
+                // ---------------------------------------------------------
+                // set default font subsetting mode
+                $pdf->setFontSubsetting(true);
+
+                // Set font
+                // dejavusans is a UTF-8 Unicode font, if you only need to
+                // print standard ASCII chars, you can use core fonts like
+                // helvetica or times to reduce file size.
+                $pdf->SetFont('helvetica', '', 11, '', true);
+
+                // Add a page
+                // This method has several options, check the source code documentation for more information.
+                $pdf->AddPage();
+
+                // set text shadow effect
+                $pdf->setTextShadow(array('enabled' => false, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(196, 196, 196), 'opacity' => 1, 'blend_mode' => 'Normal'));
+
+
+                // Print text using writeHTMLCell()
+                $pdf->writeHTMLCell(0, 0, '', '', $tbl, 0, 1, 0, true, '', true);
+
+                // ---------------------------------------------------------
+                // Close and output PDF document
+                // This method has several options, check the source code documentation for more information.
+                $pdf->Output($outputFileName, 'D');
+                //============================================================+
+                // END OF FILE
+                //====================
+            } else {
+                $error = $main->get('DICT.noRecordFound');
+            }
+        } else {
+//If error, display error
+            $this->displayDbError($response);
         }
     }
 
