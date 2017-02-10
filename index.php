@@ -26,6 +26,8 @@ $su = new Sulata;
 
 //Get settings
 $su->getSettings();
+
+
 //Build sidebar
 $main->set('sidebar', $su->buildSideBar('./app/admin',array('admin.php')));
 print_r($sidebar);

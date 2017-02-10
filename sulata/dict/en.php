@@ -32,5 +32,6 @@ return array(
     'add' => 'Add',
     'update' => 'Update',
     'download' => 'Download',
+    'select' => 'Select..',
         /* Pageset data ends */
 );

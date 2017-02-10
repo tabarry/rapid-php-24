@@ -86,12 +86,7 @@
 
             $(document).ready(function() {
                 //Ajax Form submission
-                suSubmit('suForm', 'ajax-response', '<?php echo $DICT . generalError; ?>');
-                //Keep session alive
-                $(function() {
-                    window.setInterval("suStayAlive('<?php echo $PING_URL; ?>')", 300000);
-                });
-
+                suSubmit('suForm', '<?php echo $DICT['generalError']; ?>');
             });
 
         </script>
