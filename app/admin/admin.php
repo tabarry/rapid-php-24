@@ -5,7 +5,7 @@ class Admin {
     function index() {
         global $main, $su;
         //Check login
-        //$su->checkLogin('js');
+        $su->checkLogin('js');
 
         $pageTitle = 'Administration Home';
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
