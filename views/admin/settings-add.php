@@ -48,18 +48,18 @@
                                 <hr/>
                                 <div id="ajax-response"></div>
                                 <!-- Content starts -->
-                                <form role="form" method="post" name="suForm" id="suForm" action="<?php echo $ADMIN_SUBMIT_URL; ?>users-add">		
+                                <form role="form" method="post" name="suForm" id="suForm" action="<?php echo $ADMIN_SUBMIT_URL; ?>settings-add">		
                                     <div class="gallery clearfix">
                                         <div class="form-group">
                                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                 <label><?php echo $db['sulata_settings']['setting__Setting']['star']; ?><?php echo $db['sulata_settings']['setting__Setting']['label']; ?>:</label>
-                                                <input name="<?php echo $db['sulata_settings']['setting__Setting']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Setting']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Setting']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Setting']['type']; ?>" <?php echo $db['sulata_settings']['setting__Setting']['required']; ?>>                                           
+                                                <input name="<?php echo $db['sulata_settings']['setting__Setting']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Setting']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Setting']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Setting']['type']; ?>" <?php echo $db['sulata_settings']['setting__Setting']['required']; ?>>
                                             </div>
 
 
                                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                 <label><?php echo $db['sulata_settings']['setting__Key']['star']; ?><?php echo $db['sulata_settings']['setting__Key']['label']; ?>:</label>
-                                                <input name="<?php echo $db['sulata_settings']['setting__Key']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Key']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Key']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Key']['type']; ?>" <?php echo $db['sulata_settings']['setting__Key']['required']; ?>>      
+                                                <input name="<?php echo $db['sulata_settings']['setting__Key']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Key']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Key']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Key']['type']; ?>" <?php echo $db['sulata_settings']['setting__Key']['required']; ?>>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">

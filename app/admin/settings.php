@@ -92,6 +92,13 @@ class Settings {
         //Check referrer
         $su->checkRef();
 
+      //If form is subitted
+      if($main->get('POST')){
+        if (!filter_var($main->get('POST.setting__Setting'), FILTER_VALIDATE_EMAIL)) {
+          echo $emailErr = "Invalid email format";
+        }
+        exit;
+      }
 //Template variables
         $pageTitle = $main->get('DICT.add') . ' Settings';
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
@@ -110,7 +117,7 @@ class Settings {
         $setting__Type = $su->dropdown('setting__Type', $options, '', $js);
         $main->set('ESCAPE',FALSE);
         $main->set('setting__Type',$setting__Type);
-        
+
         $main->set('pageInfo', array('site_title' => $siteTitle, 'site_name' => $siteName, 'site_url' => $siteUrl, 'site_tagline' => $siteTagline, 'page_title' => $pageTitle, 'site_footer' => $siteFooter, 'site_footer_link' => $siteFooterLink, 'user_name' => $userName, 'user_picture' => $userPicture, 'user_theme' => userTheme, 'error' => $error, 'result' => $result));
         $view = new View;
         echo $view->render('admin/settings-add.php');

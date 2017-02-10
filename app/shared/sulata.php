@@ -4,11 +4,15 @@ class Sulata {
 
     //Strip string
     function strip($str) {
+      $str = trim($str);
+      $str = addslashes($str);
+      $str = htmlspecialchars($str);
         return $str;
     }
 
     //Unstrip string
     function unstrip($str) {
+      $str = stripslashes($str);
         return $str;
     }
 
@@ -32,6 +36,34 @@ class Sulata {
         return $str;
     }
 
+    //Validate string
+    function validate($str,$type,$label,$required='y'){
+      if($type=='email'){
+        if (!filter_var($str, FILTER_VALIDATE_EMAIL)) {
+          echo $emailErr = "Invalid email format";
+        }
+      }elseif($type='int'){
+        if (!filter_var($str, FILTER_VALIDATE_INT)) {
+          echo $emailErr = "Invalid int format";
+        }
+      }elseif($type='float'){
+        if (!filter_var($str, FILTER_VALIDATE_FLOAT)) {
+          echo $emailErr = "Invalid float format";
+        }
+      }elseif($type='ip'){
+        if (!filter_var($str, FILTER_VALIDATE_IP)) {
+          echo $emailErr = "Invalid IP format";
+        }
+      }elseif($type='url'){
+        if (!filter_var($str, FILTER_VALIDATE_URL)) {
+          echo $emailErr = "Invalid URL format";
+        }
+      }elseif($type='float'){
+        if (!filter_var($str, FILTER_VALIDATE_FLOAT)) {
+          echo $emailErr = "Invalid float format";
+        }
+      }
+    }
     //Check login
     //mode header or js
     function checkLogin($mode = 'header') {
@@ -52,7 +84,7 @@ class Sulata {
             $this->farewell($main->get('DICT.invalidAccess'));
         }
     }
-    
+
     //Check numeric
     function checkNumeric($var) {
         global $main;
@@ -110,7 +142,7 @@ class Sulata {
                 for ($i = 0; $i < sizeof($response['result']); $i++) {
                     $getSettings[$response['result'][$i]['setting__Key']] = $this->unstrip($response['result'][$i]['setting__Value']);
                 }
-                
+
                 $main->set('SESSION.getSettings', $getSettings);
             } else {
                 //If error, display error
@@ -345,7 +377,7 @@ class Sulata {
         return $form;
     }
 
-    
+
     /* DB FUNCTIONS */
 
     //Display DB error
