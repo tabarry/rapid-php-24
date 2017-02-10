@@ -80,7 +80,8 @@ class Settings {
             $su->displayDbError($response);
         }
         $main->set('pageInfo', array('site_title' => $siteTitle, 'site_name' => $siteName, 'site_url' => $siteUrl, 'site_tagline' => $siteTagline, 'page_title' => $pageTitle, 'site_footer' => $siteFooter, 'site_footer_link' => $siteFooterLink, 'user_name' => $userName, 'user_picture' => $userPicture, 'user_theme' => userTheme, 'error' => $error, 'result' => $result));
-        echo \Template::instance()->render('admin/settings.html');
+        $view=new View;
+        echo $view->render('admin/settings.php');
     }
 //Add record
     function add() {
@@ -157,7 +158,8 @@ class Settings {
             $su->displayDbError($response);
         }
         $main->set('pageInfo', array('site_title' => $siteTitle, 'site_name' => $siteName, 'site_url' => $siteUrl, 'site_tagline' => $siteTagline, 'page_title' => $pageTitle, 'site_footer' => $siteFooter, 'site_footer_link' => $siteFooterLink, 'user_name' => $userName, 'user_picture' => $userPicture, 'user_theme' => userTheme, 'error' => $error, 'result' => $result));
-        echo \Template::instance()->render('admin/settings-add.html');
+        $view=new View;
+        echo $view->render('admin/settings-add.php');
     }
 
 //Delete record

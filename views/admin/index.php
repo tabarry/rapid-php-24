@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <!-- Title here -->
-    <title>{{ @pageInfo['site_title'] }}</title>
-    <include href="admin/inc-head.html">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <!-- Title here -->
+        <title><?php echo $pageInfo['site_title']; ?></title>
+        <?php include('inc-head.php'); ?>
+    </head>
 
-<body>
-    <div class="outer">
-        <!-- Sidebar starts -->
-        <div class="sidebar">
-            <div class="sidey">
-                <!-- Sidebar navigation starts -->
-                <!-- Responsive dropdown -->
-                <include href="admin/inc-sidebar.html">
+    <body>
+        <div class="outer">
+            <!-- Sidebar starts -->
+            <div class="sidebar">
+                <div class="sidey">
+                    <!-- Sidebar navigation starts -->
+                    <!-- Responsive dropdown -->
+                    <?php include('inc-sidebar.php'); ?>
                     <!-- Sidebar navigation ends -->
+                </div>
             </div>
-        </div>
-        <!-- Sidebar ends -->
+            <!-- Sidebar ends -->
 
-        <!-- Mainbar starts -->
-        <div class="mainbar">
+            <!-- Mainbar starts -->
+            <div class="mainbar">
 
-            <!-- Mainbar header starts -->
-            <include href="admin/inc-header.html">
-
+                <!-- Mainbar header starts -->
+                <?php include('inc-header.php'); ?>
                 <!-- Mainbar header ends -->
 
                 <div class="main-content">
@@ -37,7 +36,7 @@
                             <!-- Heading -->
                             <div class="single-head">
                                 <!-- Heading -->
-                                <h3 class="pull-left"><i class="fa fa-desktop purple"></i> {{ @pageInfo['page_title'] }}</h3>
+                                <h3 class="pull-left"><i class="fa fa-desktop purple"></i> <?php echo $pageInfo['page_title']; ?></h3>
                                 <!-- Bread crumbs -->
                                 <div class="breads pull-right">
                                     <a href="#">
@@ -50,20 +49,20 @@
                             </div>
                         </div>
                         <!-- Footer Starts -->
-                        <include href="admin/inc-footer.html">
-                            <!-- Footer Ends -->
+                        <?php include('inc-footer.php'); ?>
+                        <!-- Footer Ends -->
                     </div>
                 </div>
                 <div class="clearfix"></div>
+            </div>
+            <!-- Mainbar ends -->
+
+            <div class="clearfix"></div>
         </div>
-        <!-- Mainbar ends -->
 
-        <div class="clearfix"></div>
-    </div>
-
-    <!-- Javascript files -->
-    <include href="admin/inc-footer-js.html">
+        <!-- Javascript files -->
+        <?php include('inc-footer-js.php'); ?>
         <!-- Javascript for this page -->
-</body>
+    </body>
 
 </html>

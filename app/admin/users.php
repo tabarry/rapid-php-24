@@ -7,7 +7,7 @@ class Users {
         global $main, $su;
         //Check referrer
         $su->checkRef();
-        
+
         $su->printJs("suToggleButton(true)");
 
         $sql = "SELECT employee__Name, employee__Email, employee__Picture, user__ID, user__Theme, user__IP FROM sulata_employees, sulata_users WHERE employee__ID = user__Employee AND employee__Status='Employed' AND employee__dbState='Live' AND user__dbState='Live' AND user__Status='Active' AND employee__Email='" . $su->unstrip($main->get('POST.employee__Email')) . "' AND user__Password='" . $su->makePassword($su->strip($main->get('POST.user__Password'))) . "'";
@@ -35,24 +35,28 @@ class Users {
     }
 
     /* Login user */
+
     function login() {
         global $main;
         if (($main->get('SESSION.userInfo.user__ID'))) {
-            $main->reroute($main->get(ADMIN_URL));
+            $main->reroute($main->get('ADMIN_URL'));
         }
-        $main->set('ckRememberLogin',$main->get('COOKIE.rememberLogin'));
+        $main->set('ckRememberLogin', $main->get('COOKIE.rememberLogin'));
         $siteTitle = $main->get('SESSION.getSettings.site_name');
         $main->set('pageInfo', array('site_title' => $siteTitle));
 
-        echo \Template::instance()->render('admin/login.html');
+        $view = new View;
+        echo $view->render('admin/login.php');
     }
 
     /* Logout user */
+
     function logout() {
-        global $main,$su;
+        global $main, $su;
         //Check referrer
         $su->checkRef();
         $main->set('SESSION.userInfo', '');
-        $main->reroute($main->get(ADMIN_URL).'login');
+        $main->reroute($main->get('ADMIN_URL') . 'login');
     }
+
 }

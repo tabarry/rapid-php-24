@@ -4,8 +4,8 @@
     <head>
         <meta charset="UTF-8">
         <!-- Title here -->
-        <title>{{ @pageInfo['site_title'] }}</title>
-    <include href="admin/inc-head.html">
+        <title><?php echo $pageInfo['site_title'];?></title>
+        <?php include('admin/inc-head.php');?>
     </head>
 
     <body>
@@ -15,7 +15,7 @@
                 <div class="sidey">
                     <!-- Sidebar navigation starts -->
                     <!-- Responsive dropdown -->
-                    <include href="admin/inc-sidebar.html">
+                        <?php include('admin/inc-sidebar.php');?>
                         <!-- Sidebar navigation ends -->
                 </div>
             </div>
@@ -25,8 +25,7 @@
             <div class="mainbar">
 
                 <!-- Mainbar header starts -->
-                <include href="admin/inc-header.html">
-
+                <?php include('admin/inc-header.php');?>
                     <!-- Mainbar header ends -->
 
                     <div class="main-content">
@@ -37,11 +36,11 @@
                                 <!-- Heading -->
                                 <div class="single-head">
                                     <!-- Heading -->
-                                    <h3 class="pull-left"><i class="fa fa-desktop purple"></i> {{ @pageInfo['page_title'] }}</h3>
+                                    <h3 class="pull-left"><i class="fa fa-desktop purple"></i> <?php echo $pageInfo['page_title'];?></h3>
                                     <!-- Bread crumbs -->
 
                                     <div class="breads pull-right">
-                                        <a href="{{@ADMIN_URL.'settings'}}" class="action-box"><i class="fa fa-table"></i> {{@DICT.manage}}</a>
+                                        <a href="<?php echo $ADMIN_URL.'settings';?>" class="action-box"><i class="fa fa-table"></i> <?php echo $DICT.manage;?></a>
 
                                     </div>
 
@@ -110,7 +109,7 @@
                                 </div>
                             </div>
                             <!-- Footer Starts -->
-                            <include href="admin/inc-footer.html">
+                                <?php include('admin/inc-footer.php');?>
                                 <!-- Footer Ends -->
                         </div>
                     </div>
@@ -122,7 +121,7 @@
         </div>
 
         <!-- Javascript files -->
-    <include href="admin/inc-footer-js.html">
+        <?php include('admin/inc-footer-js.php');?>
         <!-- Javascript for this page -->
         </body>
 

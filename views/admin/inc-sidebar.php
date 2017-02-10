@@ -4,9 +4,9 @@
         <!-- Sidebar heading -->
         <!-- Sidebar links -->
         <ul class="list-unstyled">
-            <li><a href="{{ @ADMIN_URL }}"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="{{ @ADMIN_URL }}users-update"><i class="fa fa-user"></i> Update Profile</a></li>
-            <li><a href="{{ @ADMIN_URL }}logout"><i class="fa fa-power-off"></i> Log Out</a></li>
+            <li><a href="<?php echo $ADMIN_URL; ?>"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="<?php echo $ADMIN_URL; ?>users-update"><i class="fa fa-user"></i> Update Profile</a></li>
+            <li><a href="<?php echo $ADMIN_URL; ?>logout"><i class="fa fa-power-off"></i> Log Out</a></li>
             <li>&nbsp;</li>
 
 
@@ -16,9 +16,10 @@
                 <!-- Submenu -->
                 <ul class="list-unstyled">
 
-                    <repeat group="{{ @sidebar }}" value="{{ @file }}" counter="{{ @cnt }}">
-                        <li><a href="{{ @ADMIN_URL }}{{@file}}"><i class="fa fa-angle-double-right"></i> {{ucwords(@file)}}</a></li>
-                    </repeat>
+
+                    <?php foreach ($sidebar as $file) { ?>
+                        <li><a href="<?php echo $ADMIN_URL; ?><?php echo $file; ?>"><i class="fa fa-angle-double-right"></i> <?php echo ucwords($file); ?></a></li>
+                        <?php } ?>
 
                 </ul>
             </li>

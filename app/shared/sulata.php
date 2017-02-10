@@ -3,7 +3,7 @@
 class Sulata {
 
     //Strip string
-    public static function strip($str) {
+    function strip($str) {
         return $str;
     }
 
@@ -110,6 +110,7 @@ class Sulata {
                 for ($i = 0; $i < sizeof($response['result']); $i++) {
                     $getSettings[$response['result'][$i]['setting__Key']] = $this->unstrip($response['result'][$i]['setting__Value']);
                 }
+                
                 $main->set('SESSION.getSettings', $getSettings);
             } else {
                 //If error, display error
@@ -298,7 +299,7 @@ class Sulata {
     }
 
     //Build pagination
-    public static function paginate($totalRecs, $cssClass = 'paginate') {
+    function paginate($totalRecs, $cssClass = 'paginate') {
         //global $getSettings['page_size'];
         global $main, $sr;
         //$totalRecs = '19';

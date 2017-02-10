@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <!-- Page title -->
-                <h1><a href="{{ @pageInfo['site_url'] }}">{{ @pageInfo['site_name'] }}</a>  <small>{{ @pageInfo['site_tagline'] }}</small></h1>
+                <h1><a href="<?php echo $pageInfo['site_url'];?>"><?php echo $pageInfo['site_name'];?></a>  <small><?php echo $pageInfo['site_tagline'];?></small></h1>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <!-- Head user -->
@@ -11,25 +11,25 @@
                     <a href="#" data-toggle="dropdown" id="profile">
                         <!-- Icon
                         <i class="fa fa-user"></i>  -->
-                        <check if="{{ @pageInfo['user_picture']!='' }}">
+                        <check if="<?php echo $pageInfo['user_picture']!='';?>">
                             <true>
-                                <img src="@pageInfo['user_picture']" alt="" class="img-responsive img-circle" />
+                                <img src="<?php echo $pageInfo['user_picture'];?>" alt="" class="img-responsive img-circle" />
                             </true>
                             <false>
-                                <img src="{{@BASE_URL}}views/img/user.png" alt="" class="img-responsive img-circle" />
+                                <img src="<?php echo $BASE_URL?>views/img/user.png" alt="" class="img-responsive img-circle" />
                             </false>
                         </check>
 
 
                         <!-- User name -->
-                        {{ @pageInfo['user_name'] }}
+                        <?php echo $pageInfo['user_name'];?>
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <!-- Dropdown -->
                     <ul class="dropdown-menu" aria-labelledby="profile">
-                        <li><a href="{{ @ADMIN_URL }}settings"><i class="fa fa-gears"></i> Settings</a></li>
-                        <li><a href="{{ @ADMIN_URL }}users-update"><i class="fa fa-user"></i> Update Profile</a></li>
-                        <li><a href="{{ @ADMIN_URL }}logout"><i class="fa fa-power-off"></i> Log Out</a></li>
+                        <li><a href="<?php echo $ADMIN_URL;?>settings"><i class="fa fa-gears"></i> Settings</a></li>
+                        <li><a href="<?php echo $ADMIN_URL;?>users-update"><i class="fa fa-user"></i> Update Profile</a></li>
+                        <li><a href="<?php echo $ADMIN_URL;?>logout"><i class="fa fa-power-off"></i> Log Out</a></li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
