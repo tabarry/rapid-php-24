@@ -6,6 +6,8 @@ function suSubmit(frmName, generalError) {
     var formMessages = $('#ajax-response');
     // Set up an event listener for the contact form.
     $(form).submit(function(e) {
+        //Toggle submit button
+        suToggleButton(true);
 // Stop the browser from submitting the form.
         e.preventDefault();
         // Serialize the form data.
@@ -24,7 +26,7 @@ function suSubmit(frmName, generalError) {
                     $("html, body").animate({scrollTop: parent.$("html").offset().top}, "slow");
                 })
                 .fail(function(data) {
-                    
+
                     if (formMessages) {
                         formMessages.html(generalError);
                         formMessages.addClass('ajax-error');
@@ -64,4 +66,44 @@ function suToggleButton(flag) {
 //Keep session live
 function suStayAlive(url) {
     $.post(url);
+}
+
+//Reset form
+function suReset(frmName) {
+
+
+var elements = document.getElementById(frmName).elements;
+
+
+
+    for (i = 0; i < elements.length; i++) {
+
+        field_type = elements[i].type.toLowerCase();
+
+        switch (field_type) {
+
+            case "text":
+            case "password":
+            case "textarea":
+            case "hidden":
+
+                elements[i].value = "";
+                break;
+
+            case "radio":
+            case "checkbox":
+                if (elements[i].checked) {
+                    elements[i].checked = false;
+                }
+                break;
+
+            case "select-one":
+            case "select-multi":
+                elements[i].selectedIndex = -1;
+                break;
+
+            default:
+                break;
+        }
+    }
 }

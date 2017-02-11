@@ -139,7 +139,7 @@
                                                                 <!-- Duplicate -->
                                                                 <?php if ($DUPLICATE_ACCESS) { ?>
 
-                                                                    <a class="btn btn-xs btn-success" href="<?php echo $ADMIN_URL; ?>settings-add/<?php echo $value['setting__ID']; ?>" title="<?php echo $DICT['duplicate']; ?>"><i class="fa fa-copy"></i> </a>
+                                                                    <a class="btn btn-xs btn-success" href="<?php echo $ADMIN_URL; ?>settings-duplicate/<?php echo $value['setting__ID']; ?>" title="<?php echo $DICT['duplicate']; ?>"><i class="fa fa-copy"></i> </a>
                                                                 <?php } ?>
                                                                 <!-- // -->
                                                                 <!-- Delete -->

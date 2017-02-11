@@ -53,18 +53,18 @@
                                         <div class="form-group">
                                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                 <label><?php echo $db['sulata_settings']['setting__Setting']['star']; ?><?php echo $db['sulata_settings']['setting__Setting']['label']; ?>:</label>
-                                                <input name="<?php echo $db['sulata_settings']['setting__Setting']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Setting']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Setting']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Setting']['type']; ?>" <?php echo $db['sulata_settings']['setting__Setting']['required']; ?>>
+                                                <input name="<?php echo $db['sulata_settings']['setting__Setting']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Setting']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Setting']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Setting']['type']; ?>" <?php echo $db['sulata_settings']['setting__Setting']['required']; ?> value="<?php echo $data['setting__Setting']; ?>">
                                             </div>
 
 
                                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                 <label><?php echo $db['sulata_settings']['setting__Key']['star']; ?><?php echo $db['sulata_settings']['setting__Key']['label']; ?>:</label>
-                                                <input name="<?php echo $db['sulata_settings']['setting__Key']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Key']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Key']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Key']['type']; ?>" <?php echo $db['sulata_settings']['setting__Key']['required']; ?>>
+                                                <input name="<?php echo $db['sulata_settings']['setting__Key']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Key']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Key']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Key']['type']; ?>" <?php echo $db['sulata_settings']['setting__Key']['required']; ?> value="<?php echo $data['setting__Key']; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                     <label><?php echo $db['sulata_settings']['setting__Value']['star']; ?><?php echo $db['sulata_settings']['setting__Value']['label']; ?>:</label>
-                                                    <input name="<?php echo $db['sulata_settings']['setting__Value']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Value']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Value']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Value']['type']; ?>" <?php echo $db['sulata_settings']['setting__Value']['required']; ?>>                                                </div>
+                                                    <input name="<?php echo $db['sulata_settings']['setting__Value']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Value']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Value']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Value']['type']; ?>" <?php echo $db['sulata_settings']['setting__Value']['required']; ?> value="<?php echo $data['setting__Value']; ?>">                                                </div>
 
 
                                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -109,6 +109,7 @@
             $(document).ready(function() {
                 //Ajax Form submission
                 suSubmit('suForm', '<?php echo $DICT['generalError']; ?>');
+                
             });
         </script>
     </body>

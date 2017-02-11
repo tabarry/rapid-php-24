@@ -91,8 +91,7 @@ class Settings {
         $su->checkLogin();
         //Check referrer
         $su->checkRef();
-        //Toggle submit button
-        $su->printJs("suToggleButton(true)");
+
 
         //If form is subitted
         if ($main->get('POST')) {
@@ -115,9 +114,10 @@ class Settings {
                 $response = $su->query($sql, 'insert');
                 //If no errors
                 if (($response['connect_errno'] == 0) && ($response['errno'] == 0) && ($response['insert_id'] != 0)) {
-                    $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-error');\$('#ajax-response').addClass('ajax-success');\$('#suForm')[0].reset();}");
+                    $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-error');\$('#ajax-response').addClass('ajax-success');suReset('suForm');}");
                     echo $main->get('DICT.recordAdded');
                     $su->printJs("suToggleButton(false)");
+                    
                 } else {
                     //If duplication error
                     if ($response['errno'] == 1062) {
@@ -135,7 +135,44 @@ class Settings {
             exit;
         }
 //Template variables
-        $pageTitle = $main->get('DICT.add') . ' Settings';
+        //==initialise variables
+        $data['setting__ID'] = '';
+        $data['setting__Setting'] = '';
+        $data['setting__Key'] = '';
+        $data['setting__Value'] = '';
+        $data['setting__Type'] = '';
+        //==
+        $id = $main->get('PARAMS.id');
+
+        if ($id) {
+            $duplicate = TRUE;
+            //Check if id is numeric
+            $su->checkNumeric($id);
+        }
+        if ($duplicate == TRUE) {
+            $pageTitle = $main->get('DICT.duplicate') . ' Settings';
+        } else {
+            $pageTitle = $main->get('DICT.add') . ' Settings';
+        }
+        //Get record
+        if ($duplicate == TRUE) {
+            //Get records
+
+
+            $sql = "SELECT setting__ID,setting__Setting,setting__Key,setting__Value,setting__Type FROM sulata_settings WHERE setting__ID='" . $id . "' AND setting__dbState='Live'";
+            $response = $su->query($sql);
+            //$su->printArray($response);
+            if ($response['num_rows'] == 0) {
+                $su->farewell($main->get('DICT.invalidAccess'));
+            }
+//Add data to $data
+            $data['setting__ID'] = $response['result'][0]['setting__ID'];
+            $data['setting__Setting'] = $su->unstrip($response['result'][0]['setting__Setting']);
+            $data['setting__Key'] = $su->unstrip($response['result'][0]['setting__Key']);
+            $data['setting__Value'] = $su->unstrip($response['result'][0]['setting__Value']);
+            $data['setting__Type'] = $response['result'][0]['setting__Type'];
+        }
+        //=
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
         $siteName = $main->get('SESSION.getSettings.site_name');
         $siteUrl = $main->get('SESSION.getSettings.site_url');
@@ -149,9 +186,10 @@ class Settings {
 //Make dropdown
         $options = $main->get('db.sulata_settings.setting__Type.value');
         $js = "class=\"form-control\"";
-        $setting__Type = $su->dropdown('setting__Type', $options, '', $js);
+        $setting__Type = $su->dropdown('setting__Type', $options, $data['setting__Type'], $js);
         $main->set('ESCAPE', FALSE);
         $main->set('setting__Type', $setting__Type);
+        $main->set('data', $data);
 
         $main->set('pageInfo', array('site_title' => $siteTitle, 'site_name' => $siteName, 'site_url' => $siteUrl, 'site_tagline' => $siteTagline, 'page_title' => $pageTitle, 'site_footer' => $siteFooter, 'site_footer_link' => $siteFooterLink, 'user_name' => $userName, 'user_picture' => $userPicture, 'user_theme' => userTheme, 'error' => $error, 'result' => $result));
         $view = new View;
@@ -166,8 +204,7 @@ class Settings {
         $su->checkLogin();
         //Check referrer
         $su->checkRef();
-        //Toggle submit button
-        $su->printJs("suToggleButton(true)");
+
 //If form is subitted
         if ($main->get('POST')) {
             //Validate fields
@@ -188,7 +225,6 @@ class Settings {
 " . $extraSql . " WHERE setting__ID='" . $main->get('POST.setting__ID') . "'";
 
                 $response = $su->query($sql, 'insert');
-                //$su->printArray($response);
                 //If no errors
                 if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
                     $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').removeClass('ajax-error');}");

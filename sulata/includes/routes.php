@@ -6,6 +6,9 @@ $main->route('POST /_admin/authenticate', 'users->authenticate');
 //Settings
 $main->route('GET /_admin/settings', 'settings->view');
 $main->route('GET|POST /_admin/settings-add', 'settings->add');
+
+$main->route('GET /_admin/settings-duplicate/@id', 'settings->add');
+
 $main->route('GET|POST /_admin/settings-update', 'settings->update');
 $main->route('GET /_admin/settings-update/@id', 'settings->update');
 

@@ -76,7 +76,7 @@
                                             </div>
                                             <div class="lineSpacer clear"></div>
                                             <p>
-                                                <input type="hidden" name="setting__ID" id="setting__ID" value="<?php echo $data['setting__ID'];?>">
+                                                <input type="hidden" name="setting__ID" id="setting__ID" value="<?php echo $data['setting__ID']; ?>">
                                             <div class="pull-right">
                                                 <div class="submit-buttons">
                                                     <button type="submit" class="btn btn-info btn-sm"><?php echo $DICT['submit']; ?></button>
@@ -110,6 +110,7 @@
             $(document).ready(function() {
                 //Ajax Form submission
                 suSubmit('suForm', '<?php echo $DICT['generalError']; ?>');
+                
             });
         </script>
     </body>
