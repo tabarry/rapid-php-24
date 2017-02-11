@@ -16,14 +16,7 @@ class Settings {
 //Template variables
         $pageTitle = $main->get('DICT.manage') . ' Settings';
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
-        $siteName = $main->get('SESSION.getSettings.site_name');
-        $siteUrl = $main->get('SESSION.getSettings.site_url');
-        $siteTagline = $main->get('SESSION.getSettings.site_tagline');
-        $siteFooter = $main->get('SESSION.getSettings.site_footer');
-        $siteFooterLink = $main->get('SESSION.getSettings.site_footer_link');
-        $userName = $main->get('SESSION.userInfo.employee__Name');
-        $userPicture = $main->get('SESSION.userInfo.employee__Picture');
-        $userTheme = $main->get('SESSION.userInfo.user__Theme');
+        
 
 //Build where condition
         $where = " WHERE setting__dbState='Live' AND setting__Type ='Public' ";
@@ -79,7 +72,7 @@ class Settings {
 //If error, display error
             $su->displayDbError($response);
         }
-        $main->set('pageInfo', array('site_title' => $siteTitle, 'site_name' => $siteName, 'site_url' => $siteUrl, 'site_tagline' => $siteTagline, 'page_title' => $pageTitle, 'site_footer' => $siteFooter, 'site_footer_link' => $siteFooterLink, 'user_name' => $userName, 'user_picture' => $userPicture, 'user_theme' => userTheme, 'error' => $error, 'result' => $result));
+        $main->set('pageInfo', array('page_title' => $pageTitle, 'site_title' => $siteTitle,'error'=>$error,'result'=>$result));
         $view = new View;
         echo $view->render('admin/settings.php');
     }
@@ -174,14 +167,7 @@ class Settings {
         }
         //=
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
-        $siteName = $main->get('SESSION.getSettings.site_name');
-        $siteUrl = $main->get('SESSION.getSettings.site_url');
-        $siteTagline = $main->get('SESSION.getSettings.site_tagline');
-        $siteFooter = $main->get('SESSION.getSettings.site_footer');
-        $siteFooterLink = $main->get('SESSION.getSettings.site_footer_link');
-        $userName = $main->get('SESSION.userInfo.employee__Name');
-        $userPicture = $main->get('SESSION.userInfo.employee__Picture');
-        $userTheme = $main->get('SESSION.userInfo.user__Theme');
+        
 
 //Make dropdown
         $options = $main->get('db.sulata_settings.setting__Type.value');
@@ -191,7 +177,7 @@ class Settings {
         $main->set('setting__Type', $setting__Type);
         $main->set('data', $data);
 
-        $main->set('pageInfo', array('site_title' => $siteTitle, 'site_name' => $siteName, 'site_url' => $siteUrl, 'site_tagline' => $siteTagline, 'page_title' => $pageTitle, 'site_footer' => $siteFooter, 'site_footer_link' => $siteFooterLink, 'user_name' => $userName, 'user_picture' => $userPicture, 'user_theme' => userTheme, 'error' => $error, 'result' => $result));
+        $main->set('pageInfo', array('site_title' => $siteTitle,'page_title' => $pageTitle));
         $view = new View;
         echo $view->render('admin/settings-add.php');
         $main->set('ESCAPE', TRUE);
@@ -249,14 +235,7 @@ class Settings {
 //Template variables
         $pageTitle = $main->get('DICT.update') . ' Settings';
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
-        $siteName = $main->get('SESSION.getSettings.site_name');
-        $siteUrl = $main->get('SESSION.getSettings.site_url');
-        $siteTagline = $main->get('SESSION.getSettings.site_tagline');
-        $siteFooter = $main->get('SESSION.getSettings.site_footer');
-        $siteFooterLink = $main->get('SESSION.getSettings.site_footer_link');
-        $userName = $main->get('SESSION.userInfo.employee__Name');
-        $userPicture = $main->get('SESSION.userInfo.employee__Picture');
-        $userTheme = $main->get('SESSION.userInfo.user__Theme');
+        
 
 
         //Get records
@@ -284,7 +263,7 @@ class Settings {
         $main->set('ESCAPE', FALSE);
         $main->set('setting__Type', $setting__Type);
         $main->set('data', $data);
-        $main->set('pageInfo', array('site_title' => $siteTitle, 'site_name' => $siteName, 'site_url' => $siteUrl, 'site_tagline' => $siteTagline, 'page_title' => $pageTitle, 'site_footer' => $siteFooter, 'site_footer_link' => $siteFooterLink, 'user_name' => $userName, 'user_picture' => $userPicture, 'user_theme' => userTheme, 'error' => $error, 'result' => $result));
+        $main->set('pageInfo', array('site_title' => $siteTitle,'page_title' => $pageTitle));
         $view = new View;
         echo $view->render('admin/settings-update.php');
         $main->set('ESCAPE', TRUE);
