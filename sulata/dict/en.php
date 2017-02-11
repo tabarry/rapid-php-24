@@ -18,6 +18,8 @@ return array(
     'recordDeleted' => 'This record has been deleted and can be restored till this screen is reloaded.',
     'recordDeletedNoRestoreAccess' => 'Record deleted successfully.',
     'recordRestored' => 'Record restored successfully.',
+    'recordAdded' => 'Record added successfully.',
+    'recordDuplicationError' => 'A record with the same `{0}` already exists.',
     'confirmationMessage' => 'Are you sure?',
     'submit' => 'Submit',
     'reset' => 'Reset',

@@ -99,15 +99,32 @@ class Settings {
             $error .= $su->validate($main->get('POST.setting__Setting'), $main->get('db.sulata_settings.setting__Setting.validateas'), $main->get('db.sulata_settings.setting__Setting.label'), $main->get('db.sulata_settings.setting__Setting.required'));
             $error .= $su->validate($main->get('POST.setting__Key'), $main->get('db.sulata_settings.setting__Key.validateas'), $main->get('db.sulata_settings.setting__Key.label'), $main->get('db.sulata_settings.setting__Key.required'));
             $error .= $su->validate($main->get('POST.setting__Value'), $main->get('db.sulata_settings.setting__Value.validateas'), $main->get('db.sulata_settings.setting__Value.label'), $main->get('db.sulata_settings.setting__Value.required'));
-           
-            $error .= $su->validate($main->get('POST.setting__Type'), $main->get('db.sulata_settings.setting__Type.validateas'), $main->get('db.sulata_settings.setting__Type.label'), $main->get('db.sulata_settings.setting__Type.required'));
-            if($error){
-                 $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
-                echo $error;
-            }else{
-                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').removeClass('ajax-error');}");
-            }
 
+            $error .= $su->validate($main->get('POST.setting__Type'), $main->get('db.sulata_settings.setting__Type.validateas'), $main->get('db.sulata_settings.setting__Type.label'), $main->get('db.sulata_settings.setting__Type.required'));
+            if ($error) {
+                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
+                echo $error;
+            } else {
+                $extraSql = '';
+                $sql = "INSERT INTO sulata_settings SET setting__Setting='" . $su->Strip($main->get('POST.setting__Setting')) . "',setting__Key='" . $su->Strip($main->get('POST.setting__Key')) . "',setting__Value='" . $su->Strip($main->get('POST.setting__Value')) . "',setting__Type='" . $su->Strip($main->get('POST.setting__Type')) . "'
+,setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "'        
+" . $extraSql;
+
+                $response = $su->query($sql, 'insert');
+                //$su->printArray($response);
+                if (($response['connect_errno'] == 0) && ($response['errno'] == 0) && ($response['insert_id'] != 0)) {
+                    $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-error');\$('#ajax-response').addClass('ajax-success');\$('#suForm')[0].reset();}");
+                    echo $main->get('DICT.recordAdded');
+                } else {
+                    if ($response['errno'] == 1062) {
+                        $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
+                        echo $main->format($main->get('DICT.recordDuplicationError'), $main->get('db.sulata_settings.setting__Setting.label'));
+                    } else {
+                        $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
+                        echo $main->get('DICT.generalError');
+                    }
+                }
+            }
             exit;
         }
 //Template variables
