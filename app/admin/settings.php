@@ -91,6 +91,8 @@ class Settings {
         $su->checkLogin();
         //Check referrer
         $su->checkRef();
+        //Toggle submit button
+        $su->printJs("suToggleButton(true)");
 
         //If form is subitted
         if ($main->get('POST')) {
@@ -111,17 +113,22 @@ class Settings {
 " . $extraSql;
 
                 $response = $su->query($sql, 'insert');
-                //$su->printArray($response);
+                //If no errors
                 if (($response['connect_errno'] == 0) && ($response['errno'] == 0) && ($response['insert_id'] != 0)) {
                     $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-error');\$('#ajax-response').addClass('ajax-success');\$('#suForm')[0].reset();}");
                     echo $main->get('DICT.recordAdded');
+                    $su->printJs("suToggleButton(false)");
                 } else {
+                    //If duplication error
                     if ($response['errno'] == 1062) {
                         $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
                         echo $main->format($main->get('DICT.recordDuplicationError'), $main->get('db.sulata_settings.setting__Setting.label'));
+                        $su->printJs("suToggleButton(false)");
                     } else {
+                        //If any other error
                         $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
                         echo $main->get('DICT.generalError');
+                        $su->printJs("suToggleButton(false)");
                     }
                 }
             }
@@ -149,6 +156,101 @@ class Settings {
         $main->set('pageInfo', array('site_title' => $siteTitle, 'site_name' => $siteName, 'site_url' => $siteUrl, 'site_tagline' => $siteTagline, 'page_title' => $pageTitle, 'site_footer' => $siteFooter, 'site_footer_link' => $siteFooterLink, 'user_name' => $userName, 'user_picture' => $userPicture, 'user_theme' => userTheme, 'error' => $error, 'result' => $result));
         $view = new View;
         echo $view->render('admin/settings-add.php');
+        $main->set('ESCAPE', TRUE);
+    }
+
+//Update record
+    function update() {
+        global $main, $su;
+        //Check login
+        $su->checkLogin();
+        //Check referrer
+        $su->checkRef();
+        //Toggle submit button
+        $su->printJs("suToggleButton(true)");
+//If form is subitted
+        if ($main->get('POST')) {
+            //Validate fields
+            $error = '';
+            $error .= $su->validate($main->get('POST.setting__Setting'), $main->get('db.sulata_settings.setting__Setting.validateas'), $main->get('db.sulata_settings.setting__Setting.label'), $main->get('db.sulata_settings.setting__Setting.required'));
+            $error .= $su->validate($main->get('POST.setting__Key'), $main->get('db.sulata_settings.setting__Key.validateas'), $main->get('db.sulata_settings.setting__Key.label'), $main->get('db.sulata_settings.setting__Key.required'));
+            $error .= $su->validate($main->get('POST.setting__Value'), $main->get('db.sulata_settings.setting__Value.validateas'), $main->get('db.sulata_settings.setting__Value.label'), $main->get('db.sulata_settings.setting__Value.required'));
+
+            $error .= $su->validate($main->get('POST.setting__Type'), $main->get('db.sulata_settings.setting__Type.validateas'), $main->get('db.sulata_settings.setting__Type.label'), $main->get('db.sulata_settings.setting__Type.required'));
+            if ($error) {
+                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
+                echo $error;
+            } else {
+                $extraSql = '';
+
+                $sql = "UPDATE sulata_settings SET setting__Setting='" . $su->Strip($main->get('POST.setting__Setting')) . "',setting__Key='" . $su->Strip($main->get('POST.setting__Key')) . "',setting__Value='" . $su->Strip($main->get('POST.setting__Value')) . "',setting__Type='" . $su->Strip($main->get('POST.setting__Type')) . "'
+,setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "'        
+" . $extraSql . " WHERE setting__ID='" . $main->get('POST.setting__ID') . "'";
+
+                $response = $su->query($sql, 'insert');
+                //$su->printArray($response);
+                //If no errors
+                if (($response['connect_errno'] == 0) && ($response['errno'] == 0)) {
+                    $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').removeClass('ajax-error');}");
+                    $url = $main->get('ADMIN_URL') . 'settings';
+                    $su->redirect($url);
+                } else {
+                    //If duplication error
+                    if ($response['errno'] == 1062) {
+                        $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
+                        echo $main->format($main->get('DICT.recordDuplicationError'), $main->get('db.sulata_settings.setting__Setting.label'));
+                        $su->printJs("suToggleButton(false)");
+                    } else {
+                        //If any other error
+                        $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
+                        echo $main->get('DICT.generalError');
+                        $su->printJs("suToggleButton(false)");
+                    }
+                }
+            }
+            exit;
+        }
+//Template variables
+        $pageTitle = $main->get('DICT.update') . ' Settings';
+        $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
+        $siteName = $main->get('SESSION.getSettings.site_name');
+        $siteUrl = $main->get('SESSION.getSettings.site_url');
+        $siteTagline = $main->get('SESSION.getSettings.site_tagline');
+        $siteFooter = $main->get('SESSION.getSettings.site_footer');
+        $siteFooterLink = $main->get('SESSION.getSettings.site_footer_link');
+        $userName = $main->get('SESSION.userInfo.employee__Name');
+        $userPicture = $main->get('SESSION.userInfo.employee__Picture');
+        $userTheme = $main->get('SESSION.userInfo.user__Theme');
+
+
+        //Get records
+        $id = $main->get('PARAMS.id');
+        //Check if id is numeric
+        $su->checkNumeric($id);
+
+        $sql = "SELECT setting__ID,setting__Setting,setting__Key,setting__Value,setting__Type FROM sulata_settings WHERE setting__ID='" . $id . "' AND setting__dbState='Live'";
+        $response = $su->query($sql);
+        //$su->printArray($response);
+        if ($response['num_rows'] == 0) {
+            $su->farewell($main->get('DICT.invalidAccess'));
+        }
+
+        $data['setting__ID'] = $response['result'][0]['setting__ID'];
+        $data['setting__Setting'] = $su->unstrip($response['result'][0]['setting__Setting']);
+        $data['setting__Key'] = $su->unstrip($response['result'][0]['setting__Key']);
+        $data['setting__Value'] = $su->unstrip($response['result'][0]['setting__Value']);
+        $data['setting__Type'] = $response['result'][0]['setting__Type'];
+
+//Make dropdown
+        $options = $main->get('db.sulata_settings.setting__Type.value');
+        $js = "class=\"form-control\"";
+        $setting__Type = $su->dropdown('setting__Type', $options, $data['setting__Type'], $js);
+        $main->set('ESCAPE', FALSE);
+        $main->set('setting__Type', $setting__Type);
+        $main->set('data', $data);
+        $main->set('pageInfo', array('site_title' => $siteTitle, 'site_name' => $siteName, 'site_url' => $siteUrl, 'site_tagline' => $siteTagline, 'page_title' => $pageTitle, 'site_footer' => $siteFooter, 'site_footer_link' => $siteFooterLink, 'user_name' => $userName, 'user_picture' => $userPicture, 'user_theme' => userTheme, 'error' => $error, 'result' => $result));
+        $view = new View;
+        echo $view->render('admin/settings-update.php');
         $main->set('ESCAPE', TRUE);
     }
 

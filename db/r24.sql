@@ -200,7 +200,7 @@ INSERT INTO `sulata_settings` (`setting__ID`, `setting__Setting`, `setting__Key`
 (2, 'Site Tagline', 'site_tagline', 'BackOffice', 'Public', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
 (3, 'Page Size', 'page_size', '5', 'Public', '2013-12-08 17:36:56', 'Installer', 'Live'),
 (4, 'Time Zone', 'timezone', 'ASIA/KARACHI', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
-(5, 'Date Format', 'date_format', 'mm-dd-yy', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
+(5, 'Date Format', 'date_format', 'mm-dd-yyyy', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
 (6, 'Allowed File Formats', 'allowed_file_formats', 'doc,xls,docx,xlsx,ppt,pptx,pdf,gif,jpg,jpeg,png', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
 (7, 'Allowed Image Formats', 'allowed_image_formats', 'gif,jpg,jpeg,png', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),
 (8, 'Allowed Attachment Formats', 'allowed_attachment_formats', 'doc,xls,docx,xlsx,ppt,pptx,pdf,gif,jpg,jpeg,png', 'Private', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Live'),

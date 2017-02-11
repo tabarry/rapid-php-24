@@ -90,6 +90,8 @@ if (!isset($apiKey) || ($apiKey != API_KEY)) {
     if ($debug == TRUE) {
         $response['connect_error'] = mysqli_connect_error();
         $response['connect_errno'] = mysqli_connect_errno();
+    } else {
+        $response['connect_errno'] = mysqli_connect_errno();
     }
     @mysqli_query($cn, "SET NAMES utf8");
     @mysqli_select_db($cn, DB_NAME);
@@ -100,6 +102,8 @@ if (!isset($apiKey) || ($apiKey != API_KEY)) {
         $result = @mysqli_query($cn, $sql);
         if ($debug == TRUE) {
             $response['error'] = @mysqli_error($cn);
+            $response['errno'] = @mysqli_errno($cn);
+        } else {
             $response['errno'] = @mysqli_errno($cn);
         }
         $response['num_rows'] = @mysqli_num_rows($result);
@@ -117,6 +121,8 @@ if (!isset($apiKey) || ($apiKey != API_KEY)) {
         if ($debug == TRUE) {
             $response['error'] = @mysqli_error($cn);
             $response['errno'] = @mysqli_errno($cn);
+        } else {
+            $response['errno'] = @mysqli_errno($cn);
         }
         //Get duplicate errors
         if (@mysqli_errno($cn) == 1062) {
@@ -131,6 +137,8 @@ if (!isset($apiKey) || ($apiKey != API_KEY)) {
         if ($debug == TRUE) {
             $response['error'] = @mysqli_error($cn);
             $response['errno'] = @mysqli_errno($cn);
+        } else {
+            $response['errno'] = @mysqli_errno($cn);
         }
         //Get duplicate errors
         if (@mysqli_errno($cn) == 1062) {
@@ -144,6 +152,8 @@ if (!isset($apiKey) || ($apiKey != API_KEY)) {
         @mysqli_query($cn, $sql);
         if ($debug == TRUE) {
             $response['error'] = @mysqli_error($cn);
+            $response['errno'] = @mysqli_errno($cn);
+        } else {
             $response['errno'] = @mysqli_errno($cn);
         }
         $response['affected_rows'] = @mysqli_affected_rows($cn);

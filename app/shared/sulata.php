@@ -360,6 +360,7 @@ class Sulata {
 
     //Make dropdown from an array
     function dropdown($name = '', $options = array(), $selected = array(), $extra = '') {
+        global $main;
         if (!is_array($selected)) {
             $selected = array($selected);
         }
@@ -367,8 +368,8 @@ class Sulata {
         // If no selected state was submitted we will attempt to set it automatically
         if (count($selected) === 0) {
             // If the form name appears in the $_POST array we have a winner!
-            if (isset($_POST[$name])) {
-                $selected = array($_POST[$name]);
+            if (isset($name)) {
+                $selected = array($name);
             }
         }
 
