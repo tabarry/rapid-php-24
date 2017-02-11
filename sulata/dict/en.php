@@ -9,7 +9,7 @@ return array(
     'validationFloatError' => "`{0}` must be a valid number, decimals are allowed, commas not allowed.<br>",
     'validationIpError' => "`{0}` must be a valid IP address.<br>",
     'validationUrlError' => "`{0}` must be a valid URL.<br>",
-    'validationDateError' => "`{0}` must be a valid date in {1} format.<br>",
+    'validationDateError' => "`{0}` must be a valid date in `{1}` format.<br>",
     //General messages
     'noRecordFound' => "Sorry, no record found.",
     'invalidAccess' => "Sorry, you are not allowed to access this page.",

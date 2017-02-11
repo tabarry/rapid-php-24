@@ -64,7 +64,7 @@
                                             <div class="form-group">
                                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                     <label><?php echo $db['sulata_settings']['setting__Value']['star']; ?><?php echo $db['sulata_settings']['setting__Value']['label']; ?>:</label>
-                                                    <input name="<?php echo $db['sulata_settings']['setting__Key']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Value']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Value']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Value']['type']; ?>" <?php echo $db['sulata_settings']['setting__Value']['required']; ?>>                                                </div>
+                                                    <input name="<?php echo $db['sulata_settings']['setting__Value']['name']; ?>" id="<?php echo $db['sulata_settings']['setting__Value']['name']; ?>" autocomplete="off" maxlength="<?php echo $db['sulata_settings']['setting__Value']['length']; ?>" class="form-control" type="<?php echo $db['sulata_settings']['setting__Value']['type']; ?>" <?php echo $db['sulata_settings']['setting__Value']['required']; ?>>                                                </div>
 
 
                                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">

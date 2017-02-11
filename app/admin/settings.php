@@ -96,8 +96,11 @@ class Settings {
         if ($main->get('POST')) {
             //Validate fields
             $error = '';
-            $error .= $su->validate($main->get('POST.setting__Setting'), 'email', 'Setting', 'Y');
-            $error .= $su->validate($main->get('POST.setting__Key'), 'int', 'Key', 'Y');
+            $error .= $su->validate($main->get('POST.setting__Setting'), $main->get('db.sulata_settings.setting__Setting.validateas'), $main->get('db.sulata_settings.setting__Setting.label'), $main->get('db.sulata_settings.setting__Setting.required'));
+            $error .= $su->validate($main->get('POST.setting__Key'), $main->get('db.sulata_settings.setting__Key.validateas'), $main->get('db.sulata_settings.setting__Key.label'), $main->get('db.sulata_settings.setting__Key.required'));
+            $error .= $su->validate($main->get('POST.setting__Value'), $main->get('db.sulata_settings.setting__Value.validateas'), $main->get('db.sulata_settings.setting__Value.label'), $main->get('db.sulata_settings.setting__Value.required'));
+           
+            $error .= $su->validate($main->get('POST.setting__Type'), $main->get('db.sulata_settings.setting__Type.validateas'), $main->get('db.sulata_settings.setting__Type.label'), $main->get('db.sulata_settings.setting__Type.required'));
             if($error){
                  $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
                 echo $error;

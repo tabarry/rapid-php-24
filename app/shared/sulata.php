@@ -45,46 +45,57 @@ class Sulata {
 
         $required = strtolower($str);
         $type = strtolower($type);
-        
+
         if ($type == 'email') {
             if (!filter_var($str, FILTER_VALIDATE_EMAIL)) {
                 $error = $main->format($main->get('DICT.validationEmailError'), $label);
             }
-        } elseif ($type = 'int') {
+        } elseif ($type == 'int') {
             if (!filter_var($str, FILTER_VALIDATE_INT)) {
                 $error = $main->format($main->get('DICT.validationIntError'), $label);
             }
-        } elseif ($type = 'float') {
+        } elseif ($type == 'float' || $type == 'number') {
             if (!filter_var($str, FILTER_VALIDATE_FLOAT)) {
                 $error = $main->format($main->get('DICT.validationFloatError'), $label);
             }
-        } elseif ($type = 'ip') {
+        } elseif ($type == 'ip') {
             if (!filter_var($str, FILTER_VALIDATE_IP)) {
                 $error = $main->format($main->get('DICT.validationIpError'), $label);
             }
-        } elseif ($type = 'url') {
+        } elseif ($type == 'url') {
             if (!filter_var($str, FILTER_VALIDATE_URL)) {
                 $error = $main->format($main->get('DICT.validationUrlError'), $label);
             }
-        } elseif ($type = 'date') {
-            //$date is the posted date value from date picker
-            $date = explode('-', $date);
+        } elseif ($type == 'date') {
             $dateFormat = $main->get('SESSION.getSettings.date_format');
-            if ($dateFormat == 'mm-dd-yy') {
-                $month = $date[0];
-                $day = $date[1];
-                $year = $date[2];
-            } elseif ($dateFormat == 'dd-mm-yy-dd-yy') {
-                $month = $date[1];
-                $day = $date[0];
-                $year = $date[2];
-            }
-            if (!checkdate($month, $day, $year)) {
+
+            //$date is the posted date value from date picker
+            $date = explode('-', $str);
+
+            if (substr_count($str, '-') != 2) {
                 $error = $main->format($main->get('DICT.validationDateError'), $label, $dateFormat);
+            } else {
+                if ($dateFormat == 'mm-dd-yyyy') {
+                    $month = $date[0];
+                    $day = $date[1];
+                    $year = $date[2];
+                } elseif ($dateFormat == 'dd-mm-yyyy') {
+                    $month = $date[1];
+                    $day = $date[0];
+                    $year = $date[2];
+                }
+                //Check if numeric
+                if (!filter_var($month, FILTER_VALIDATE_INT) || !filter_var($day, FILTER_VALIDATE_INT) || !filter_var($year, FILTER_VALIDATE_INT) || strlen($year) < 4) {
+                    $error = $main->format($main->get('DICT.validationDateError'), $label, $dateFormat);
+                } else {
+                    if (!checkdate($month, $day, $year)) {
+                        $error = $main->format($main->get('DICT.validationDateError'), $label, $dateFormat);
+                    }
+                }
             }
         }
         //Check if field is required but empty
-        if ($str == '' && $required == 'y') {
+        if ($str == '' && $required != 'n') {
             $error = $main->format($main->get('DICT.validationRequiredError'), $label);
         }
         return $error;
