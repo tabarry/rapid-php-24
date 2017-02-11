@@ -92,13 +92,21 @@ class Settings {
         //Check referrer
         $su->checkRef();
 
-      //If form is subitted
-      if($main->get('POST')){
-        if (!filter_var($main->get('POST.setting__Setting'), FILTER_VALIDATE_EMAIL)) {
-          echo $emailErr = "Invalid email format";
+        //If form is subitted
+        if ($main->get('POST')) {
+            //Validate fields
+            $error = '';
+            $error .= $su->validate($main->get('POST.setting__Setting'), 'email', 'Setting', 'Y');
+            $error .= $su->validate($main->get('POST.setting__Key'), 'int', 'Key', 'Y');
+            if($error){
+                 $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').addClass('ajax-error');}");
+                echo $error;
+            }else{
+                $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-success');\$('#ajax-response').removeClass('ajax-error');}");
+            }
+
+            exit;
         }
-        exit;
-      }
 //Template variables
         $pageTitle = $main->get('DICT.add') . ' Settings';
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
@@ -115,13 +123,13 @@ class Settings {
         $options = $main->get('db.sulata_settings.setting__Type.value');
         $js = "class=\"form-control\"";
         $setting__Type = $su->dropdown('setting__Type', $options, '', $js);
-        $main->set('ESCAPE',FALSE);
-        $main->set('setting__Type',$setting__Type);
+        $main->set('ESCAPE', FALSE);
+        $main->set('setting__Type', $setting__Type);
 
         $main->set('pageInfo', array('site_title' => $siteTitle, 'site_name' => $siteName, 'site_url' => $siteUrl, 'site_tagline' => $siteTagline, 'page_title' => $pageTitle, 'site_footer' => $siteFooter, 'site_footer_link' => $siteFooterLink, 'user_name' => $userName, 'user_picture' => $userPicture, 'user_theme' => userTheme, 'error' => $error, 'result' => $result));
         $view = new View;
         echo $view->render('admin/settings-add.php');
-        $main->set('ESCAPE',TRUE);
+        $main->set('ESCAPE', TRUE);
     }
 
 //Delete record

@@ -4,15 +4,18 @@ class Sulata {
 
     //Strip string
     function strip($str) {
-      $str = trim($str);
-      $str = addslashes($str);
-      $str = htmlspecialchars($str);
+        $str = trim($str);
+        $str = addslashes($str);
+        $str = htmlspecialchars($str);
         return $str;
     }
 
     //Unstrip string
-    function unstrip($str) {
-      $str = stripslashes($str);
+    function unstrip($str, $htmlEntityDecode = FALSE) {
+        $str = stripslashes($str);
+        if ($htmlEntityDecode == TRUE) {
+            $str = html_entity_decode($str);
+        }
         return $str;
     }
 
@@ -37,33 +40,56 @@ class Sulata {
     }
 
     //Validate string
-    function validate($str,$type,$label,$required='y'){
-      if($type=='email'){
-        if (!filter_var($str, FILTER_VALIDATE_EMAIL)) {
-          echo $emailErr = "Invalid email format";
+    function validate($str, $type, $label, $required = 'y') {
+        global $main;
+
+        $required = strtolower($str);
+        $type = strtolower($type);
+        
+        if ($type == 'email') {
+            if (!filter_var($str, FILTER_VALIDATE_EMAIL)) {
+                $error = $main->format($main->get('DICT.validationEmailError'), $label);
+            }
+        } elseif ($type = 'int') {
+            if (!filter_var($str, FILTER_VALIDATE_INT)) {
+                $error = $main->format($main->get('DICT.validationIntError'), $label);
+            }
+        } elseif ($type = 'float') {
+            if (!filter_var($str, FILTER_VALIDATE_FLOAT)) {
+                $error = $main->format($main->get('DICT.validationFloatError'), $label);
+            }
+        } elseif ($type = 'ip') {
+            if (!filter_var($str, FILTER_VALIDATE_IP)) {
+                $error = $main->format($main->get('DICT.validationIpError'), $label);
+            }
+        } elseif ($type = 'url') {
+            if (!filter_var($str, FILTER_VALIDATE_URL)) {
+                $error = $main->format($main->get('DICT.validationUrlError'), $label);
+            }
+        } elseif ($type = 'date') {
+            //$date is the posted date value from date picker
+            $date = explode('-', $date);
+            $dateFormat = $main->get('SESSION.getSettings.date_format');
+            if ($dateFormat == 'mm-dd-yy') {
+                $month = $date[0];
+                $day = $date[1];
+                $year = $date[2];
+            } elseif ($dateFormat == 'dd-mm-yy-dd-yy') {
+                $month = $date[1];
+                $day = $date[0];
+                $year = $date[2];
+            }
+            if (!checkdate($month, $day, $year)) {
+                $error = $main->format($main->get('DICT.validationDateError'), $label, $dateFormat);
+            }
         }
-      }elseif($type='int'){
-        if (!filter_var($str, FILTER_VALIDATE_INT)) {
-          echo $emailErr = "Invalid int format";
+        //Check if field is required but empty
+        if ($str == '' && $required == 'y') {
+            $error = $main->format($main->get('DICT.validationRequiredError'), $label);
         }
-      }elseif($type='float'){
-        if (!filter_var($str, FILTER_VALIDATE_FLOAT)) {
-          echo $emailErr = "Invalid float format";
-        }
-      }elseif($type='ip'){
-        if (!filter_var($str, FILTER_VALIDATE_IP)) {
-          echo $emailErr = "Invalid IP format";
-        }
-      }elseif($type='url'){
-        if (!filter_var($str, FILTER_VALIDATE_URL)) {
-          echo $emailErr = "Invalid URL format";
-        }
-      }elseif($type='float'){
-        if (!filter_var($str, FILTER_VALIDATE_FLOAT)) {
-          echo $emailErr = "Invalid float format";
-        }
-      }
+        return $error;
     }
+
     //Check login
     //mode header or js
     function checkLogin($mode = 'header') {
@@ -322,7 +348,7 @@ class Sulata {
     }
 
     //Make dropdown from an array
-  function dropdown($name = '', $options = array(), $selected = array(), $extra = '') {
+    function dropdown($name = '', $options = array(), $selected = array(), $extra = '') {
         if (!is_array($selected)) {
             $selected = array($selected);
         }
@@ -376,7 +402,6 @@ class Sulata {
 
         return $form;
     }
-
 
     /* DB FUNCTIONS */
 
