@@ -100,6 +100,14 @@ class Sulata {
         }
         return $error;
     }
+    
+    //Check if the request is Ajax
+    function checkAjax() {
+        global $main;
+        if( !isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest' ) ){
+          $this->farewell($main->get('DICT.invalidAccess'));
+        }
+    }
 
     //Check login
     //mode header or js

@@ -5,7 +5,7 @@ class Settings {
     //Define a public variable
     var $baseSql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings ";
 
-//View record
+    //View record
     function view() {
         global $main, $su;
         //Check login
@@ -13,18 +13,18 @@ class Settings {
         //Check referrer
         $su->checkRef();
 
-//Template variables
+        //Template variables
         $pageTitle = $main->get('DICT.manage') . ' Settings';
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
-        
 
-//Build where condition
+
+        //Build where condition
         $where = " WHERE setting__dbState='Live' AND setting__Type ='Public' ";
         $main->set('nextSort', 'desc');
         if ($main->get('GET.q')) {
             $where .= " AND setting__Setting LIKE '%" . $main->get('GET.q') . "%' ";
         }
-//Build order by condition
+        //Build order by condition
         if ($main->get('GET.sort')) {
             $get = explode('-', $main->get('GET.sort'));
             $field = $get[0];
@@ -45,17 +45,17 @@ class Settings {
             $start = $main->get('GET.start');
         }
 
-//Build limit
+        //Build limit
         $limit = " LIMIT {$start}, " . $main->get('PAGE_SIZE');
 
-//SQL to get all records
+        //SQL to get all records
         $limitlessSQL = "SELECT COUNT(setting__ID) as totalRecs FROM sulata_settings {$where} ";
         $response = $su->query($limitlessSQL);
-//Get totalRecs variable to pass to $su->paginate()
+        //Get totalRecs variable to pass to $su->paginate()
         $main->set('totalRecs', $response['result'][0]['totalRecs']);
 
-//SQL to get paginated records
-//If SQL is changed, also change it in CSV section
+        //SQL to get paginated records
+        //If SQL is changed, also change it in CSV section
         //$baseSql = "SELECT setting__ID, setting__Setting, setting__Key, setting__Value FROM sulata_settings ";
         $baseSql = $this->baseSql;
         $sql = " {$baseSql} {$where} {$orderBy} {$limit} ";
@@ -69,7 +69,7 @@ class Settings {
                 $error = $main->get('DICT.noRecordFound');
             }
         } else {
-//If error, display error
+          //If error, display error
             $su->displayDbError($response);
         }
         $main->set('pageInfo', array('page_title' => $pageTitle, 'site_title' => $siteTitle,'error'=>$error,'result'=>$result));
@@ -77,7 +77,7 @@ class Settings {
         echo $view->render('admin/settings.php');
     }
 
-//Add record
+    //Add record
     function add() {
         global $main, $su;
         //Check login
@@ -101,8 +101,8 @@ class Settings {
             } else {
                 $extraSql = '';
                 $sql = "INSERT INTO sulata_settings SET setting__Setting='" . $su->Strip($main->get('POST.setting__Setting')) . "',setting__Key='" . $su->Strip($main->get('POST.setting__Key')) . "',setting__Value='" . $su->Strip($main->get('POST.setting__Value')) . "',setting__Type='" . $su->Strip($main->get('POST.setting__Type')) . "'
-,setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "'        
-" . $extraSql;
+                ,setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "'
+                " . $extraSql;
 
                 $response = $su->query($sql, 'insert');
                 //If no errors
@@ -110,7 +110,7 @@ class Settings {
                     $su->printJs("if (\$('#ajax-response')) {\$('#ajax-response').removeClass('ajax-note');\$('#ajax-response').removeClass('ajax-error');\$('#ajax-response').addClass('ajax-success');suReset('suForm');}");
                     echo $main->get('DICT.recordAdded');
                     $su->printJs("suToggleButton(false)");
-                    
+
                 } else {
                     //If duplication error
                     if ($response['errno'] == 1062) {
@@ -127,7 +127,7 @@ class Settings {
             }
             exit;
         }
-//Template variables
+        //Template variables
         //==initialise variables
         $data['setting__ID'] = '';
         $data['setting__Setting'] = '';
@@ -167,9 +167,9 @@ class Settings {
         }
         //=
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
-        
 
-//Make dropdown
+
+        //Make dropdown
         $options = $main->get('db.sulata_settings.setting__Type.value');
         $js = "class=\"form-control\"";
         $setting__Type = $su->dropdown('setting__Type', $options, $data['setting__Type'], $js);
@@ -183,7 +183,7 @@ class Settings {
         $main->set('ESCAPE', TRUE);
     }
 
-//Update record
+    //Update record
     function update() {
         global $main, $su;
         //Check login
@@ -191,7 +191,7 @@ class Settings {
         //Check referrer
         $su->checkRef();
 
-//If form is subitted
+        //If form is subitted
         if ($main->get('POST')) {
             //Validate fields
             $error = '';
@@ -207,7 +207,7 @@ class Settings {
                 $extraSql = '';
 
                 $sql = "UPDATE sulata_settings SET setting__Setting='" . $su->Strip($main->get('POST.setting__Setting')) . "',setting__Key='" . $su->Strip($main->get('POST.setting__Key')) . "',setting__Value='" . $su->Strip($main->get('POST.setting__Value')) . "',setting__Type='" . $su->Strip($main->get('POST.setting__Type')) . "'
-,setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "'        
+,setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "'
 " . $extraSql . " WHERE setting__ID='" . $main->get('POST.setting__ID') . "'";
 
                 $response = $su->query($sql, 'insert');
@@ -232,10 +232,10 @@ class Settings {
             }
             exit;
         }
-//Template variables
+        //Template variables
         $pageTitle = $main->get('DICT.update') . ' Settings';
         $siteTitle = $main->get('SESSION.getSettings.site_name') . ' - ' . $pageTitle;
-        
+
 
 
         //Get records
@@ -256,7 +256,7 @@ class Settings {
         $data['setting__Value'] = $su->unstrip($response['result'][0]['setting__Value']);
         $data['setting__Type'] = $response['result'][0]['setting__Type'];
 
-//Make dropdown
+        //Make dropdown
         $options = $main->get('db.sulata_settings.setting__Type.value');
         $js = "class=\"form-control\"";
         $setting__Type = $su->dropdown('setting__Type', $options, $data['setting__Type'], $js);
@@ -269,20 +269,23 @@ class Settings {
         $main->set('ESCAPE', TRUE);
     }
 
-//Delete record
+    //Delete record
     function delete() {
         global $main, $su;
         //Check login
         $su->checkLogin('js');
         //Check referrer
         $su->checkRef();
+        //Check Ajax call
+        $su->checkAjax();
+
 
         $id = $main->get('PARAMS.id');
         //Check if id is numeric
         $su->checkNumeric($id);
 
-//Delete from database by updating just the state
-//make a unique id attach to previous unique field
+          //Delete from database by updating just the state
+          //make a unique id attach to previous unique field
         $uid = uniqid() . '-';
         $sql = "UPDATE sulata_settings SET setting__Setting=CONCAT('" . $uid . "',setting__Setting),setting__Key=CONCAT('" . $uid . "',setting__Key), setting__Last_Action_On ='" . date('Y-m-d H:i:s') . "',setting__Last_Action_By='" . $main->get('SESSION.userInfo.employee__Name') . "', setting__dbState='Deleted' WHERE setting__ID = '" . $id . "' AND setting__dbState='Live'";
         $response = $su->query($sql, 'update');
@@ -312,6 +315,8 @@ class Settings {
         $su->checkLogin('js');
         //Check referrer
         $su->checkRef();
+        //Check Ajax call
+        $su->checkAjax();
 
         $id = $main->get('PARAMS.id');
         //Check if id is numeric
