@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.1
--- https://www.phpmyadmin.net/
+-- version 4.4.10
+-- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Feb 07, 2017 at 02:14 PM
--- Server version: 5.6.34
--- PHP Version: 7.1.0
+-- Generation Time: Feb 14, 2017 at 01:25 PM
+-- Server version: 5.5.42
+-- PHP Version: 5.5.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,36 @@ SET time_zone = "+00:00";
 --
 -- Database: `r24`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sulata_all`
+--
+
+DROP TABLE IF EXISTS `sulata_all`;
+CREATE TABLE `sulata_all` (
+  `all__ID` int(11) NOT NULL,
+  `all__Textbox` varchar(50) NOT NULL,
+  `all__Email` varchar(50) NOT NULL,
+  `all__Password` varchar(32) NOT NULL,
+  `all__Textarea` text NOT NULL,
+  `all__HTMLArea` text NOT NULL,
+  `all__Quanity` int(11) NOT NULL,
+  `all__Price` float NOT NULL,
+  `all__Date` date NOT NULL,
+  `all__Status` enum('Male','Female') NOT NULL,
+  `all__Employees` int(11) NOT NULL,
+  `all__Users` int(11) NOT NULL,
+  `all__Settings` int(11) NOT NULL,
+  `all__Picture` varchar(100) NOT NULL,
+  `all__File` varchar(100) NOT NULL,
+  `all__URL` varchar(150) NOT NULL,
+  `all__IP` varchar(15) NOT NULL,
+  `all__Last_Action_On` datetime NOT NULL,
+  `all__Last_Action_By` varchar(64) NOT NULL,
+  `all__dbState` enum('Live','Deleted') NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -52,7 +82,7 @@ CREATE TABLE `sulata_employees` (
   `employee__Last_Action_On` datetime NOT NULL,
   `employee__Last_Action_By` varchar(64) NOT NULL,
   `employee__dbState` enum('Live','Deleted') NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sulata_employees`
@@ -93,7 +123,7 @@ CREATE TABLE `sulata_headers` (
   `header__Last_Action_On` datetime NOT NULL,
   `header__Last_Action_By` varchar(64) NOT NULL,
   `header__dbState` enum('Live','Deleted') NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sulata_headers`
@@ -189,7 +219,7 @@ CREATE TABLE `sulata_settings` (
   `setting__Last_Action_On` datetime NOT NULL,
   `setting__Last_Action_By` varchar(64) NOT NULL,
   `setting__dbState` enum('Live','Deleted') NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sulata_settings`
@@ -260,7 +290,7 @@ CREATE TABLE `sulata_users` (
   `user__Last_Action_By` varchar(64) NOT NULL,
   `user__dbState` enum('Live','Deleted') NOT NULL,
   `user__IP` varchar(15) NOT NULL DEFAULT '127.0.0.1'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sulata_users`
@@ -272,6 +302,12 @@ INSERT INTO `sulata_users` (`user__ID`, `user__UUID`, `user__Employee`, `user__P
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `sulata_all`
+--
+ALTER TABLE `sulata_all`
+  ADD PRIMARY KEY (`all__ID`);
 
 --
 -- Indexes for table `sulata_blank`
@@ -339,6 +375,11 @@ ALTER TABLE `sulata_users`
 --
 
 --
+-- AUTO_INCREMENT for table `sulata_all`
+--
+ALTER TABLE `sulata_all`
+  MODIFY `all__ID` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `sulata_blank`
 --
 ALTER TABLE `sulata_blank`
@@ -347,7 +388,7 @@ ALTER TABLE `sulata_blank`
 -- AUTO_INCREMENT for table `sulata_employees`
 --
 ALTER TABLE `sulata_employees`
-  MODIFY `employee__ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `employee__ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `sulata_faqs`
 --
@@ -357,7 +398,7 @@ ALTER TABLE `sulata_faqs`
 -- AUTO_INCREMENT for table `sulata_headers`
 --
 ALTER TABLE `sulata_headers`
-  MODIFY `header__ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `header__ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `sulata_media_categories`
 --
@@ -377,12 +418,12 @@ ALTER TABLE `sulata_pages`
 -- AUTO_INCREMENT for table `sulata_settings`
 --
 ALTER TABLE `sulata_settings`
-  MODIFY `setting__ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `setting__ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `sulata_users`
 --
 ALTER TABLE `sulata_users`
-  MODIFY `user__ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user__ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
